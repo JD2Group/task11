@@ -29,7 +29,7 @@ public class Student implements Serializable {
     @Column
     private int age;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Embedded
     private Address address;
 
     @Column

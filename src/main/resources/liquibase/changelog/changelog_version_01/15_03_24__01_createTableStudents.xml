@@ -5,14 +5,19 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
     <changeSet author="Timonov_Timon" id="01">
-        <createTable tableName="addresses">
+        <createTable tableName="students">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="city" type="varchar(255)">
-            </column>
-            <column name="street" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="surname" type="varchar(255)"/>
+            <column name="age" type="int"/>
+            <column name="mark" type="int"/>
             <column name="building" type="int"/>
+            <column name="city" type="varchar(255)"/>
+            <column name="street" type="varchar(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
+
+
