@@ -1,10 +1,10 @@
 package it.academy.dao;
 
-import it.academy.pojo.Student;
+import it.academy.models.Student;
 
 import java.util.List;
 
-public interface StudentDao extends Dao<Student, Long> {
+public interface StudentDAO extends DAO<Student, Long> {
 
     List<Student> getAll(int page, int count);
 }

@@ -1,6 +1,6 @@
 package it.academy.dao.impl;
 
-import it.academy.dao.Dao;
+import it.academy.dao.DAO;
 import it.academy.util.HibernateUtil;
 import it.academy.util.functionalInterfaces.TransactionBody;
 
@@ -11,13 +11,13 @@ import java.util.List;
 import static it.academy.util.Constants.*;
 
 
-public class DaoImpl<T, R> implements Dao<T, R> {
+public class DAOImpl<T, R> implements DAO<T, R> {
 
 
     private final Class<T> clazz;
     private EntityManager em;
 
-    protected DaoImpl(Class<T> clazz) {
+    protected DAOImpl(Class<T> clazz) {
 
         this.clazz = clazz;
     }

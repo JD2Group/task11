@@ -2,12 +2,7 @@ package it.academy.dto;
 
 import lombok.*;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@ToString
+@Data
 @Builder
 public class StudentDTO {
 

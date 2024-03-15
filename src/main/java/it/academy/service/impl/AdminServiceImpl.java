@@ -1,10 +1,10 @@
 package it.academy.service.impl;
 
-import it.academy.dao.StudentDao;
-import it.academy.dao.impl.StudentDaoImpl;
+import it.academy.dao.StudentDAO;
+import it.academy.dao.impl.StudentDAOImpl;
 import it.academy.dto.StudentDTO;
-import it.academy.pojo.Student;
-import it.academy.service.AdminServise;
+import it.academy.models.Student;
+import it.academy.service.AdminService;
 import it.academy.util.StudentConverter;
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public class AdminServiceImpl implements AdminServise {
+public class AdminServiceImpl implements AdminService {
 
-    private final StudentDao studentDao = StudentDaoImpl.getInstance();
+    private final StudentDAO studentDao = StudentDAOImpl.getInstance();
 
     @Override
     public List<StudentDTO> getAllStudents() throws Exception {

@@ -4,7 +4,7 @@ import it.academy.dto.StudentDTO;
 
 import java.util.List;
 
-public interface AdminServise {
+public interface AdminService {
 
     List<StudentDTO> getAllStudents() throws Exception;
 

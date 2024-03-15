@@ -1,4 +1,4 @@
-package it.academy.pojo;
+package it.academy.models;
 
 import lombok.*;
 

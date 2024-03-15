@@ -5,7 +5,7 @@ import it.academy.util.functionalInterfaces.TransactionBody;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-public interface Dao<T, R> {
+public interface DAO<T, R> {
 
     List<T> getAll();
 

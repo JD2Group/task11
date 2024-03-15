@@ -1,8 +1,8 @@
 package it.academy.util;
 
 import it.academy.dto.StudentDTO;
-import it.academy.pojo.Address;
-import it.academy.pojo.Student;
+import it.academy.models.Address;
+import it.academy.models.Student;
 
 public class StudentConverter {
 

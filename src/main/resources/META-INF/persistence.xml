@@ -7,7 +7,7 @@
     <persistence-unit name="university">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>it.academy.pojo.Student</class>
+        <class>it.academy.models.Student</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

@@ -1,7 +1,7 @@
 package it.academy;
 
 import it.academy.dto.StudentDTO;
-import it.academy.service.AdminServise;
+import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        AdminServise admin = new AdminServiceImpl();
+        AdminService admin = new AdminServiceImpl();
         for (int i = 0; i < 100; i++) {
             StudentDTO student = StudentDTO.builder()
                                      .name("s" + i)

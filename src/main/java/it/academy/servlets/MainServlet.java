@@ -1,4 +1,4 @@
-package it.academy;
+package it.academy.servlets;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;

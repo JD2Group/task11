@@ -1,4 +1,4 @@
-package it.academy.contrler;
+package it.academy.controllers;
 
 public interface Controller {
 }
