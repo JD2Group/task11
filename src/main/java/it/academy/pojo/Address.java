@@ -2,8 +2,7 @@ package it.academy.pojo;
 
 import lombok.*;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 @Getter
 @Setter
@@ -11,20 +10,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-@Entity
-@Table(name = "addresses")
-public class Address  implements Serializable {
+@Embeddable
+public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column
     private String city;
 
-    @Column
     private String street;
 
-    @Column
     private int building;
 }
