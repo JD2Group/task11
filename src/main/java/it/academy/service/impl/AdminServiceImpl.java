@@ -5,65 +5,53 @@ import it.academy.dao.impl.StudentDAOImpl;
 import it.academy.dto.StudentDTO;
 import it.academy.models.Student;
 import it.academy.service.AdminService;
-import it.academy.util.StudentConverter;
+import it.academy.utils.StudentConverter;
+import it.academy.utils.TransactionHelper;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class AdminServiceImpl implements AdminService {
 
-    private final StudentDAO studentDao = StudentDAOImpl.getInstance();
+    private final StudentDAO studentDAO = new StudentDAOImpl();
+    private final TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
 
     @Override
-    public List<StudentDTO> getAllStudents() throws Exception {
-
-        List<Student> studentList = new ArrayList<>();
-        studentDao.executeInOneTransaction(() -> studentList.addAll(studentDao.getAll()));
+    public List<StudentDTO> getAllStudents() {
+        List<Student> studentList = transactionHelper.transaction(studentDAO::readAll);
         return studentList.stream().map(StudentConverter::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<StudentDTO> getAllStudents(int page, int count) throws Exception {
-
-        List<Student> studentList = new ArrayList<>();
-        studentDao.executeInOneTransaction(() -> studentList.addAll(studentDao.getAll(page, count)));
+    public List<StudentDTO> getAllStudents(int page, int count) {
+        List<Student> studentList = transactionHelper.transaction(() -> studentDAO.readAll(page, count));
         return studentList.stream().map(StudentConverter::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public void createStudent(StudentDTO studentDTO) throws Exception {
-
-        studentDao.executeInOneTransaction(() -> studentDao.create(StudentConverter.convertToEntity(studentDTO)));
+    public boolean createStudent(StudentDTO studentDTO) {
+        Student student = transactionHelper.transaction(() -> studentDAO.create(StudentConverter.convertToEntity(studentDTO)));
+        return student != null;
     }
 
     @Override
-    public void deleteStudent(Long id) throws Exception {
-
-        studentDao.executeInOneTransaction(() -> studentDao.delete(id));
-        studentDao.closeManager();
+    public boolean deleteStudent(Long id) {
+        return transactionHelper.transaction(() -> studentDAO.delete(id));
     }
 
     @Override
-    public void updateStudent(StudentDTO studentDTO) throws Exception {
-
-        studentDao.executeInOneTransaction(() -> studentDao.update(StudentConverter.convertToEntity(studentDTO)));
-        studentDao.closeManager();
+    public boolean updateStudent(StudentDTO studentDTO) {
+        Student student = transactionHelper.transaction(() -> studentDAO.update(StudentConverter.convertToEntity(studentDTO)));
+        return student != null;
     }
 
     @Override
-    public void clearBase() throws Exception {
-
-        studentDao.executeInOneTransaction(studentDao::clearTable);
-        studentDao.closeManager();
+    public boolean clearBase() {
+        return transactionHelper.transaction(studentDAO::clearTable);
     }
 
     @Override
-    public long getCountOfAllStudents() throws Exception {
-
-        AtomicLong count = new AtomicLong(0L);
-        studentDao.executeInOneTransaction(() -> count.set(studentDao.countOfEntitiesInBase()));
-        return count.get();
+    public long getCountOfAllStudents() {
+        return transactionHelper.transaction(studentDAO::countOfEntitiesInBase);
     }
 }

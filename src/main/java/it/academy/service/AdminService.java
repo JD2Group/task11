@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface AdminService {
 
-    List<StudentDTO> getAllStudents() throws Exception;
+    List<StudentDTO> getAllStudents();
 
-    List<StudentDTO> getAllStudents(int page, int count) throws Exception;
+    List<StudentDTO> getAllStudents(int page, int count);
 
-    void createStudent(StudentDTO studentDTO) throws Exception;
+    boolean createStudent(StudentDTO studentDTO);
 
-    void deleteStudent(Long id) throws Exception;
+    boolean deleteStudent(Long id);
 
-    void updateStudent(StudentDTO studentDTO) throws Exception;
+    boolean updateStudent(StudentDTO studentDTO);
 
-    void clearBase() throws Exception;
+    boolean clearBase();
 
-    long getCountOfAllStudents() throws Exception;
+    long getCountOfAllStudents();
 }

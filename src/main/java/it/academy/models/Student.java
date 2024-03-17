@@ -1,16 +1,17 @@
 package it.academy.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
-@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "students")
 public class Student implements Serializable {

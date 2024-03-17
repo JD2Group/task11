@@ -1,9 +1,12 @@
 package it.academy.dto;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Builder
+@ToString
 public class StudentDTO {
 
     private long id;

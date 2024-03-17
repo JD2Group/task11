@@ -4,7 +4,6 @@ import it.academy.dto.StudentDTO;
 import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,18 +16,16 @@ public class Runner {
         AdminService admin = new AdminServiceImpl();
         for (int i = 0; i < 100; i++) {
             StudentDTO student = StudentDTO.builder()
-                                     .name("s" + i)
-                                     .surname("fe" + i)
-                                     .age(i)
-                                     .city("ugh" + i)
-                                     .street("ouihu" + i)
-                                     .building(54 + i)
-                                     .build();
+                    .name("s" + i)
+                    .surname("fe" + i)
+                    .age(i)
+                    .city("ugh" + i)
+                    .street("ouihu" + i)
+                    .building(54 + i)
+                    .build();
 
             try {
                 admin.createStudent(student);
-            } catch (IOException e) {
-                System.out.println(student + "not saved. Cause problem with connection: " + e);
             } catch (Exception e) {
                 System.out.println(student + "not saved. Cause: " + e);
             }
@@ -46,7 +43,7 @@ public class Runner {
         } catch (Exception e) {
             System.out.println("Ups.. You havea problem: " + e);
         }
-        System.out.println("count: "+count);
+        System.out.println("count: " + count);
         List<StudentDTO> dtoList = new ArrayList<>();
         try {
             dtoList = admin.getAllStudents(3, 25);

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface StudentDAO extends DAO<Student, Long> {
 
-    List<Student> getAll(int page, int count);
+    List<Student> readAll(int page, int count);
 }

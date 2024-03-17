@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DAO<T, R> {
 
-    List<T> getAll();
+    List<T> readAll();
 
     T read(R id) throws EntityNotFoundException;
 
@@ -17,5 +17,5 @@ public interface DAO<T, R> {
 
     long countOfEntitiesInBase();
 
-    void clearTable();
+    boolean clearTable();
 }
