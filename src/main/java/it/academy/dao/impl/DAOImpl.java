@@ -1,10 +1,9 @@
 package it.academy.dao.impl;
 
 import it.academy.dao.DAO;
-import it.academy.util.HibernateUtil;
-import it.academy.util.functionalInterfaces.TransactionBody;
+import it.academy.util.Constants;
+import it.academy.util.TransactionHelper;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
@@ -15,10 +14,9 @@ public class DAOImpl<T, R> implements DAO<T, R> {
 
 
     private final Class<T> clazz;
-    private EntityManager em;
+    protected TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
 
     protected DAOImpl(Class<T> clazz) {
-
         this.clazz = clazz;
     }
 
@@ -29,9 +27,9 @@ public class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public T get(R r) throws EntityNotFoundException {
+    public T read(R id) throws EntityNotFoundException {
 
-        return getEm().find(clazz, r);
+        return transactionHelper.find(clazz, id);
     }
 
     @Override
@@ -41,25 +39,34 @@ public class DAOImpl<T, R> implements DAO<T, R> {
     }
 
     @Override
-    public void delete(R key) {
+    public boolean delete(R id) {
+        transactionHelper.begin();
+        try {
+            T obj = transactionHelper.find(getClazz(), id);
+            if (obj == null) {
+                System.out.println(Constants.NULL_EXCEPTION_MESSAGE);
+                return false;
+            }
+            transactionHelper.remove(obj);
+            obj = transactionHelper.find(getClazz(), id);
+            transactionHelper.commit();
+            return obj == null;
 
-        Object rootEntity = getEm().getReference(clazz, key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            transactionHelper.rollback();
+            return false;
+        }
+
+        Object rootEntity = transactionHelper.entityManager().getReference(clazz, id);
         getEm().remove(rootEntity);
     }
 
     @Override
-    public void create(T object) {
-
-        getEm().persist(object);
-    }
-
-    @Override
-    public void closeManager() {
-
-        if (em == null || !em.isOpen()) {
-            return;
-        }
-        em.close();
+    public T create(T obj) {
+        assert obj != null : Constants.NULL_EXCEPTION_MESSAGE;
+        transactionHelper.persist(obj);
+        return obj;
     }
 
     @Override
@@ -76,27 +83,6 @@ public class DAOImpl<T, R> implements DAO<T, R> {
         getEm().createQuery(deleteQuery).executeUpdate();
     }
 
-    @Override
-    public void executeInOneTransaction(TransactionBody body) throws Exception {
-
-        getEm().getTransaction().begin();
-
-        try {
-            body.execute();
-        } catch (Exception e) {
-            getEm().getTransaction().rollback();
-            throw e;
-        }
-        getEm().getTransaction().commit();
-    }
-
-    protected EntityManager getEm() {
-
-        if (em == null || !em.isOpen()) {
-            em = HibernateUtil.getEntityManager();
-        }
-        return em;
-    }
 
     protected String getAllQuery() {
 

@@ -4,7 +4,6 @@ import java.util.Random;
 
 public final class Constants {
 
-
     public static final String SELECT_ALL_FROM_TABLE = "SELECT c FROM %s c";
     public static final String SELECT_COUNT_FROM_TABLE = "SELECT COUNT (c) FROM %s c";
     public static final String SELECT_ALL_FROM_STUDENT_WITH_ORDER =
@@ -12,6 +11,8 @@ public final class Constants {
     public static final String SELECT_FROM_STUDENT_WITH_LIMIT_AND_OFFSET =
         "SELECT s FROM Student s ORDER BY s.surname AND s.name AND s.age LIMIT %d OFFSET %d";
     public static final String DELETE_ALL_FROM_TABLE = "DELETE FROM %s";
+    public static final String NULL_EXCEPTION_MESSAGE = "Try to use null object. Aborted.";
+
 
 
 

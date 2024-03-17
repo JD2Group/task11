@@ -1,7 +1,5 @@
 package it.academy.dao;
 
-import it.academy.util.functionalInterfaces.TransactionBody;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
@@ -9,19 +7,15 @@ public interface DAO<T, R> {
 
     List<T> getAll();
 
-    T get(R id) throws EntityNotFoundException;
+    T read(R id) throws EntityNotFoundException;
 
     T update(T t);
 
-    void delete(R id) throws EntityNotFoundException;
+    boolean delete(R id) throws EntityNotFoundException;
 
-    void create(T t);
-
-    void closeManager();
+    T create(T t);
 
     long countOfEntitiesInBase();
 
     void clearTable();
-
-    void executeInOneTransaction(TransactionBody body) throws Exception;
 }
