@@ -13,7 +13,7 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        AdminService admin = new AdminServiceImpl();
+        AdminService admin = AdminServiceImpl.getInstance();
         for (int i = 0; i < 100; i++) {
             StudentDTO student = StudentDTO.builder()
                     .name("s" + i)

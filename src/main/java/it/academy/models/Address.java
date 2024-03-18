@@ -4,12 +4,10 @@ import lombok.*;
 
 import javax.persistence.Embeddable;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode
 @Embeddable
 public class Address {
 

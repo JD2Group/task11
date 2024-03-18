@@ -11,10 +11,19 @@ import it.academy.utils.TransactionHelper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AdminServiceImpl implements AdminService {
-
+public final class AdminServiceImpl implements AdminService {
+    private static AdminServiceImpl adminService;
     private final StudentDAO studentDAO = new StudentDAOImpl();
     private final TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
+    private AdminServiceImpl(){
+
+    }
+    public static AdminServiceImpl getInstance(){
+        if (adminService == null){
+            adminService = new AdminServiceImpl();
+        }
+        return adminService;
+    }
 
     @Override
     public List<StudentDTO> getAllStudents() {

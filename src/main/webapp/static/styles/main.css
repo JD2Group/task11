@@ -8,7 +8,6 @@
 .main_page {
     width: 100%;
     min-height: 100vh;
-    height: 100%;
     padding-top: 70px;
     background-size: cover;
     background: url("../images/background.jpg") no-repeat fixed;
@@ -16,9 +15,22 @@
 
 .container {
     width: 80%;
-    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     margin: 0 auto;
+}
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px black;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: darkgray;
+    border-radius: 5px;
 }
 
 /* HEADER */
@@ -51,9 +63,106 @@
 
 .main {
     width: 100%;
-    height: 100%;
+    min-height: calc(100vh - 70px);
+    height: auto;
+    padding: 1vw 2vw;
 }
 
-    .database_table {
-        color: white;
+    .student_block{
+        height: auto;
+        max-height: 40vw;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
     }
+        .table_block{
+            overflow-x: auto;
+            width: 60%;
+        }
+
+        .database_table {
+            color: white;
+            width: 100%;
+        }
+            .database_table thead{
+                font-size: 1.2vw;
+                font-weight: bold;
+            }
+                .database_table thead th{
+                    padding: 2px 0.8vw;
+                    border-bottom: 1px solid white;
+                }
+            .database_table tbody{
+                font-size: 1vw;
+            }
+                .database_table tbody tr:hover{
+                    background-color: firebrick;
+                    color: white;
+                }
+
+                .database_table tbody tr:active{
+                    background-color: darkred;
+                    color: grey;
+                }
+
+                .database_table tbody td{
+                    padding: 2px 2px;
+                    text-align: center;
+                    max-width: calc(60vw / 8);
+                    overflow: auto;
+                    white-space: nowrap;
+                }
+
+        .student_info{
+            padding-left: 10px;
+            display: none;
+            color: white;
+            width: 40%;
+            flex-direction: column;
+        }
+            .student_info_top_side_block{
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+            }
+                .student_info_img{
+                    width: 50%;
+                    padding: 0 10px;
+                }
+                    .student_info_img img{
+                        width: 100%;
+                    }
+                .student_info_block{
+                    width: 50%;
+                    font-size: 1.4vw;
+                }
+                    .student_info_block div{
+
+                    }
+            .student_info_down_side_block{
+                width: 100%;
+                height: 10%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                padding: 10px 20px;
+            }
+                .student_info_buttons{
+                    color: white;
+                    font-size: 1.5vw;
+                    margin: 0 5px;
+                    width: 45%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    border: 2px solid white;
+                    border-radius: 1vw;
+                }
+                .student_info_buttons:hover{
+                    background-color: firebrick;
+                }
+                .student_info_buttons:active{
+                    background-color: darkred;
+                    color: grey;
+                }
