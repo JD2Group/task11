@@ -1,8 +1,5 @@
 <%@ page import="it.academy.dto.StudentDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="it.academy.services.StudentService" %>
-<%@ page import="it.academy.services.impl.StudentServiceImpl" %>
-<%@ page import="static it.academy.utils.Constants.LIST_SIZE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>

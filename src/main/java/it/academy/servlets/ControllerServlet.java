@@ -1,8 +1,6 @@
 package it.academy.servlets;
 
-import it.academy.servlets.commands.ConfigurationManager;
 import it.academy.servlets.helpers.ActionFactory;
-import it.academy.servlets.helpers.MessageManager;
 import it.academy.servlets.commands.ActionCommand;
 
 import javax.servlet.RequestDispatcher;
@@ -35,10 +33,13 @@ public class ControllerServlet extends HttpServlet {
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(req, resp);
-        } else {
-            page = ConfigurationManager.getProperty("path.page.index");
-            req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
-            resp.sendRedirect(req.getContextPath() + page);
         }
+
+//        Может позже
+//        else {
+//            page = ConfigurationManager.getProperty("path.page.index");
+//            req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
+//            resp.sendRedirect(req.getContextPath() + page);
+//        }
     }
 }
