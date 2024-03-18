@@ -19,11 +19,13 @@ public final class AdminServiceImpl implements AdminService {
     private static AdminServiceImpl adminService;
     private final StudentDAO studentDAO = new StudentDAOImpl();
     private final TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
-    private AdminServiceImpl(){
+
+    private AdminServiceImpl() {
 
     }
-    public static AdminServiceImpl getInstance(){
-        if (adminService == null){
+
+    public static AdminServiceImpl getInstance() {
+        if (adminService == null) {
             adminService = new AdminServiceImpl();
         }
         return adminService;
@@ -43,13 +45,13 @@ public final class AdminServiceImpl implements AdminService {
 
     @Override
     public StudentDTOResponse createStudent(StudentDTORequest studentDTORequest) {
-        if (!studentDTORequest.validate(METHOD_SAVE)) {
+        if (studentDTORequest.validate(METHOD_SAVE)) {
             return ResponseHelper.getStudentResponse(BAD_REQUEST_STATUS_CODE, "Try to save existing student.");
         }
         Student student = transactionHelper.transaction(() -> studentDAO.create(StudentConverter.convertToEntity(studentDTORequest)));
-        if(student != null){
+        if (student != null) {
             return ResponseHelper.getStudentResponse(CREATED_STATUS_CODE, SUCCESSFULLY_CREATED);
-        }else {
+        } else {
             return ResponseHelper.getStudentResponse(INTERNAL_SERVER_ERROR_STATUS_CODE, INTERNAL_SERVER_ERORR_MESSAGE);
         }
     }
@@ -60,22 +62,22 @@ public final class AdminServiceImpl implements AdminService {
             return ResponseHelper.getStudentResponse(BAD_REQUEST_STATUS_CODE, "Try to delete non-existent student.");
         }
         boolean state = transactionHelper.transaction(() -> studentDAO.delete(id));
-        if (state){
+        if (state) {
             return ResponseHelper.getStudentResponse(OK_STATUS_CODE, SUCCESSFULLY_DELETED);
-        }else {
+        } else {
             return ResponseHelper.getStudentResponse(INTERNAL_SERVER_ERROR_STATUS_CODE, INTERNAL_SERVER_ERORR_MESSAGE);
         }
     }
 
     @Override
     public StudentDTOResponse updateStudent(StudentDTORequest studentDTORequest) {
-        if (!studentDTORequest.validate(METHOD_UPDATE)) {
+        if (studentDTORequest.validate(METHOD_UPDATE)) {
             return ResponseHelper.getStudentResponse(BAD_REQUEST_STATUS_CODE, "Try to update non-existent student.");
         }
         Student student = transactionHelper.transaction(() -> studentDAO.update(StudentConverter.convertToEntity(studentDTORequest)));
-        if(student != null){
+        if (student != null) {
             return ResponseHelper.getStudentResponse(OK_STATUS_CODE, SUCCESSFULLY_UPDATED);
-        }else {
+        } else {
             return ResponseHelper.getStudentResponse(INTERNAL_SERVER_ERROR_STATUS_CODE, INTERNAL_SERVER_ERORR_MESSAGE);
         }
     }

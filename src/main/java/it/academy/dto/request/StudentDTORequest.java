@@ -2,7 +2,10 @@ package it.academy.dto.request;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -35,13 +38,15 @@ public class StudentDTORequest implements Serializable {
     @SerializedName("building")
     @Expose
     private Integer building;
-    public boolean validate(String method){
+
+    public boolean validate(String method) {
         switch (method) {
-            case "SAVE": return id == 0;
+            case "SAVE":
+                return id != 0;
             case "UPDATE":
             case "DELETE":
-                return id != 0;
+                return id == 0;
         }
-        return false;
+        return true;
     }
 }

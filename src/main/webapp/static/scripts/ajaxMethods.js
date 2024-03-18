@@ -4,7 +4,7 @@ function ajaxPost(url, data, callback) {
     xmlDoc.open('POST', url, true);
     xmlDoc.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xmlDoc.onreadystatechange = function() {
+    xmlDoc.onreadystatechange = function () {
         if (xmlDoc.readyState === 4 && xmlDoc.status === 200) {
             callback(xmlDoc);
         }
@@ -18,7 +18,7 @@ function ajaxGet(url, callback) {
 
     xmlDoc.open('GET', url, true);
 
-    xmlDoc.onreadystatechange = function() {
+    xmlDoc.onreadystatechange = function () {
         if (xmlDoc.readyState === 4 && xmlDoc.status === 200) {
             callback(xmlDoc);
         }

@@ -10,25 +10,21 @@ import it.academy.utils.ResponseHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.GSON;
 
 
-
 @ControllerMapping(mappingUrl = "/student")
-public class StudentController implements Controller{
+public class StudentController implements Controller {
 
     @PostMapping(url = "/save")
     public static void saveStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         AdminService adminService = AdminServiceImpl.getInstance();
 
-        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));;
+        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         StudentDTORequest studentDTORequest = GSON.fromJson(student, StudentDTORequest.class);
         StudentDTOResponse out = adminService.createStudent(studentDTORequest);
         ResponseHelper.sendJsonResponse(response, out);
@@ -39,7 +35,7 @@ public class StudentController implements Controller{
     public static void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         AdminService adminService = AdminServiceImpl.getInstance();
 
-        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));;
+        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         StudentDTORequest studentDTORequest = GSON.fromJson(student, StudentDTORequest.class);
         StudentDTOResponse out = adminService.updateStudent(studentDTORequest);
         ResponseHelper.sendJsonResponse(response, out);

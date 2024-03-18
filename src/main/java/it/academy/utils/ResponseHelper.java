@@ -10,7 +10,7 @@ import static it.academy.utils.Constants.GSON;
 
 public class ResponseHelper {
 
-    public static StudentDTOResponse getStudentResponse(int httpStatus, String message){
+    public static StudentDTOResponse getStudentResponse(int httpStatus, String message) {
         return StudentDTOResponse.builder()
                 .httpStatus(httpStatus)
                 .message(message)

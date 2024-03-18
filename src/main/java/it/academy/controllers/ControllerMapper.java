@@ -49,7 +49,7 @@ public class ControllerMapper {
         return controller;
     }
 
-    private static <T extends Annotation> void sendToControllerMethod(HttpServletRequest request,
+    private static void sendToControllerMethod(HttpServletRequest request,
                                                                       HttpServletResponse response,
                                                                       Class<?> controller,
                                                                       String path

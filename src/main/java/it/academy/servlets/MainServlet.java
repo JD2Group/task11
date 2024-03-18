@@ -14,7 +14,6 @@ import java.lang.reflect.InvocationTargetException;
 public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         String path = req.getPathInfo();
         try {
             ControllerMapper.sendToController(req, resp);
         } catch (InvocationTargetException | IllegalAccessException e) {
