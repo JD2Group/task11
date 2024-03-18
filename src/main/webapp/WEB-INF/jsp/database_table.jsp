@@ -1,5 +1,5 @@
 <%@ page import="it.academy.service.impl.AdminServiceImpl" %>
-<%@ page import="it.academy.dto.StudentDTO" %>
+<%@ page import="it.academy.dto.request.StudentDTORequest" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF8" %>
 
@@ -21,14 +21,14 @@
     AdminServiceImpl adminService = AdminServiceImpl.getInstance();
     String pageNum = request.getParameter("page");
     //String studentId = request.getParameter("student");
-    List<StudentDTO> studentList;
+    List<StudentDTORequest> studentList;
     if (pageNum != null){
       studentList = adminService.getAllStudents(Integer.parseInt(pageNum), 10);
     }else {
       studentList = adminService.getAllStudents();
     }
     int i = 0;
-    for (StudentDTO s : studentList) {
+    for (StudentDTORequest s : studentList) {
       i++;
       out.println("<tr onclick=\"completeInfo(this)\">");
       out.println(String.format("<td >%d</td>", i));

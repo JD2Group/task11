@@ -1,20 +1,21 @@
 package it.academy.service;
 
-import it.academy.dto.StudentDTO;
+import it.academy.dto.request.StudentDTORequest;
+import it.academy.dto.response.StudentDTOResponse;
 
 import java.util.List;
 
 public interface AdminService {
 
-    List<StudentDTO> getAllStudents();
+    List<StudentDTORequest> getAllStudents();
 
-    List<StudentDTO> getAllStudents(int page, int count);
+    List<StudentDTORequest> getAllStudents(int page, int count);
 
-    boolean createStudent(StudentDTO studentDTO);
+    StudentDTOResponse createStudent(StudentDTORequest studentDTORequest);
 
-    boolean deleteStudent(Long id);
+    StudentDTOResponse deleteStudent(Long id);
 
-    boolean updateStudent(StudentDTO studentDTO);
+    StudentDTOResponse updateStudent(StudentDTORequest studentDTORequest);
 
     boolean clearBase();
 

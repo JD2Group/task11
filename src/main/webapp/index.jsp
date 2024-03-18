@@ -5,6 +5,7 @@
 <html>
 <head>
     <link href="${pageContext.request.contextPath}/static/styles/main.css" rel="stylesheet">
+    <title>TASK11</title>
 </head>
 <body>
 <%@include file="WEB-INF/jsp/header.jsp" %>
@@ -20,6 +21,7 @@
         </div>
     </div>
     <script src="${pageContext.request.contextPath}/static/scripts/studentInfoHelper.js"></script>
+    <script src="${pageContext.request.contextPath}/static/scripts/ajaxMethods.js"></script>
 </div>
 </body>
 </html>

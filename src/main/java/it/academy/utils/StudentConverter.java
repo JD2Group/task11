@@ -1,6 +1,6 @@
 package it.academy.utils;
 
-import it.academy.dto.StudentDTO;
+import it.academy.dto.request.StudentDTORequest;
 import it.academy.models.Address;
 import it.academy.models.Student;
 
@@ -9,7 +9,7 @@ public class StudentConverter {
     private StudentConverter() {
     }
 
-    public static Student convertToEntity(StudentDTO studentFrom) {
+    public static Student convertToEntity(StudentDTORequest studentFrom) {
 
         if (studentFrom == null) {
             return null;
@@ -27,12 +27,12 @@ public class StudentConverter {
                 .build();
     }
 
-    public static StudentDTO convertToDTO(Student studentFrom) {
+    public static StudentDTORequest convertToDTO(Student studentFrom) {
 
         if (studentFrom == null) {
             return null;
         }
-        return StudentDTO.builder()
+        return StudentDTORequest.builder()
                 .id(studentFrom.getId())
                 .name(studentFrom.getName())
                 .surname(studentFrom.getSurname())

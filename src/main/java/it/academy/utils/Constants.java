@@ -1,8 +1,13 @@
 package it.academy.utils;
 
+import com.google.gson.Gson;
+
 import java.util.Random;
 
 public final class Constants {
+
+    public static final Gson GSON = new Gson();
+
 
     public static final String SELECT_ALL_FROM_TABLE = "SELECT c FROM %s c";
     public static final String SELECT_COUNT_FROM_TABLE = "SELECT COUNT (c) FROM %s c";
@@ -32,6 +37,16 @@ public final class Constants {
     public static final String ENTITY_NOT_FOUND_MESSAGE = "Entity with id = %d not found";
     public static final String OBJECT_CREATED_MESSAGE = "Object created: %s";
     public static final String OBJECT_UPDATED_MESSAGE = "Object updated: %s";
+    public static final String METHOD_SAVE = "SAVE";
+    public static final String METHOD_UPDATE = "UPDATE";
+    public static final int BAD_REQUEST_STATUS_CODE = 400;
+    public static final int CREATED_STATUS_CODE = 201;
+    public static final int OK_STATUS_CODE = 200;
+    public static final int INTERNAL_SERVER_ERROR_STATUS_CODE = 500;
+    public static final String INTERNAL_SERVER_ERORR_MESSAGE = "Something went wrong!";
+    public static final String SUCCESSFULLY_CREATED = "Successfully created!";
+    public static final String SUCCESSFULLY_DELETED = "Successfully deleted!";
+    public static final String SUCCESSFULLY_UPDATED = "Successfully updated!";
 
 
     private Constants() {

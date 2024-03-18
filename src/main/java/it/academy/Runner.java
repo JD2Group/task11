@@ -1,6 +1,6 @@
 package it.academy;
 
-import it.academy.dto.StudentDTO;
+import it.academy.dto.request.StudentDTORequest;
 import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
 
@@ -15,7 +15,7 @@ public class Runner {
 
         AdminService admin = AdminServiceImpl.getInstance();
         for (int i = 0; i < 100; i++) {
-            StudentDTO student = StudentDTO.builder()
+            StudentDTORequest student = StudentDTORequest.builder()
                     .name("s" + i)
                     .surname("fe" + i)
                     .age(i)
@@ -44,7 +44,7 @@ public class Runner {
             System.out.println("Ups.. You havea problem: " + e);
         }
         System.out.println("count: " + count);
-        List<StudentDTO> dtoList = new ArrayList<>();
+        List<StudentDTORequest> dtoList = new ArrayList<>();
         try {
             dtoList = admin.getAllStudents(3, 25);
         } catch (Exception e) {
@@ -55,23 +55,23 @@ public class Runner {
         System.out.println();
 
         Random random = new Random();
-        StudentDTO studentDTO = dtoList.get(random.nextInt(dtoList.size()));
-        studentDTO.setAge(99999);
-        studentDTO.setName("_____________");
-        studentDTO.setSurname("___________");
+        StudentDTORequest studentDTORequest = dtoList.get(random.nextInt(dtoList.size()));
+        studentDTORequest.setAge(99999);
+        studentDTORequest.setName("_____________");
+        studentDTORequest.setSurname("___________");
         try {
-            admin.updateStudent(studentDTO);
+            admin.updateStudent(studentDTORequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        studentDTO = dtoList.get(random.nextInt(dtoList.size()));
+        studentDTORequest = dtoList.get(random.nextInt(dtoList.size()));
         try {
-            admin.deleteStudent(studentDTO.getId());
-            System.out.println(studentDTO + "has been deleted!");
+            admin.deleteStudent(studentDTORequest.getId());
+            System.out.println(studentDTORequest + "has been deleted!");
         } catch (Exception e) {
-            System.out.println(studentDTO + "has not delete");
+            System.out.println(studentDTORequest + "has not delete");
             System.out.println("Ups.. You havea problem: " + e);
         }
 
