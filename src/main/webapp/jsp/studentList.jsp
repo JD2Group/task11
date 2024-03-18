@@ -1,11 +1,14 @@
 <%@ page import="it.academy.dto.StudentDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="static it.academy.utils.Constants.PAGE_ATTRIBUTE" %>
+<%@ page import="static it.academy.utils.Constants.STUDENTS_ATTRIBUTE" %>
+<%@ page import="static it.academy.utils.Constants.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <meta charset="UTF-8">
     <%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <title>Список студентов</title>
 </head>
 <body>
@@ -30,8 +33,8 @@
 
 
             <%
-                int pageNumber = (int) request.getAttribute("page");
-                List<StudentDTO> list = (List<StudentDTO>) request.getAttribute("students");
+                int pageNumber = (int) request.getAttribute(PAGE_ATTRIBUTE);
+                List<StudentDTO> list = (List<StudentDTO>) request.getAttribute(STUDENTS_ATTRIBUTE);
             %>
             <% for(StudentDTO student : list) { %>
             <tr>
@@ -47,7 +50,6 @@
                         <form action="list" method="post">
                             <input type="hidden" name="command" value="change_student">
                             <input type="hidden" name="id" value="<%=student.getId()%>">
-                            <input type="hidden" name="addressId" value="<%=student.getAddressId()%>">
                             <input type="hidden" name="page" value="<%=pageNumber%>">
                             <input class="button" type="submit" value="Изменить">
                         </form>
@@ -76,9 +78,9 @@
                 <div class="button-container">
                     <form action="list" method="post">
                         <input type="hidden" name="command" value="show_students">
-                        <input type="hidden" name="page" value="<%=(int) request.getAttribute("page") == 1?
-                                                                        (int) request.getAttribute("maxPage")
-                                                                        : (int) request.getAttribute("page") - 1%>">
+                        <input type="hidden" name="page" value="<%=(int) request.getAttribute(PAGE_ATTRIBUTE) == 1?
+                                                                        (int) request.getAttribute(MAX_PAGE_ATTRIBUTE)
+                                                                        : (int) request.getAttribute(PAGE_ATTRIBUTE) - 1%>">
                         <input class="button light" type="submit" name="button" value="Предыдущая">
                     </form>
 
@@ -86,8 +88,8 @@
 
                     <form action="list" method="post">
                         <input type="hidden" name="command" value="show_students">
-                        <input type="hidden" name="page" value="<%=(int) request.getAttribute("page") == (int) request.getAttribute("maxPage")?
-                                                                          1 : (int) request.getAttribute("page") + 1%>">
+                        <input type="hidden" name="page" value="<%=(int) request.getAttribute(PAGE_ATTRIBUTE) == (int) request.getAttribute(MAX_PAGE_ATTRIBUTE)?
+                                                                          1 : (int) request.getAttribute(PAGE_ATTRIBUTE) + 1%>">
                         <input class="button light" type="submit" name="button" value="Следующая">
                     </form>
                 </div>

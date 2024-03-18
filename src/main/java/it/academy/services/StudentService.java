@@ -16,9 +16,7 @@ public interface StudentService {
 
     StudentDTO findStudent(Long id);
 
-//    List<StudentDTO> findStudentsByParameter(String parameter);
-
-//    boolean updateStudent(StudentDTO studentDTO);
+    List<StudentDTO> findStudentsByParameter(String parameter);
 
     boolean deleteStudent(Long id);
 

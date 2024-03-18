@@ -5,13 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "students")
 public class Student implements Serializable {
@@ -30,7 +27,8 @@ public class Student implements Serializable {
     @Column
     private int age;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Embedded
+    @ToString.Exclude
     private Address address;
 
     @Column

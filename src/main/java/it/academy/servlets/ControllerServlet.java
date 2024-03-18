@@ -1,7 +1,9 @@
 package it.academy.servlets;
 
+import it.academy.servlets.commands.ConfigurationManager;
 import it.academy.servlets.helpers.ActionFactory;
 import it.academy.servlets.commands.ActionCommand;
+import it.academy.servlets.helpers.MessageManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static it.academy.utils.Constants.*;
 
 public class ControllerServlet extends HttpServlet {
 
@@ -23,7 +27,7 @@ public class ControllerServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = null;
+        String page;
 
         ActionFactory actionFactory = new ActionFactory();
         ActionCommand actionCommand = actionFactory.defineCommand(req);
@@ -33,13 +37,10 @@ public class ControllerServlet extends HttpServlet {
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(req, resp);
+        } else {
+            page = ConfigurationManager.getProperty(ERROR_PAGE_PATH);
+            req.getSession().setAttribute(PAGE_NUMBER_ATTRIBUTE, FIRST_PAGE);
+            resp.sendRedirect(req.getContextPath() + page);
         }
-
-//        Может позже
-//        else {
-//            page = ConfigurationManager.getProperty("path.page.index");
-//            req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
-//            resp.sendRedirect(req.getContextPath() + page);
-//        }
     }
 }

@@ -6,16 +6,6 @@
          version="4.0">
     <display-name>Archetype Created Web Application</display-name>
 
-<!--    <servlet>-->
-<!--        <servlet-name>StudentListServlet</servlet-name>-->
-<!--        <servlet-class>it.academy.servlets.StudentListServlet</servlet-class>-->
-<!--    </servlet>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>StudentListServlet</servlet-name>-->
-<!--        <url-pattern>/list</url-pattern>-->
-<!--    </servlet-mapping>-->
-
     <servlet>
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>it.academy.servlets.ControllerServlet</servlet-class>
@@ -26,22 +16,8 @@
         <url-pattern>/list</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>StudentServlet</servlet-name>
-        <servlet-class>it.academy.servlets.StudentServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>StudentServlet</servlet-name>
-        <url-pattern>/student</url-pattern>
-    </servlet-mapping>
-
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>jsp/index.jsp</welcome-file>
     </welcome-file-list>
 
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error.jsp</location>
-    </error-page>
 </web-app>

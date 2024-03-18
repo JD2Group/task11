@@ -60,6 +60,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<StudentDTO> findStudentsByParameter(String parameter) {
+        Supplier<List<Student>> find = () -> studentDAO.getByParameter(parameter);
+        List<StudentDTO> result = Converter.convertListToDTO(manager.executeTransaction(find));
+        manager.closeEntityManager();
+        return result;
+    }
+
+    @Override
     public boolean deleteStudent(Long id) {
         Supplier<Boolean> update = () -> studentDAO.delete(id);
         boolean result = manager.executeTransaction(update);

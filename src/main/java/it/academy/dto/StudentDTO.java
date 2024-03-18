@@ -17,8 +17,6 @@ public class StudentDTO {
 
     private int mark;
 
-    private long addressId;
-
     private String city;
 
     private String street;

@@ -16,10 +16,9 @@ public class Builder {
                 .age(0)
                 .mark(0)
                 .address(Address.builder()
-                        .id(0L)
                         .city("")
                         .street("")
-                        .houseNumber(0)
+                        .building(0)
                         .build())
                 .build();
     }

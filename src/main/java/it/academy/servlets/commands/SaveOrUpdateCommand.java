@@ -3,7 +3,10 @@ package it.academy.servlets.commands;
 import it.academy.dto.StudentDTO;
 import it.academy.services.StudentService;
 import it.academy.services.impl.StudentServiceImpl;
+import it.academy.servlets.helpers.MessageManager;
 import javax.servlet.http.HttpServletRequest;
+
+import static it.academy.utils.Constants.*;
 
 public class SaveOrUpdateCommand extends ChangePageCommand {
     private StudentService service = new StudentServiceImpl();
@@ -12,18 +15,20 @@ public class SaveOrUpdateCommand extends ChangePageCommand {
     public String execute(HttpServletRequest req) {
 
         StudentDTO studentDTO = StudentDTO.builder()
-                .id(Long.parseLong(req.getParameter("id")))
-                .name(req.getParameter("name"))
-                .surname(req.getParameter("surname"))
-                .age(Integer.parseInt(req.getParameter("age")))
-                .mark(Integer.parseInt(req.getParameter("mark")))
-                .addressId(Long.parseLong(req.getParameter("addressId")))
-                .city(req.getParameter("city"))
-                .street(req.getParameter("street"))
-                .houseNumber(Integer.parseInt(req.getParameter("house")))
+                .id(Long.parseLong(req.getParameter(STUDENT_ID)))
+                .name(req.getParameter(STUDENT_NAME))
+                .surname(req.getParameter(STUDENT_SURNAME))
+                .age(Integer.parseInt(req.getParameter(STUDENT_AGE)))
+                .mark(Integer.parseInt(req.getParameter(STUDENT_MARK)))
+                .city(req.getParameter(STUDENT_CITY))
+                .street(req.getParameter(STUDENT_STREET))
+                .houseNumber(Integer.parseInt(req.getParameter(STUDENT_HOUSE)))
                 .build();
 
-        service.saveOrUpdateStudent(studentDTO);
+        if (!service.saveOrUpdateStudent(studentDTO)) {
+            req.setAttribute(ERROR_PAGE_ATTRIBUTE, MessageManager.getProperty(UPDATE_ERROR_MESSAGE));
+            return ConfigurationManager.getProperty(ERROR_PAGE_PATH);
+        }
 
         return changePage(req);
     }

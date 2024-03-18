@@ -1,12 +1,13 @@
-<%@ page import="it.academy.entities.Student" %>
 <%@ page import="it.academy.dto.StudentDTO" %>
+<%@ page import="static it.academy.utils.Constants.STUDENT_ATTRIBUTE" %>
+<%@ page import="static it.academy.utils.Constants.PAGE_ATTRIBUTE" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
         <meta charset="UTF-8">
         <%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <title>Студент</title>
     </head>
     <body>
@@ -14,7 +15,7 @@
         <section>
 
             <%
-                StudentDTO student = (StudentDTO) request.getAttribute("student");
+                StudentDTO student = (StudentDTO) request.getAttribute(STUDENT_ATTRIBUTE);
             %>
 
             <div class="container hidden" id="student">
@@ -22,7 +23,7 @@
                 <div class="button-container">
                     <h1>Студент</h1>
                     <form action = "list" method="post" id="exit">
-                        <input type="hidden" name="page" value="<%=request.getAttribute("page")%>">
+                        <input type="hidden" name="page" value="<%=request.getAttribute(PAGE_ATTRIBUTE)%>">
                         <input type="hidden" name="command" value="show_students">
                     </form>
                 </div>
@@ -31,8 +32,7 @@
                     <div class="form-container">
                         <input type="hidden" name="command" value="save_student" id="action">
                         <input type="hidden" name="id" value="<%=student.getId()%>">
-                        <input type="hidden" name="addressId" value="<%=student.getAddressId()%>">
-                        <input type="hidden" name="page" value="<%=request.getAttribute("page")%>">
+                        <input type="hidden" name="page" value="<%=request.getAttribute(PAGE_ATTRIBUTE)%>">
                         <label class="form-el" for="name">Имя</label>
                         <input class="form-el" required type="text" name="name" placeholder="Введите имя" value="<%=student.getName()%>" id="name">
                         <label class="form-el" for="surname">Фамилия</label>

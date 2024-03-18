@@ -31,10 +31,9 @@ public class Converter {
                 .surname(student.getSurname())
                 .age(student.getAge())
                 .mark(student.getMark())
-                .addressId(student.getAddress().getId())
                 .city(student.getAddress().getCity())
                 .street(student.getAddress().getStreet())
-                .houseNumber(student.getAddress().getHouseNumber())
+                .houseNumber(student.getAddress().getBuilding())
                 .build();
     }
 
@@ -46,10 +45,9 @@ public class Converter {
                 .age(studentDTO.getAge())
                 .mark(studentDTO.getMark())
                 .address(Address.builder()
-                        .id(studentDTO.getAddressId() == 0? null : studentDTO.getId())
                         .city(studentDTO.getCity())
                         .street(studentDTO.getStreet())
-                        .houseNumber(studentDTO.getHouseNumber())
+                        .building(studentDTO.getHouseNumber())
                         .build())
                 .build();
     }

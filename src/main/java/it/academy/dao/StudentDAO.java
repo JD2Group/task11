@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface StudentDAO extends DAO<Student, Long> {
 
-    Student getByParameters(String parameter);
+    List<Student> getByParameter(String parameter);
 }
