@@ -126,6 +126,7 @@
                 display: flex;
                 flex-direction: row;
                 width: 100%;
+                max-height: 90%;
             }
                 .student_info_img{
                     width: 50%;
@@ -147,11 +148,11 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
-                padding: 10px 20px;
+                padding: 0.2vw 0.3vw;
             }
                 .student_info_buttons{
                     color: white;
-                    font-size: 1.5vw;
+                    font-size: 1.3vw;
                     margin: 0 5px;
                     width: 45%;
                     height: 100%;
