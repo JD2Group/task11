@@ -1,15 +1,15 @@
-function ajaxPost(url, data, callback) {
+function ajaxPost(url, data, method) {
     let xmlDoc = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+
 
     xmlDoc.open('POST', url, true);
     xmlDoc.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
     xmlDoc.onreadystatechange = function () {
         if (xmlDoc.readyState === 4 && xmlDoc.status === 200) {
-            callback(xmlDoc);
+            let responseData = JSON.parse(xmlDoc.responseText)
+            method(responseData)
         }
     }
-
     xmlDoc.send(data);
 }
 
@@ -25,4 +25,8 @@ function ajaxGet(url, callback) {
     }
 
     xmlDoc.send();
+}
+
+function printXML(xmlDoc){
+    window.alert(xmlDoc)
 }

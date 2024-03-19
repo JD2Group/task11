@@ -16,7 +16,7 @@
         <th key="building">Номер дома</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="student_table_body">
     <%
         AdminServiceImpl adminService = AdminServiceImpl.getInstance();
         String pageNum = request.getParameter("page");
@@ -30,8 +30,8 @@
         int i = 0;
         for (StudentDTORequest s : studentList) {
             i++;
-            out.println("<tr onclick=\"completeInfo(this)\">");
-            out.println(String.format("<td >%d</td>", i));
+            out.println("<tr key='" + s.getId() + "' onclick=\"completeInfo(this)\">");
+            out.println(String.format("<td>%d</td>", i));
             out.println(String.format("<td>%s</td>", s.getName()));
             out.println(String.format("<td>%s</td>", s.getSurname()));
             out.println(String.format("<td>%d</td>", s.getAge()));

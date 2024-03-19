@@ -5,6 +5,58 @@
     border: 0;
 }
 
+#response {
+    width: 100vw;
+    min-height: 100vh;
+    position: absolute;
+    display: none;
+    background: rgba(0,0,0,0.7);
+}
+#response_block{
+    width: 30vw;
+    height: 13vw;
+    margin: auto auto;
+    background: rgba(0,0,0,0.7);
+    border: 2px solid white;
+    border-radius: 2vw;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.response_block_header {
+    width: 100%;
+    height: 30%;
+    padding: 1.8vh 3vh 3vh 26vw;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid white;
+}
+.response_block_text {
+    padding: 1.5vw;
+    width: 100%;
+    height: 70%;
+    font-size: 1.5vw;
+}
+.response_block_header_close {
+    cursor: pointer;
+    width: 2vw;
+    height: 2vw;
+}
+.response_block_header_close:before, .response_block_header_close:after {
+    position: absolute;
+    margin-top: 0.9vw;
+    content: "";
+    width: 2vw;
+    height: 4px;
+    background: white;
+}
+.response_block_header_close:before {
+    transform: rotate(45deg);
+}
+.response_block_header_close:after {
+    transform: rotate(-45deg);
+}
+
 .main_page {
     width: 100%;
     min-height: 100vh;
@@ -148,6 +200,9 @@
 .student_info_block {
     width: 50%;
     font-size: 1.4vw;
+}
+#student_id{
+    display: none;
 }
 
 .student_info_block div {

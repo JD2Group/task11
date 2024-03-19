@@ -1,5 +1,6 @@
 function completeInfo(elem) {
     let student_column_title = document.getElementById("student_table_head").children[0].children;
+    document.getElementById("student_id").innerHTML = elem.getAttribute("key");
     document.getElementsByClassName("student_info")[0].style.display = "flex";
     for (let i = 0; i < student_column_title.length; i++) {
         let child = elem.children[i];

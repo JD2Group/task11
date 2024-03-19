@@ -5,6 +5,7 @@
             <img src="${pageContext.request.contextPath}/static/images/photo_default.jpg" alt="IMAGE">
         </div>
         <div class="student_info_block">
+            <div id="student_id"></div>
             <div class="student_info_block_name">
 
             </div>
@@ -30,6 +31,6 @@
     </div>
     <div class="student_info_down_side_block">
         <button class="student_info_buttons" onclick="window.alert('Обновление будет позже')">Обновить</button>
-        <button class="student_info_buttons" onclick="window.alert('Удаление будет позже')">Удалить</button>
+        <button class="student_info_buttons" onclick="deleteStudent()">Удалить</button>
     </div>
 </div>
