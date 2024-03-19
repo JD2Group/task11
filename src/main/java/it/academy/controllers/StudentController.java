@@ -1,7 +1,6 @@
 package it.academy.controllers;
 
 import it.academy.annotations.ControllerMapping;
-import it.academy.annotations.GetMapping;
 import it.academy.annotations.PostMapping;
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.dto.response.StudentDTOResponse;
@@ -13,9 +12,7 @@ import it.academy.utils.ResponseHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.GSON;

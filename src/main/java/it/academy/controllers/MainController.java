@@ -3,8 +3,6 @@ package it.academy.controllers;
 import it.academy.annotations.ControllerMapping;
 import it.academy.annotations.GetMapping;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

@@ -11,13 +11,14 @@
     position: fixed;
     z-index: 100;
     display: none;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
 }
-#response_block{
+
+#response_block {
     width: 30vw;
     height: 13vw;
     margin: auto auto;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
     border: 2px solid white;
     border-radius: 2vw;
     display: flex;
@@ -29,20 +30,23 @@
     width: 100%;
     height: 30%;
     padding: 1.8vh 3vh 3vh 26vw;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid white;
 }
+
 .response_block_text {
     padding: 1.5vw;
     width: 100%;
     height: 70%;
     font-size: 1.5vw;
 }
+
 .response_block_header_close {
     cursor: pointer;
     width: 2vw;
     height: 2vw;
 }
+
 .response_block_header_close:before, .response_block_header_close:after {
     position: absolute;
     margin-top: 0.9vw;
@@ -51,9 +55,11 @@
     height: 4px;
     background: white;
 }
+
 .response_block_header_close:before {
     transform: rotate(45deg);
 }
+
 .response_block_header_close:after {
     transform: rotate(-45deg);
 }
@@ -111,11 +117,13 @@
     height: 100%;
     font-size: 40px;
 }
-.header_case{
+
+.header_case {
     height: 80%;
     margin: auto 0;
 }
-.header_case button{
+
+.header_case button {
     height: 100%;
     background: black;
     border: 2px solid white;
@@ -124,10 +132,12 @@
     font-size: 1.2vw;
     padding: 0 1vw;
 }
-.header_case button:hover{
+
+.header_case button:hover {
     background: firebrick;
 }
-.header_case button:active{
+
+.header_case button:active {
     background: darkred;
     color: grey;
 }
@@ -141,6 +151,7 @@
     height: auto;
     padding: 1vw 2vw;
 }
+
 #student_create {
     width: 100vw;
     min-height: 100vh;
@@ -149,13 +160,14 @@
     top: 0;
     left: 0;
     display: none;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
 }
-#student_create_block{
+
+#student_create_block {
     width: 30vw;
     height: auto;
     margin: auto auto;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid white;
     border-radius: 2vw;
     display: flex;
@@ -165,13 +177,14 @@
 .student_create_block_header {
     width: 100%;
     height: 4.5vw;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid white;
     justify-content: right;
     display: flex;
     align-items: center;
     padding-right: 2vw;
 }
+
 .student_create_block_body {
     padding: 1.5vw;
     width: 100%;
@@ -180,11 +193,13 @@
     color: white;
 
 }
+
 .student_create_block_header_close {
     cursor: pointer;
     width: 2vw;
     height: 2vw;
 }
+
 .student_create_block_header_close:before, .student_create_block_header_close:after {
     position: absolute;
     margin-top: 0.9vw;
@@ -193,20 +208,22 @@
     height: 4px;
     background: white;
 }
+
 .student_create_block_header_close:before {
     transform: rotate(45deg);
 }
+
 .student_create_block_header_close:after {
     transform: rotate(-45deg);
 }
 
-.student_create_block_body_form_submit{
+.student_create_block_body_form_submit {
     padding-top: 10px;
     display: flex;
     justify-content: center;
 }
 
-#form_submit{
+#form_submit {
     width: 50%;
     min-height: 2vw;
     font-size: 1.2vw;
@@ -216,19 +233,21 @@
     background: black;
     color: white;
 }
-#form_submit:hover{
+
+#form_submit:hover {
     background: firebrick;
 }
-#form_submit:active{
+
+#form_submit:active {
     background: darkred;
     color: grey;
 }
 
-.student_create_block_body_form_field{
+.student_create_block_body_form_field {
     padding: 0.3vw 0;
 }
 
-.student_create_block_body_form_field input{
+.student_create_block_body_form_field input {
 
     width: 100%;
     background: transparent;
@@ -238,11 +257,13 @@
     border-bottom: 2px solid white;
     min-height: 1.3vw;
 }
-.student_create_block_body_form_field input:active{
+
+.student_create_block_body_form_field input:active {
     border: 0;
     border-bottom: 1px solid white;
 }
-.student_create_block_body_form_field label{
+
+.student_create_block_body_form_field label {
 
     font-size: 1vw;
 }
@@ -333,7 +354,7 @@
     flex-direction: row;
 }
 
-#student_id{
+#student_id {
     display: none;
 }
 

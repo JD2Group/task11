@@ -8,12 +8,12 @@
     <title>TASK11</title>
 </head>
 <body>
-<%@include file="WEB-INF/jsp/response.jsp"%>
+<%@include file="WEB-INF/jsp/response.jsp" %>
 <%@include file="WEB-INF/jsp/header.jsp" %>
 <div class="main_page">
     <div class="container">
         <div class="main">
-            <%@include file="WEB-INF/jsp/student_create_block.jsp"%>
+            <%@include file="WEB-INF/jsp/student_create_block.jsp" %>
             <div class="student_block">
                 <div class="table_block">
                     <jsp:include page="WEB-INF/jsp/database_table.jsp"/>

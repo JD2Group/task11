@@ -6,7 +6,7 @@ import java.util.Map;
 
 public final class UtilityService {
 
-    private UtilityService(){
+    private UtilityService() {
 
     }
 
@@ -14,7 +14,7 @@ public final class UtilityService {
         String[] strArr = str.split("&");
         Map<String, String> params = new HashMap<>();
         Arrays.stream(strArr)
-                .forEach(s-> {
+                .forEach(s -> {
                     String[] arr = s.split("=");
                     params.put(arr[0], arr[1]);
                 });
