@@ -14,7 +14,20 @@
 <body>
 <section>
     <div class=" container">
+
+        <%
+            int pageNumber = (int) request.getAttribute(PAGE_ATTRIBUTE);
+            List<StudentDTO> list = (List<StudentDTO>) request.getAttribute(STUDENTS_ATTRIBUTE);
+        %>
+
+
         <h1>Список студентов</h1>
+        <form action="list" method="post">
+            <input type="hidden" name="command" value="find_students">
+            <input type="hidden" name="page" value="<%=pageNumber%>">
+            <input class="search" type="search" name="param" placeholder="Поиск по студентам">
+            <input class="button light" type="submit" value="Найти">
+        </form>
     </div>
 
     <div class="container">
@@ -31,11 +44,6 @@
                 <th class="menu">Управление</th>
             </tr>
 
-
-            <%
-                int pageNumber = (int) request.getAttribute(PAGE_ATTRIBUTE);
-                List<StudentDTO> list = (List<StudentDTO>) request.getAttribute(STUDENTS_ATTRIBUTE);
-            %>
             <% for(StudentDTO student : list) { %>
             <tr>
                 <td><%=student.getName()%></td>

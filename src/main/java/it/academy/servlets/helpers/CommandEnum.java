@@ -8,7 +8,8 @@ public enum CommandEnum {
     CHANGE_STUDENT(new ChangeCommand()),
     DELETE_STUDENT(new DeleteCommand()),
     NEXT_PAGE(new ChangePageCommand()),
-    PREV_PAGE(new ChangePageCommand());
+    PREV_PAGE(new ChangePageCommand()),
+    FIND_STUDENTS(new FindCommand());
 
     private ActionCommand command;
 

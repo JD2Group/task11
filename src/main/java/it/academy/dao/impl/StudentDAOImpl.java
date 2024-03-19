@@ -20,20 +20,18 @@ public class StudentDAOImpl extends DAOImpl<Student, Long> implements StudentDAO
 
         parameter = "%" + parameter + "%";
 
-        //TODO Сделать проверку по числам и строкам
         Predicate likeParameter = criteriaBuilder().disjunction();
-//        likeParameter.getExpressions().add(criteriaBuilder().like(root.get("id"), parameter));
         likeParameter.getExpressions().add(criteriaBuilder().like(root.get("name"), parameter));
         likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("surname"), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("age"), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("mark"), parameter)));
+        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("age").as(String.class), parameter)));
+        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("mark").as(String.class), parameter)));
         likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("city"), parameter)));
         likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("street"), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("building"), parameter)));
+        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("building").as(String.class), parameter)));
 
-        findByParameter.select(root).where(likeParameter);
+        findByParameter.select(root).where(likeParameter)
+            .orderBy(criteriaBuilder().asc(root.get("surname")));
 
         return entityManager().createQuery(findByParameter).getResultList();
     }
-
 }
