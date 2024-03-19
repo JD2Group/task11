@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static it.academy.utils.Constants.PAGES;
+import static it.academy.utils.Constants.STUDENT_ADDRESS;
 
 public class Test {
 
@@ -39,7 +40,7 @@ public class Test {
 //        List<Student> students = TransactionManager.getInstance().executeTransaction(ss);
 //        IntStream.range(0, students.size())
 //        .forEach(i -> System.out.println(i + 1 + ")" + students.get(i)));
-
+//
         StudentService service = new StudentServiceImpl();
 //        StudentDTO studentDTO = StudentDTO.builder()
 //                .name("name")
@@ -57,7 +58,7 @@ public class Test {
 //
 //        System.out.println(service.getMaxPageNumber());
 
-        List<StudentDTO> l = service.findStudentsByParameter("59");
+        List<StudentDTO> l = service.findStudentsByParameter("59", STUDENT_ADDRESS);
         l.forEach(System.out::println);
     }
 
@@ -75,7 +76,7 @@ public class Test {
         return Address.builder()
                 .city("City " + new Random().nextInt(100))
                 .street("Street " + new Random().nextInt(100))
-                .building(new Random().nextInt(100))
+                .house(new Random().nextInt(100))
                 .build();
     }
 }

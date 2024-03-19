@@ -6,6 +6,8 @@ import it.academy.entities.Student;
 import javax.persistence.criteria.*;
 import java.util.List;
 
+import static it.academy.utils.Constants.*;
+
 public class StudentDAOImpl extends DAOImpl<Student, Long> implements StudentDAO {
 
     @Override
@@ -14,23 +16,42 @@ public class StudentDAOImpl extends DAOImpl<Student, Long> implements StudentDAO
     }
 
     @Override
-    public List<Student> getByParameter(String parameter) {
+    public List<Student> getByParameter(String parameter, String filter) {
         CriteriaQuery<Student> findByParameter = criteriaBuilder().createQuery(Student.class);
         Root<Student> root = findByParameter.from(Student.class);
 
         parameter = "%" + parameter + "%";
 
         Predicate likeParameter = criteriaBuilder().disjunction();
-        likeParameter.getExpressions().add(criteriaBuilder().like(root.get("name"), parameter));
-        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("surname"), parameter)));
-        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("age").as(String.class), parameter)));
-        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("mark").as(String.class), parameter)));
-        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("city"), parameter)));
-        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("street"), parameter)));
-        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get("address").get("building").as(String.class), parameter)));
+        switch (filter) {
+            case STUDENT_NAME:
+                likeParameter.getExpressions().add(criteriaBuilder().like(root.get(STUDENT_NAME), parameter));
+                break;
+            case STUDENT_SURNAME:
+                likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_SURNAME), parameter)));
+                break;
+            case STUDENT_AGE:
+                likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_AGE).as(String.class), parameter)));
+                break;
+            case STUDENT_MARK:
+                likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_MARK).as(String.class), parameter)));
+                break;
+            case STUDENT_ADDRESS:
+                likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_CITY), parameter)));
+                likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_STREET), parameter)));
+                likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_HOUSE).as(String.class), parameter)));
+
+        }
+//        likeParameter.getExpressions().add(criteriaBuilder().like(root.get(STUDENT_NAME), parameter));
+//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_SURNAME), parameter)));
+//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_AGE).as(String.class), parameter)));
+//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_MARK).as(String.class), parameter)));
+//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_CITY), parameter)));
+//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_STREET), parameter)));
+//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_HOUSE).as(String.class), parameter)));
 
         findByParameter.select(root).where(likeParameter)
-            .orderBy(criteriaBuilder().asc(root.get("surname")));
+                .orderBy(criteriaBuilder().asc(root.get(STUDENT_SURNAME)));
 
         return entityManager().createQuery(findByParameter).getResultList();
     }

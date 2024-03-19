@@ -47,7 +47,7 @@ td, th {
     margin: auto auto auto auto;
 }
 
-.button {
+.button, .filter {
     border-radius: 12px;
     color: white;
     background-color: black;

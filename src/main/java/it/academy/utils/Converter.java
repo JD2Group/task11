@@ -33,7 +33,7 @@ public class Converter {
                 .mark(student.getMark())
                 .city(student.getAddress().getCity())
                 .street(student.getAddress().getStreet())
-                .houseNumber(student.getAddress().getBuilding())
+                .houseNumber(student.getAddress().getHouse())
                 .build();
     }
 
@@ -47,7 +47,7 @@ public class Converter {
                 .address(Address.builder()
                         .city(studentDTO.getCity())
                         .street(studentDTO.getStreet())
-                        .building(studentDTO.getHouseNumber())
+                        .house(studentDTO.getHouseNumber())
                         .build())
                 .build();
     }

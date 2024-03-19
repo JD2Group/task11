@@ -60,8 +60,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentDTO> findStudentsByParameter(String parameter) {
-        Supplier<List<Student>> find = () -> studentDAO.getByParameter(parameter);
+    public List<StudentDTO> findStudentsByParameter(String parameter, String filter) {
+        Supplier<List<Student>> find = () -> studentDAO.getByParameter(parameter, filter);
         List<StudentDTO> result = Converter.convertListToDTO(manager.executeTransaction(find));
         manager.closeEntityManager();
         return result;

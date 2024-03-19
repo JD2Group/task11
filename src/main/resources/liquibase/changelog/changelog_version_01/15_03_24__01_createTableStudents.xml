@@ -11,7 +11,7 @@
             <column name="surname" type="varchar(255)"/>
             <column name="age" type="int"/>
             <column name="mark" type="int"/>
-            <column name="building" type="int"/>
+            <column name="house" type="int"/>
             <column name="city" type="varchar(255)"/>
             <column name="street" type="varchar(255)"/>
         </createTable>

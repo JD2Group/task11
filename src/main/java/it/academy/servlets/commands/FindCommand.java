@@ -17,9 +17,10 @@ public class FindCommand extends ChangePageCommand{
     public String execute(HttpServletRequest req) {
         int currentPage = Integer.parseInt(req.getParameter(PAGE_ATTRIBUTE));
         String parameter = req.getParameter("param");
+        String filter = req.getParameter("filter");
 
         if (!parameter.isEmpty()) {
-            List<StudentDTO> students = service.findStudentsByParameter(parameter);
+            List<StudentDTO> students = service.findStudentsByParameter(parameter, filter);
             req.setAttribute(STUDENTS_ATTRIBUTE, students);
             req.setAttribute(PAGE_ATTRIBUTE, currentPage);
             req.setAttribute(MAX_PAGE_ATTRIBUTE, service.getMaxPageNumber());

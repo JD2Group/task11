@@ -26,6 +26,13 @@
             <input type="hidden" name="command" value="find_students">
             <input type="hidden" name="page" value="<%=pageNumber%>">
             <input class="search" type="search" name="param" placeholder="Поиск по студентам">
+            <select class="filter" name="filter" size="1">
+                <option selected value="<%=STUDENT_NAME%>">Имя</option>
+                <option selected value="<%=STUDENT_SURNAME%>">Фамилия</option>
+                <option selected value="<%=STUDENT_AGE%>">Возраст</option>
+                <option selected value="<%=STUDENT_MARK%>">Оцека</option>
+                <option selected value="<%=STUDENT_ADDRESS%>">Адрес</option>
+            </select>
             <input class="button light" type="submit" value="Найти">
         </form>
     </div>

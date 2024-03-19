@@ -18,7 +18,7 @@ public class Builder {
                 .address(Address.builder()
                         .city("")
                         .street("")
-                        .building(0)
+                        .house(0)
                         .build())
                 .build();
     }

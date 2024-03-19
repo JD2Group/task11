@@ -33,6 +33,7 @@ public class Constants {
     public static final String STUDENT_SURNAME = "surname";
     public static final String STUDENT_AGE = "age";
     public static final String STUDENT_MARK = "mark";
+    public static final String STUDENT_ADDRESS = "address";
     public static final String STUDENT_CITY = "city";
     public static final String STUDENT_STREET = "street";
     public static final String STUDENT_HOUSE = "house";
