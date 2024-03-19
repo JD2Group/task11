@@ -9,7 +9,7 @@ import static it.academy.utils.Constants.COMMAND_ATTRIBUTE;
 public class ActionFactory {
 
     public ActionCommand defineCommand(HttpServletRequest req) {
-        ActionCommand current= null;
+        ActionCommand current = null;
 
         String action = req.getParameter(COMMAND_ATTRIBUTE);
 

@@ -16,8 +16,8 @@ public class FindCommand extends ChangePageCommand{
     @Override
     public String execute(HttpServletRequest req) {
         int currentPage = Integer.parseInt(req.getParameter(PAGE_ATTRIBUTE));
-        String parameter = req.getParameter("param");
-        String filter = req.getParameter("filter");
+        String parameter = req.getParameter(STUDENT_PARAMETER_ATTRIBUTE);
+        String filter = req.getParameter(FILTER_ATTRIBUTE);
 
         if (!parameter.isEmpty()) {
             List<StudentDTO> students = service.findStudentsByParameter(parameter, filter);

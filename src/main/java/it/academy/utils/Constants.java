@@ -22,6 +22,8 @@ public class Constants {
     public static final String STUDENTS_ATTRIBUTE = "students";
     public static final String STUDENT_ATTRIBUTE = "student";
     public static final String MAX_PAGE_ATTRIBUTE = "maxPage";
+    public static final String STUDENT_PARAMETER_ATTRIBUTE = "param";
+    public static final String FILTER_ATTRIBUTE = "filter";
 
     //RESOURCES
     public static final String MESSAGES = "web/messages";

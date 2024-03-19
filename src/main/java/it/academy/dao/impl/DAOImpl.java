@@ -11,6 +11,8 @@ import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
 
+import static it.academy.utils.Constants.STUDENT_ID;
+
 public abstract class DAOImpl<T extends Serializable, R> implements DAO<T, R> {
     private TransactionManager transactionManager = TransactionManager.getInstance();
 
@@ -59,7 +61,7 @@ public abstract class DAOImpl<T extends Serializable, R> implements DAO<T, R> {
         Root<T> root = getList.from(getClazz());
 
         getList.select(root)
-                .orderBy(criteriaBuilder().desc(root.get("id")));
+                .orderBy(criteriaBuilder().desc(root.get(STUDENT_ID)));
 
         return entityManager().createQuery(getList)
                 .setFirstResult(((pageNumber - 1) * numberOfRecords))

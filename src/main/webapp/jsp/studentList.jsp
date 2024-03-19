@@ -30,7 +30,7 @@
                 <option selected value="<%=STUDENT_NAME%>">Имя</option>
                 <option selected value="<%=STUDENT_SURNAME%>">Фамилия</option>
                 <option selected value="<%=STUDENT_AGE%>">Возраст</option>
-                <option selected value="<%=STUDENT_MARK%>">Оцека</option>
+                <option selected value="<%=STUDENT_MARK%>">Оценка</option>
                 <option selected value="<%=STUDENT_ADDRESS%>">Адрес</option>
             </select>
             <input class="button light" type="submit" value="Найти">
