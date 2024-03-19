@@ -200,6 +200,53 @@
     transform: rotate(-45deg);
 }
 
+.student_create_block_body_form_submit{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#form_submit{
+    width: 50%;
+    min-height: 2vw;
+    font-size: 1.2vw;
+    margin: 0 auto;
+    border: 1px solid white;
+    border-radius: 2vw;
+    background: black;
+    color: white;
+}
+#form_submit:hover{
+    background: firebrick;
+}
+#form_submit:active{
+    background: darkred;
+    color: grey;
+}
+
+.student_create_block_body_form_field{
+    padding: 0.3vw 0;
+}
+
+.student_create_block_body_form_field input{
+
+    width: 100%;
+    background: transparent;
+    color: white;
+    font-size: 0.8vw;
+    border: 0;
+    border-bottom: 2px solid white;
+    min-height: 1.3vw;
+}
+.student_create_block_body_form_field input:active{
+    border: 0;
+    border-bottom: 1px solid white;
+}
+.student_create_block_body_form_field label{
+
+    font-size: 1vw;
+}
+
 .student_block {
     height: auto;
     max-height: 40vw;

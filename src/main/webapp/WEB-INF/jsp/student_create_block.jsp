@@ -36,7 +36,9 @@
                     <label>Номер дома: </label>
                     <input name="building" value="" type="number">
                 </div>
-                <input type="submit" value="Confirm" onclick="">
+                <div class="student_create_block_body_form_submit">
+                    <input id="form_submit" type="submit" value="Confirm" onclick="">
+                </div>
             </form>
         </div>
     </div>
