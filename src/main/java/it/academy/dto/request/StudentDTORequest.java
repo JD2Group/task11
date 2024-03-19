@@ -28,7 +28,7 @@ public class StudentDTORequest implements Serializable {
     private Integer age;
     @SerializedName("mark")
     @Expose
-    private Double mark;
+    private Integer mark;
     @SerializedName("city")
     @Expose
     private String city;

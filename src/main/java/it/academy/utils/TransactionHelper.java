@@ -47,7 +47,7 @@ public final class TransactionHelper {
      * @throws IllegalStateException if <code>isActive()</code> is true
      */
     public void begin() {
-        getEntityManagerIfClosed();
+        entityManager = HibernateUtil.getEntityManager();
         entityManager.getTransaction().begin();
     }
 

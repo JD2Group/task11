@@ -1,6 +1,7 @@
+
 function deleteStudent(){
     let id = document.getElementById("student_id").textContent;
-    ajaxPost("api/student/delete", "id="+id, afterDeleteStudent)
+    ajaxPost("api/student/delete", "id="+id, afterDeleteStudent, "application/x-www-form-urlencoded")
 }
 
 function afterDeleteStudent(data){
@@ -27,5 +28,31 @@ function afterDeleteStudent(data){
         }
     }
 
+    document.getElementById("response").style.display = "flex";
+}
+
+
+
+function createNewStudent() {
+    document.getElementById("student_create").style.display = "flex";
+    document.getElementById("student_create_block_body_form").addEventListener("submit", submitCreateStudentForm)
+}
+
+function submitCreateStudentForm(event){
+    document.getElementById("student_create_block_body_form").removeEventListener("submit", submitCreateStudentForm)
+    let formData = new FormData(event.target)
+
+    let obj = {};
+    formData.forEach((value, key) => obj[key] = value);
+    ajaxPost("api/student/save", JSON.stringify(obj), afterCreateStudent, "application/json")
+}
+
+function afterCreateStudent(data){
+    let status = data["httpStatus"];
+    let msg = data["message"]
+    window.alert(status + " " + msg)
+    document.getElementsByClassName("response_block_text")[0].innerHTML =
+        "<p>" + status + "</p>" +
+        "<p>" + msg + "</p>"
     document.getElementById("response").style.display = "flex";
 }

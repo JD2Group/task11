@@ -120,6 +120,58 @@
     height: auto;
     padding: 1vw 2vw;
 }
+#student_create {
+    width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    background: rgba(0,0,0,0.7);
+}
+#student_create_block{
+    width: 30vw;
+    height: auto;
+    margin: auto auto;
+    background: rgba(0,0,0,0.7);
+    border: 2px solid white;
+    border-radius: 2vw;
+    display: flex;
+    flex-direction: column;}
+.student_create_block_header {
+    width: 100%;
+    height: 30%;
+    padding: 1.8vh 3vh 3vh 26vw;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid white;
+}
+.student_create_block_body {
+    padding: 1.5vw;
+    width: 100%;
+    height: 70%;
+    font-size: 1vw;
+    color: white;
+
+}
+.student_create_block_header_close {
+    cursor: pointer;
+    width: 2vw;
+    height: 2vw;
+}
+.student_create_block_header_close:before, .student_create_block_header_close:after {
+    position: absolute;
+    margin-top: 0.9vw;
+    content: "";
+    width: 2vw;
+    height: 4px;
+    background: white;
+}
+.student_create_block_header_close:before {
+    transform: rotate(45deg);
+}
+.student_create_block_header_close:after {
+    transform: rotate(-45deg);
+}
 
 .student_block {
     height: auto;
