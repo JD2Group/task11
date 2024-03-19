@@ -8,7 +8,10 @@ function completeInfo(elem) {
         let student_field = document.getElementsByClassName("student_info_block_" +
             title.getAttribute("key"))[0];
         if (student_field != null) {
-            student_field.innerHTML = "<p>" + title.textContent + " : " + child.textContent + "</p>";
+            student_field.innerHTML =
+                "<p>" + title.textContent + "</p>"
+                + "<p>:</p>"
+                + "<p>" + child.textContent + "</p>";
         }
     }
 }

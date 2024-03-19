@@ -24,6 +24,10 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        try {
+            ControllerMapper.sendToController(req, resp);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -43,7 +43,7 @@ public class ControllerMapper {
         Class<?> controller = null;
         if (Objects.equals(controllerPath, studentUrlPattern)) {
             controller = StudentController.class;
-        } else if (Objects.equals(path, mainUrlPattern)) {
+        } else if (Objects.equals(controllerPath, mainUrlPattern)) {
             controller = MainController.class;
         }
         return controller;

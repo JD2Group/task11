@@ -6,7 +6,6 @@ function ajaxPost(url, data, method, contentType) {
     xmlDoc.setRequestHeader("Content-type", contentType);
     xmlDoc.onreadystatechange = function () {
         if (xmlDoc.readyState === 4 && (xmlDoc.status === 200 || xmlDoc.status === 201)) {
-            window.alert(1)
             let responseData = JSON.parse(xmlDoc.responseText)
             method(responseData)
         }

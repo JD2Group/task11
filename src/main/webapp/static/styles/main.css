@@ -99,7 +99,7 @@
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     padding: 0 10px;
 }
 
@@ -109,6 +109,26 @@
     align-items: center;
     height: 100%;
     font-size: 40px;
+}
+.header_case{
+    height: 80%;
+    margin: auto 0;
+}
+.header_case button{
+    height: 100%;
+    background: black;
+    border: 2px solid white;
+    border-radius: 1vw;
+    color: white;
+    font-size: 1.2vw;
+    padding: 0 1vw;
+}
+.header_case button:hover{
+    background: firebrick;
+}
+.header_case button:active{
+    background: darkred;
+    color: grey;
 }
 
 
@@ -137,13 +157,18 @@
     border: 2px solid white;
     border-radius: 2vw;
     display: flex;
-    flex-direction: column;}
+    flex-direction: column;
+}
+
 .student_create_block_header {
     width: 100%;
-    height: 30%;
-    padding: 1.8vh 3vh 3vh 26vw;
+    height: 4.5vw;
     background: rgba(0,0,0,0.3);
     border-bottom: 1px solid white;
+    justify-content: right;
+    display: flex;
+    align-items: center;
+    padding-right: 2vw;
 }
 .student_create_block_body {
     padding: 1.5vw;
@@ -253,12 +278,14 @@
     width: 50%;
     font-size: 1.4vw;
 }
-#student_id{
-    display: none;
-}
 
 .student_info_block div {
+    display: flex;
+    flex-direction: row;
+}
 
+#student_id{
+    display: none;
 }
 
 .student_info_down_side_block {
@@ -289,3 +316,4 @@
     background-color: darkred;
     color: grey;
 }
+

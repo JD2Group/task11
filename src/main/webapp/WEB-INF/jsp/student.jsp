@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="student_info_down_side_block">
-        <button class="student_info_buttons" onclick="window.alert('Обновление будет позже')">Обновить</button>
+        <button class="student_info_buttons" onclick="updateStudent()">Обновить</button>
         <button class="student_info_buttons" onclick="deleteStudent()">Удалить</button>
     </div>
 </div>
