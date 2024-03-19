@@ -8,6 +8,8 @@ public interface AdminServise {
 
     List<StudentDTO> getAllStudents() throws Exception;
 
+    StudentDTO getById(Long id) throws Exception;
+
     List<StudentDTO> getAllStudents(int page, int count) throws Exception;
 
     void createStudent(StudentDTO studentDTO) throws Exception;

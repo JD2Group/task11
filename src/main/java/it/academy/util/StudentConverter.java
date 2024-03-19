@@ -24,6 +24,7 @@ public class StudentConverter {
                                 .city(studentFrom.getCity())
                                 .building(studentFrom.getBuilding())
                                 .build())
+                   .mark(studentFrom.getMark())
                    .build();
     }
 
@@ -40,6 +41,7 @@ public class StudentConverter {
                    .street(studentFrom.getAddress().getStreet())
                    .city(studentFrom.getAddress().getCity())
                    .building(studentFrom.getAddress().getBuilding())
+                   .mark(studentFrom.getMark())
                    .build();
     }
 }

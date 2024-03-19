@@ -3,6 +3,7 @@ package it.academy.dao.impl;
 import it.academy.dao.Dao;
 import it.academy.util.HibernateUtil;
 import it.academy.util.functionalInterfaces.TransactionBody;
+import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -35,9 +36,10 @@ public class DaoImpl<T, R> implements Dao<T, R> {
     }
 
     @Override
-    public T update(T object) {
+    public void update(T object) {
 
-        return getEm().merge(object);
+        getEm().merge(object);
+
     }
 
     @Override

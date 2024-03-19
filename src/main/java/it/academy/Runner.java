@@ -15,14 +15,17 @@ public class Runner {
     public static void main(String[] args) {
 
         AdminServise admin = new AdminServiceImpl();
-        for (int i = 0; i < 100; i++) {
+
+
+        for (int i = 0; i < 30; i++) {
             StudentDTO student = StudentDTO.builder()
-                                     .name("s" + i)
-                                     .surname("fe" + i)
+                                     .name("Mike_" + i)
+                                     .surname("Brown_" + i)
                                      .age(i)
-                                     .city("ugh" + i)
-                                     .street("ouihu" + i)
+                                     .city("Vashington" + i)
+                                     .street("Liberti_" + i)
                                      .building(54 + i)
+                                     .mark(i*(i+1))
                                      .build();
 
             try {
@@ -49,11 +52,11 @@ public class Runner {
         System.out.println("count: "+count);
         List<StudentDTO> dtoList = new ArrayList<>();
         try {
-            dtoList = admin.getAllStudents(3, 25);
+            dtoList = admin.getAllStudents(2, 12);
         } catch (Exception e) {
             System.out.println("Ups.. You havea problem: " + e);
         }
-        System.out.println("\nAll entities:");
+        System.out.println("\npaged entities:");
         dtoList.forEach(System.out::println);
         System.out.println();
 

@@ -10,6 +10,7 @@ import it.academy.util.StudentConverter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class AdminServiceImpl implements AdminServise {
@@ -22,6 +23,14 @@ public class AdminServiceImpl implements AdminServise {
         List<Student> studentList = new ArrayList<>();
         studentDao.executeInOneTransaction(() -> studentList.addAll(studentDao.getAll()));
         return studentList.stream().map(StudentConverter::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentDTO getById(Long id) throws Exception {
+
+        AtomicReference<StudentDTO> studentDTO = new AtomicReference<>();
+        studentDao.executeInOneTransaction(() -> studentDTO.set(StudentConverter.convertToDTO(studentDao.get(id))));
+        return studentDTO.get();
     }
 
     @Override
@@ -66,4 +75,5 @@ public class AdminServiceImpl implements AdminServise {
         studentDao.executeInOneTransaction(() -> count.set(studentDao.countOfEntitiesInBase()));
         return count.get();
     }
+
 }
