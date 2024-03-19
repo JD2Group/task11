@@ -42,13 +42,6 @@ public class StudentDAOImpl extends DAOImpl<Student, Long> implements StudentDAO
                 likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_HOUSE).as(String.class), parameter)));
 
         }
-//        likeParameter.getExpressions().add(criteriaBuilder().like(root.get(STUDENT_NAME), parameter));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_SURNAME), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_AGE).as(String.class), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_MARK).as(String.class), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_CITY), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_STREET), parameter)));
-//        likeParameter.getExpressions().add(criteriaBuilder().or(criteriaBuilder().like(root.get(STUDENT_ADDRESS).get(STUDENT_HOUSE).as(String.class), parameter)));
 
         findByParameter.select(root).where(likeParameter)
                 .orderBy(criteriaBuilder().asc(root.get(STUDENT_SURNAME)));
