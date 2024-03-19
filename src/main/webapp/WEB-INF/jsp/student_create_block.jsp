@@ -2,7 +2,7 @@
 <div id="student_create">
     <div id="student_create_block">
         <div class="student_create_block_header">
-            <div class="student_create_block_header_close" onclick="document.getElementById('student_create').style.display='none'">
+            <div class="student_create_block_header_close" onclick="closeCreateForm(this)">
             </div>
         </div>
         <div class="student_create_block_body">

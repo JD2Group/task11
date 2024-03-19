@@ -30,23 +30,28 @@ function afterDeleteStudent(data){
 function createNewStudent() {
     document.getElementById("student_create").style.display = "flex";
     document.getElementById("student_create_block_body_form").addEventListener("submit", submitCreateStudentForm)
+    document.getElementById("student_create_block_body_form").firstElementChild.setAttribute("value","0");
 }
 
 function submitCreateStudentForm(event){
     event.preventDefault()
-    document.getElementById("student_create_block_body_form").removeEventListener("submit", submitCreateStudentForm)
+
     let formData = new FormData(event.target)
     let obj = {};
     formData.forEach((value, key) => obj[key] = value);
+    console.log(obj);
     ajaxPost("api/student/save", JSON.stringify(obj), afterCreateStudent, "application/json")
 }
 
 function afterCreateStudent(data){
     showResponse(data)
-    document.getElementById("student_create").style.display = "none";
-    let fields = document.getElementsByClassName("student_create_block_body_form_field")
-    for (let i = 0; i < fields.length; i++){
-        fields[i].children[1].style.value = "";
+    if (data["httpStatus"] !== 500) {
+        document.getElementById("student_create").style.display = "none";
+        let fields = document.getElementsByClassName("student_create_block_body_form_field")
+        for (let i = 0; i < fields.length; i++) {
+            fields[i].children[1].value = "";
+        }
+        document.getElementById("student_create_block_body_form").removeEventListener("submit", submitCreateStudentForm)
     }
 
 }
@@ -107,6 +112,17 @@ function afterUpdateStudent(data){
     }
 
 
+}
+
+function closeCreateForm(elem){
+    document.getElementById('student_create').style.display='none';
+    let fields = document.getElementsByClassName("student_create_block_body_form_field")
+    for (let i = 0; i < fields.length; i++) {
+        fields[i].children[1].value = "";
+    }
+    document.getElementById("student_create_block_body_form").firstElementChild.setAttribute("value","0");
+    document.getElementById("student_create_block_body_form").removeEventListener("submit", submitUpdateStudentForm)
+    document.getElementById("student_create_block_body_form").removeEventListener("submit", submitCreateStudentForm)
 }
 
 function showResponse(data){

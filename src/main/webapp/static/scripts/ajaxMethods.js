@@ -10,6 +10,7 @@ function ajaxPost(url, data, method, contentType) {
             method(responseData)
         }
     }
+    console.log(data)
     xmlDoc.send(data);
 }
 

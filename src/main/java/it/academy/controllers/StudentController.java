@@ -30,7 +30,9 @@ public class StudentController implements Controller {
         AdminService adminService = AdminServiceImpl.getInstance();
 
         String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+
         StudentDTORequest studentDTORequest = GSON.fromJson(student, StudentDTORequest.class);
+        System.out.println(studentDTORequest);
         StudentDTOResponse out = adminService.createStudent(studentDTORequest);
         ResponseHelper.sendJsonResponse(response, out);
 
