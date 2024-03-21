@@ -1,6 +1,7 @@
 <%@ page import="it.academy.dto.StudentDTO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%--
   Created by IntelliJ IDEA.
   User: Timon
   Date: 15.03.2024
@@ -11,6 +12,10 @@
 <html>
 <head>
     <title>List of all students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
 </head>
 <body>
 
@@ -61,78 +66,71 @@
 </form>
 --%>
 
+<div class="container text-center">
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Surname</th>
+            <th>Name</th>
+            <th>AGE</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>Building</th>
+            <th>Mark</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
 
-<table>
-    <tr>
-        <th>No</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>AGE</th>
-        <th>City</th>
-        <th>Street</th>
-        <th>Building</th>
-        <th>Mark</th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-
-    <%
-        Object atribute = request.getAttribute("listDto");
-        List<StudentDTO> listDto = new ArrayList<>();
-        try {
-            listDto = ((List<StudentDTO>) atribute);
-        } catch (Exception ignored) {
-        }
+        <%
+            Object atribute = request.getAttribute("listDto");
+            List<StudentDTO> listDto = new ArrayList<>();
+            try {
+                listDto = ((List<StudentDTO>) atribute);
+            } catch (Exception ignored) {
+            }
 
 
-    %>
-    <%for (int i = 0; i < listDto.size(); i++) {%>
-    <%StudentDTO studentDTO = listDto.get(i);%>
-    <tr>
-        <td><%=(i + 1)%>
-        </td>
-        <td><%=studentDTO.getName()%>
-        </td>
-        <td><%=studentDTO.getSurname()%>
-        </td>
-        <td><%=studentDTO.getAge()%>
-        </td>
-        <td><%=studentDTO.getCity()%>
-        </td>
-        <td><%=studentDTO.getStreet()%>
-        </td>
-        <td><%=studentDTO.getBuilding()%>
-        </td>
-        <td><%=studentDTO.getMark()%>
-        </td>
-
-        <%String s = String.valueOf(studentDTO.getId());%>
-
-        <td>
-            <form action="update" method="get">
-                <%--  <%request.setAttribute("id",Long.parseLong(s));%>--%>
-                <input type="hidden" value="<%=s%>" name="id">
-                <button type="submit">Edit</button>
-            </form>
-        </td>
-
-        <td>
-            <form action="delete" method="get">
-                <%-- <%request.setAttribute("id",Long.parseLong(s));%>--%>
-                <input type="hidden" value="<%=s%>" name="id">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-
-    </tr>
-    <%
-        }
-    %>
-</table>
-
-<form action="create" method="get">
-    <button class="red" type="submit"><i class="icon ion-md-lock"></i>Add new person</button>
-</form>
+        %>
+        <%for (int i = 0; i < listDto.size(); i++) {%>
+        <%StudentDTO studentDTO = listDto.get(i);%>
+        <tr>
+            <td><%=(i + 1)%>
+            </td>
+            <td><%=studentDTO.getSurname()%>
+            </td>
+            <td><%=studentDTO.getName()%>
+            </td>
+            <td><%=studentDTO.getAge()%>
+            </td>
+            <td><%=studentDTO.getCity()%>
+            </td>
+            <td><%=studentDTO.getStreet()%>
+            </td>
+            <td><%=studentDTO.getBuilding()%>
+            </td>
+            <td><%=studentDTO.getMark()%>
+            </td>
+            <%String s = String.valueOf(studentDTO.getId());%>
+            <td>
+                <form action="update" method="get">
+                    <input type="hidden" value="<%=s%>" name="id">
+                    <button class="btn btn-light" type="submit">Edit</button>
+                </form>
+            </td>
+            <td>
+                <form action="delete" method="post">
+                    <input type="hidden" value="<%=s%>" name="id">
+                    <button class="btn btn-light" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    <br>
+    <form action="create" method="get">
+        <button class="btn btn-success" type="submit">Add new person</button>
+    </form>
+</div>
 </body>
 </html>

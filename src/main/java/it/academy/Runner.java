@@ -11,19 +11,23 @@ import java.util.Random;
 
 public class Runner {
 
+    private static String[] names={"Mike", "Ivan", "Benjamin","Bob","Tom", "Bred","Garry"};
+    private static String[] surnames={"Mikelanjelo", "Ivanov", "Franklin","Brown","Souer", "Grey","Kennedy"};
+    private static Random random=new Random();
 
     public static void main(String[] args) {
 
         AdminServise admin = new AdminServiceImpl();
 
 
-        for (int i = 0; i < 30; i++) {
+
+        for (int i = 1; i <= 30; i++) {
             StudentDTO student = StudentDTO.builder()
-                                     .name("Mike_" + i)
-                                     .surname("Brown_" + i)
-                                     .age(i)
+                                     .name(names[Math.max(i,names.length)%Math.min(i,names.length)])
+                                     .surname(surnames[random.nextInt(surnames.length)])
+                                     .age(random.nextInt(120))
                                      .city("Vashington" + i)
-                                     .street("Liberti_" + i)
+                                     .street("Aveny_" + i)
                                      .building(54 + i)
                                      .mark(i*(i+1))
                                      .build();
