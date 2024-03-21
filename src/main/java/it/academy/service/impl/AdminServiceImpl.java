@@ -45,6 +45,7 @@ public class AdminServiceImpl implements AdminServise {
     public void createStudent(StudentDTO studentDTO) throws Exception {
 
         studentDao.executeInOneTransaction(() -> studentDao.create(StudentConverter.convertToEntity(studentDTO)));
+        studentDao.closeManager();
     }
 
     @Override

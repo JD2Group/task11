@@ -25,7 +25,6 @@
         <%=" "%>
         <%=studentDTO.getName()%>
         <br></h3>
-
     <br>
     <br>
     <form action="readAll" method="get">
@@ -35,7 +34,7 @@
 
     <form action="delete" method="get">
         <input type="hidden" value="<%=studentDTO.getId()%>" name="id">
-        <button class="btn btn-outline-danger" type="submit">Delete <%=studentDTO.getSurname()%>?
+        <button class="btn btn-outline-danger" type="submit">Delete Mr. <%=studentDTO.getSurname()%>
         </button>
     </form>
 </div>

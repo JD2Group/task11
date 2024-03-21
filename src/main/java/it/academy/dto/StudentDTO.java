@@ -2,6 +2,8 @@ package it.academy.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -9,7 +11,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class StudentDTO {
+public class StudentDTO implements Serializable {
 
     private long id;
 

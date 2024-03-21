@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @WebServlet(name = "CreateServlet", urlPatterns = {"/create"})
 public class CreateServlet extends HttpServlet {
+
     private final AdminServise service = new AdminServiceImpl();
 
     @Override
@@ -24,27 +25,24 @@ public class CreateServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/createForm.jsp");
         requestDispatcher.forward(req, resp);
-
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         try {
             service.createStudent(StudentDTO.builder()
-                                      .name(req.getParameter("name"))
-                                      .surname(req.getParameter("surname"))
-                                      .age(IntegerConverter.convertToInt(req.getParameter("age")))
-                                      .city(req.getParameter("city"))
-                                      .street(req.getParameter("street"))
-                                      .building(IntegerConverter.convertToInt(req.getParameter("building")))
-                                      .mark(IntegerConverter.convertToInt(req.getParameter("mark")))
+                                      .name(req.getParameter("name").trim())
+                                      .surname(req.getParameter("surname").trim())
+                                      .age(IntegerConverter.convertToInt(req.getParameter("age").trim()))
+                                      .city(req.getParameter("city").trim())
+                                      .street(req.getParameter("street").trim())
+                                      .building(IntegerConverter.convertToInt(req.getParameter("building").trim()))
+                                      .mark(IntegerConverter.convertToInt(req.getParameter("mark").trim()))
                                       .build());
             resp.sendRedirect("readAll");
         } catch (Exception e) {
             resp.sendRedirect("exception.jsp");
         }
-
-
     }
 }

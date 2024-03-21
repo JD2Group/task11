@@ -1,6 +1,7 @@
 <%@ page import="it.academy.dto.StudentDTO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="static it.academy.util.Constants.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: Timon
@@ -17,56 +18,53 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
 </head>
+
 <body>
 
-<%--
+<%
+    Object atribute = request.getAttribute("listDto");
+    Object countAtr = session.getAttribute("countOnPage");
+    Object pageAtr = session.getAttribute("currentPage");
 
-<c:choose>
-    <c:when test="${requestScope.people.size() > 0}">
-        <table>
-            <tr>
-                <th>&#8470;</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <c:forEach var="elem" items="${requestScope.people}" varStatus="status">
-                <tr>
-                    <td>${status.count}</td>
-                    <td>${elem.name}</td>
-                    <td>${elem.surname}</td>
-                    <td>
-                        <form method="get" action="${pageContext.request.contextPath}/dispatcher">
-                            <input type="hidden" name="command" value="update">
-                            <input type="hidden" name="personId" value=${elem.id}>
-                            <button type="submit">Edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" action="${pageContext.request.contextPath}/dispatcher">
-                            <input type="hidden" name="command" value="delete">
-                            <input type="hidden" name="personId" value=${elem.id}>
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:when>
-    <c:otherwise>
-        <div class="emptyList">
-            <h1>No people added yet!</h1>
-        </div>
-    </c:otherwise>
-</c:choose>
-<form class="addForm" method="get" action="${pageContext.request.contextPath}/dispatcher">
-    <input type="hidden" name="command" value="create">
-    <button class="red" type="submit"><i class="icon ion-md-lock"></i>Add new person</button>
-</form>
---%>
+    Integer countOnPage = (Integer) ((countAtr == null ?
+            DEFAULT_COUNT_ON_PAGE : countAtr));
+    Integer currentPage = (Integer) ((pageAtr == null ?
+            DEFAULT_FIRST_PAGE_NUMBER : pageAtr));
 
+    List<StudentDTO> listDto = new ArrayList<>();
+    try {
+        listDto = ((List<StudentDTO>) atribute);
+    } catch (Exception ignored) {
+    }
+
+%>
 <div class="container text-center">
+    <table>
+        <tr>
+            <td>current count of rows on page:<%=countOnPage%>
+            </td>
+            <td></td>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="3" name="countOnPage">
+                    <button class="btn btn-light" type="submit"> show 3</button>
+                </form>
+            </td>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="5" name="countOnPage">
+                    <button class="btn btn-light" type="submit"> show 5</button>
+                </form>
+            </td>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="10" name="countOnPage">
+                    <button class="btn btn-light" type="submit">show 10</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
     <table>
         <tr>
             <th>No</th>
@@ -82,16 +80,6 @@
             <th></th>
         </tr>
 
-        <%
-            Object atribute = request.getAttribute("listDto");
-            List<StudentDTO> listDto = new ArrayList<>();
-            try {
-                listDto = ((List<StudentDTO>) atribute);
-            } catch (Exception ignored) {
-            }
-
-
-        %>
         <%for (int i = 0; i < listDto.size(); i++) {%>
         <%StudentDTO studentDTO = listDto.get(i);%>
         <tr>
@@ -127,10 +115,48 @@
         </tr>
         <% } %>
     </table>
+
     <br>
+
     <form action="create" method="get">
         <button class="btn btn-success" type="submit">Add new person</button>
     </form>
+
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="<%=DEFAULT_FIRST_PAGE_NUMBER%>" name="currentPage">
+                    <button class="btn btn-light" type="submit">First</button>
+                </form>
+            </td>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="<%=currentPage-1%>" name="currentPage">
+                    <button class="btn btn-outline-secondary" type="submit">Previous</button>
+                </form>
+            </td>
+            <td>
+                <p><%=currentPage%>
+                </p>
+            </td>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="<%=currentPage+1%>" name="currentPage">
+                    <button class="btn btn-outline-primary" type="submit">Next</button>
+                </form>
+            </td>
+            <td>
+                <form action="readAll" method="get">
+                    <input type="hidden" value="<%=DEFAULT_LAST_PAGE_NUMBER%>" name="currentPage">
+                    <button class="btn btn-light" type="submit">Last</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

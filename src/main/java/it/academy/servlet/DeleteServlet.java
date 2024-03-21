@@ -6,7 +6,6 @@ import it.academy.service.impl.AdminServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import java.io.IOException;
 public class DeleteServlet extends HttpServlet {
 
     private final AdminServise service = new AdminServiceImpl();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

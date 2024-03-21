@@ -42,14 +42,14 @@ public class UpdateServlet extends HttpServlet {
 
         try {
             service.updateStudent(StudentDTO.builder()
-                                      .id(Long.parseLong(req.getParameter("id")))
-                                      .name(req.getParameter("name"))
-                                      .surname(req.getParameter("surname"))
-                                      .age(Integer.parseInt(req.getParameter("age")))
-                                      .city(req.getParameter("city"))
-                                      .street(req.getParameter("street"))
-                                      .building(Integer.parseInt(req.getParameter("building")))
-                                      .mark(Integer.parseInt(req.getParameter("mark")))
+                                      .id(Long.parseLong(req.getParameter("id").trim()))
+                                      .name(req.getParameter("name").trim())
+                                      .surname(req.getParameter("surname").trim())
+                                      .age(Integer.parseInt(req.getParameter("age").trim()))
+                                      .city(req.getParameter("city").trim())
+                                      .street(req.getParameter("street").trim())
+                                      .building(Integer.parseInt(req.getParameter("building").trim()))
+                                      .mark(Integer.parseInt(req.getParameter("mark").trim()))
                                       .build());
             resp.sendRedirect("readAll");
         } catch (Exception e) {

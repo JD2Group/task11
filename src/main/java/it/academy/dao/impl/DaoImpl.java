@@ -3,7 +3,6 @@ package it.academy.dao.impl;
 import it.academy.dao.Dao;
 import it.academy.util.HibernateUtil;
 import it.academy.util.functionalInterfaces.TransactionBody;
-import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;

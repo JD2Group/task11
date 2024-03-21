@@ -59,7 +59,8 @@
         <br>
         <br>
 
-        <button class="btn btn-primary" type="submit">Update this student</button>
+        <button class="btn btn-primary" type="submit">Update Mr. <%=studentDTO.getSurname()%>
+        </button>
     </form>
 
     <form action="readAll" method="get">

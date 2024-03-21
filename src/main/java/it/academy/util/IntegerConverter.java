@@ -8,7 +8,7 @@ public class IntegerConverter {
     public static Integer convertToInt(String string) {
 
         try {
-            return Integer.parseInt(string);
+            return Integer.parseInt(string.trim());
         } catch (NumberFormatException e) {
             return 0;
         }
