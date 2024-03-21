@@ -1,60 +1,51 @@
 package it.academy.controllers;
 
-import it.academy.annotations.ControllerMapping;
-import it.academy.annotations.PostMapping;
+import it.academy.dto.request.CommandRequest;
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.dto.response.StudentDTOResponse;
 import it.academy.service.AdminService;
-import it.academy.service.UtilityService;
 import it.academy.service.impl.AdminServiceImpl;
-import it.academy.utils.ResponseHelper;
+import static it.academy.utils.Constants.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static it.academy.utils.Constants.GSON;
-
-
-@ControllerMapping(mappingUrl = "/student")
 public class StudentController implements Controller {
+    private String action;
 
-    @PostMapping(url = "/save")
-    public static void saveStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        AdminService adminService = AdminServiceImpl.getInstance();
-
-        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-
-        StudentDTORequest studentDTORequest = GSON.fromJson(student, StudentDTORequest.class);
-        System.out.println(studentDTORequest);
-        StudentDTOResponse out = adminService.createStudent(studentDTORequest);
-        ResponseHelper.sendJsonResponse(response, out);
-
+    public StudentController(String action) {
+        this.action = action;
     }
 
-    @PostMapping(url = "/update")
-    public static void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AdminService adminService = AdminServiceImpl.getInstance();
-
-        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        System.out.println(student);
-        StudentDTORequest studentDTORequest = GSON.fromJson(student, StudentDTORequest.class);
-        StudentDTOResponse out = adminService.updateStudent(studentDTORequest);
-        ResponseHelper.sendJsonResponse(response, out);
+    @Override
+    public String execute(String req) {
+        if (CREATE_ACTION.equals(action)) {
+            return createStudent(req);
+        } else if (UPDATE_ACTION.equals(action)) {
+            return updateStudent(req);
+        } else if (DELETE_ACTION.equals(action)) {
+            return deleteStudent(req);
+        }
+        return null;
     }
 
-    @PostMapping(url = "/delete")
-    public static void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AdminService adminService = AdminServiceImpl.getInstance();
-        String student = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        Map<String, String> params = UtilityService.urlencodedParamExtractor(student);
-        Long id = Long.parseLong(params.get("id"));
-        System.out.println(id);
-        StudentDTOResponse out = adminService.deleteStudent(id);
-        ResponseHelper.sendJsonResponse(response, out);
+    private String createStudent(String req) {
+        AdminService service = AdminServiceImpl.getInstance();
+        StudentDTORequest studentDTO = GSON.fromJson(req, StudentDTORequest.class);
+        StudentDTOResponse out = service.createStudent(studentDTO);
+        return GSON.toJson(out);
+    }
+
+    private String updateStudent(String req) {
+        AdminService service = AdminServiceImpl.getInstance();
+        StudentDTORequest studentDTO = GSON.fromJson(req, StudentDTORequest.class);
+        StudentDTOResponse out = service.updateStudent(studentDTO);
+        return GSON.toJson(out);
+    }
+
+    private String deleteStudent(String req) {
+        AdminService service = AdminServiceImpl.getInstance();
+        CommandRequest commandRequest = GSON.fromJson(req, CommandRequest.class);
+        Long id = commandRequest.getId();
+        StudentDTOResponse out = service.deleteStudent(id);
+        return GSON.toJson(out);
     }
 
 }

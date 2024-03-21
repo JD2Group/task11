@@ -17,12 +17,11 @@ public class ResponseHelper {
                 .build();
     }
 
-    public static void sendJsonResponse(HttpServletResponse response, Object out) throws IOException {
-        String resp = GSON.toJson(out);
+    public static void sendJsonResponse(HttpServletResponse response, String out) throws IOException {
         PrintWriter outPrinter = response.getWriter();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        outPrinter.print(resp);
+        outPrinter.print(out);
         outPrinter.flush();
     }
 

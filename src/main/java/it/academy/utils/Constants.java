@@ -8,6 +8,11 @@ public final class Constants {
 
     public static final Gson GSON = new Gson();
 
+    //command names
+    public static final String CREATE_ACTION = "create";
+    public static final String UPDATE_ACTION = "update";
+    public static final String DELETE_ACTION = "delete";
+
 
     public static final String SELECT_ALL_FROM_TABLE = "SELECT c FROM %s c";
     public static final String SELECT_COUNT_FROM_TABLE = "SELECT COUNT (c) FROM %s c";

@@ -1,6 +1,9 @@
 function deleteStudent() {
     let id = document.getElementById("student_id").textContent;
-    ajaxPost("api/student/delete", "id=" + id, afterDeleteStudent, "application/x-www-form-urlencoded")
+    let obj = {};
+    obj["id"] = id;
+    obj["command"] = "delete";
+    ajaxPost("api/student/delete", JSON.stringify(obj), afterDeleteStudent, "application/x-www-form-urlencoded")
 }
 
 function afterDeleteStudent(data) {
@@ -37,6 +40,7 @@ function submitCreateStudentForm(event) {
     let formData = new FormData(event.target)
     let obj = {};
     formData.forEach((value, key) => obj[key] = value);
+    obj["command"] = "create";
     console.log(obj);
     ajaxPost("api/student/save", JSON.stringify(obj), afterCreateStudent, "application/json")
 }
@@ -72,7 +76,6 @@ function updateStudent() {
     }
     document.getElementById("student_create_block_body_form").firstElementChild.setAttribute("value",
         document.getElementById("student_id").textContent);
-
     document.getElementById("student_create").style.display = "flex";
     document.getElementById("student_create_block_body_form").addEventListener("submit", submitUpdateStudentForm)
 }
@@ -82,6 +85,7 @@ function submitUpdateStudentForm(event) {
     let formData = new FormData(event.target)
     let obj = {};
     formData.forEach((value, key) => obj[key] = value);
+    obj["command"] = "update";
     ajaxPost("api/student/update", JSON.stringify(obj), afterUpdateStudent, "application/json")
 }
 

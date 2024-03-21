@@ -19,6 +19,7 @@ public class Runner {
                     .name("s" + i)
                     .surname("fe" + i)
                     .age(i)
+                    .mark(i)
                     .city("ugh" + i)
                     .street("ouihu" + i)
                     .building(54 + i)
