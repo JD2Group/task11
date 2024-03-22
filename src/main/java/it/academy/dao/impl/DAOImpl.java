@@ -45,8 +45,7 @@ public class DAOImpl<T, R> implements DAO<T, R> {
     public boolean delete(R id) {
         T obj = transactionHelper.find(clazz, id);
         transactionHelper.remove(obj);
-        obj = transactionHelper.find(clazz, id);
-        return obj == null;
+        return transactionHelper.find(clazz, id) == null;
     }
 
     @Override

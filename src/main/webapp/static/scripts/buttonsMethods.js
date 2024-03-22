@@ -1,9 +1,6 @@
 function deleteStudent() {
     let id = document.getElementById("student_id").textContent;
-    let obj = {};
-    obj["id"] = id;
-    obj["command"] = "delete";
-    ajaxPost("api/student/delete", JSON.stringify(obj), afterDeleteStudent, "application/x-www-form-urlencoded")
+    ajaxPost("api/student/delete", "id=" + id, afterDeleteStudent, "application/x-www-form-urlencoded")
 }
 
 function afterDeleteStudent(data) {
@@ -40,9 +37,8 @@ function submitCreateStudentForm(event) {
     let formData = new FormData(event.target)
     let obj = {};
     formData.forEach((value, key) => obj[key] = value);
-    obj["command"] = "create";
     console.log(obj);
-    ajaxPost("api/student/save", JSON.stringify(obj), afterCreateStudent, "application/json")
+    ajaxPost("api/student/create", JSON.stringify(obj), afterCreateStudent, "application/json")
 }
 
 function afterCreateStudent(data) {
@@ -85,7 +81,6 @@ function submitUpdateStudentForm(event) {
     let formData = new FormData(event.target)
     let obj = {};
     formData.forEach((value, key) => obj[key] = value);
-    obj["command"] = "update";
     ajaxPost("api/student/update", JSON.stringify(obj), afterUpdateStudent, "application/json")
 }
 

@@ -2,18 +2,30 @@ package it.academy.controllers.factory;
 
 
 import it.academy.controllers.Controller;
+
 public class ControllerFactory {
 
-    public Controller defineCommand(String req) {
-        Controller current = null;
+    private static ControllerFactory factory;
 
-        try {
-            CommandEnum currentEnum = CommandEnum.valueOf(req.toUpperCase());
-            current = currentEnum.getCurrentCommand();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+    private ControllerFactory(){
+
+    }
+
+    public static ControllerFactory getFactory() {
+        if (factory == null){
+            factory = new ControllerFactory();
         }
+        return factory;
+    }
 
-        return current;
+    public Controller defineCommand(String command) {
+        if (command != null && !command.isEmpty()) {
+            try {
+                return CommandEnum.valueOf(command.toUpperCase()).getCurrentCommand();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

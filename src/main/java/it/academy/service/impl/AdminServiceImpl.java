@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static it.academy.utils.Constants.*;
+import static it.academy.utils.EntityValidator.validateStudent;
+import static javax.servlet.http.HttpServletResponse.*;
 
 public final class AdminServiceImpl implements AdminService {
     private static AdminServiceImpl adminService;
@@ -45,41 +47,55 @@ public final class AdminServiceImpl implements AdminService {
 
     @Override
     public StudentDTOResponse createStudent(StudentDTORequest studentDTORequest) {
-        if (studentDTORequest.validate(METHOD_SAVE)) {
-            return ResponseHelper.getStudentResponse(BAD_REQUEST_STATUS_CODE, "Try to save existing student.");
+        studentDTORequest.setId(0);
+        Student forSave = StudentConverter.convertToEntity(studentDTORequest);
+
+        String validationResult = validateStudent(forSave);
+        if (validationResult != null){
+            return ResponseHelper.getStudentResponse(SC_BAD_REQUEST, validationResult);
         }
-        Student student = transactionHelper.transaction(() -> studentDAO.create(StudentConverter.convertToEntity(studentDTORequest)));
+
+        Student student = transactionHelper.transaction(() -> studentDAO.create(forSave));
         if (student != null) {
-            return ResponseHelper.getStudentResponse(CREATED_STATUS_CODE, SUCCESSFULLY_CREATED);
+            return ResponseHelper.getStudentResponse(SC_CREATED, SUCCESSFULLY_CREATED);
         } else {
-            return ResponseHelper.getStudentResponse(INTERNAL_SERVER_ERROR_STATUS_CODE, INTERNAL_SERVER_ERORR_MESSAGE);
+            return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }
     }
 
     @Override
     public StudentDTOResponse deleteStudent(Long id) {
-        if (id == 0) {
-            return ResponseHelper.getStudentResponse(BAD_REQUEST_STATUS_CODE, "Try to delete non-existent student.");
+        if (studentDAO.read(id)== null) {
+            return ResponseHelper.getStudentResponse(SC_NOT_FOUND, STUDENT_NOT_FOUND);
         }
         boolean state = transactionHelper.transaction(() -> studentDAO.delete(id));
         if (state) {
-            return ResponseHelper.getStudentResponse(OK_STATUS_CODE, SUCCESSFULLY_DELETED);
+            return ResponseHelper.getStudentResponse(SC_OK, SUCCESSFULLY_DELETED);
         } else {
-            return ResponseHelper.getStudentResponse(INTERNAL_SERVER_ERROR_STATUS_CODE, INTERNAL_SERVER_ERORR_MESSAGE);
+            return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }
     }
 
     @Override
     public StudentDTOResponse updateStudent(StudentDTORequest studentDTORequest) {
-        if (studentDTORequest.validate(METHOD_UPDATE)) {
-            return ResponseHelper.getStudentResponse(BAD_REQUEST_STATUS_CODE, "Try to update non-existent student.");
+        try {
+            transactionHelper.begin();
+            Student forUpdate = StudentConverter.convertToEntity(studentDTORequest);
+            String validationResult = validateStudent(forUpdate);
+            if (validationResult != null){
+                return ResponseHelper.getStudentResponse(SC_BAD_REQUEST, validationResult);
+            }
+            if (studentDAO.read(forUpdate.getId()) == null) {
+                return ResponseHelper.getStudentResponse(SC_NOT_FOUND, STUDENT_NOT_FOUND);
+            }
+            studentDAO.update(forUpdate);
+            transactionHelper.commit();
+        } catch (Exception e){
+            transactionHelper.rollback();
+            return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }
-        Student student = transactionHelper.transaction(() -> studentDAO.update(StudentConverter.convertToEntity(studentDTORequest)));
-        if (student != null) {
-            return ResponseHelper.getStudentResponse(OK_STATUS_CODE, SUCCESSFULLY_UPDATED);
-        } else {
-            return ResponseHelper.getStudentResponse(INTERNAL_SERVER_ERROR_STATUS_CODE, INTERNAL_SERVER_ERORR_MESSAGE);
-        }
+        return ResponseHelper.getStudentResponse(OK_STATUS_CODE, SUCCESSFULLY_UPDATED);
+
     }
 
     @Override

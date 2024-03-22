@@ -2,6 +2,9 @@ package it.academy.utils;
 
 import com.google.gson.Gson;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Random;
 
 public final class Constants {
@@ -48,10 +51,13 @@ public final class Constants {
     public static final int CREATED_STATUS_CODE = 201;
     public static final int OK_STATUS_CODE = 200;
     public static final int INTERNAL_SERVER_ERROR_STATUS_CODE = 500;
-    public static final String INTERNAL_SERVER_ERORR_MESSAGE = "Something went wrong!";
+    public static final String INTERNAL_SERVER_ERROR_MESSAGE = "Something went wrong!";
     public static final String SUCCESSFULLY_CREATED = "Successfully created!";
     public static final String SUCCESSFULLY_DELETED = "Successfully deleted!";
     public static final String SUCCESSFULLY_UPDATED = "Successfully updated!";
+    public static final String REQUEST_RESOURCE_NOT_FOUND = "Request resource not found!";
+    public static final String COMMAND_HEADER = "Command";
+    public static final String STUDENT_NOT_FOUND = "Student not found.";
 
 
     private Constants() {
