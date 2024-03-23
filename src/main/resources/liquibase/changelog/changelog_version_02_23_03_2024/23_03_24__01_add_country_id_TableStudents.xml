@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="Olga_Tysevich" id="addColumn-country_id">
+        <addColumn tableName="students">
+            <column name="country_id"
+                    type="bigint" />
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
+
+

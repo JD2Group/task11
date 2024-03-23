@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
 import java.io.Serializable;
 
 @Data
@@ -34,6 +33,10 @@ public class StudentDTORequest implements Serializable {
     @SerializedName("mark")
     @Expose
     private Integer mark;
+
+    @SerializedName("country")
+    @Expose
+    private String country;
 
     @SerializedName("city")
     @Expose

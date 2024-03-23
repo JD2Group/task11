@@ -11,6 +11,7 @@
         <th key="surname">Фамилия</th>
         <th key="age">Возраст</th>
         <th key="mark">Оценка</th>
+        <th key="country">Страна</th>
         <th key="city">Город</th>
         <th key="street">Улица</th>
         <th key="building">Номер дома</th>
@@ -36,6 +37,7 @@
             out.println(String.format("<td>%s</td>", s.getSurname()));
             out.println(String.format("<td>%d</td>", s.getAge()));
             out.println(String.format("<td>%d</td>", s.getMark()));
+            out.println(String.format("<td>%s</td>", s.getCountry()));
             out.println(String.format("<td>%s</td>", s.getCity()));
             out.println(String.format("<td>%s</td>", s.getStreet()));
             out.println(String.format("<td>%s</td>", s.getBuilding()));

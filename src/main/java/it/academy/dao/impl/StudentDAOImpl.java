@@ -14,8 +14,12 @@ public class StudentDAOImpl extends DAOImpl<Student, Long> implements StudentDAO
     }
 
     @Override
-    public List<Student> readAll(int page, int count) {
+    public Student create(Student obj) {
+        return super.create(obj);
+    }
 
+    @Override
+    public List<Student> readAll(int page, int count) {
         return transactionHelper.entityManager().createQuery(SELECT_ALL_FROM_STUDENT_WITH_ORDER, Student.class)
                 .setMaxResults(count)
                 .setFirstResult((page - 1) * count)

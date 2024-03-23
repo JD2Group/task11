@@ -1,8 +1,7 @@
 package it.academy.servlets;
 
-import it.academy.controllers.Controller;
-import it.academy.controllers.factory.ControllerFactory;
-import it.academy.dto.request.CommandRequest;
+import it.academy.commands.Command;
+import it.academy.commands.factory.CommandFactory;
 import it.academy.utils.Constants;
 import it.academy.utils.ResponseHelper;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.stream.Collectors;
-
-import static it.academy.utils.Constants.GSON;
 
 @WebServlet(urlPatterns = "/api/*", name = "MainServlet")
 public class MainServlet extends HttpServlet {
@@ -31,15 +27,15 @@ public class MainServlet extends HttpServlet {
 
         String command = request.getHeader(Constants.COMMAND_HEADER);
 
-        ControllerFactory controllerFactory = ControllerFactory.getFactory();
-        Controller controller =  controllerFactory.defineCommand(command);
-        if (controller == null){
+        CommandFactory commandFactory = CommandFactory.getFactory();
+        Command currentCommand =  commandFactory.defineController(command);
+        if (currentCommand == null){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Command is undefined.");
             return;
         }
         System.out.println("Controller has been identified.");
 
-        String resp = controller.execute(request);
+        String resp = currentCommand.execute(request);
         if (resp == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;

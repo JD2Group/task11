@@ -1,24 +1,24 @@
-package it.academy.controllers.factory;
+package it.academy.commands.factory;
 
 
-import it.academy.controllers.Controller;
+import it.academy.commands.Command;
 
-public class ControllerFactory {
+public class CommandFactory {
 
-    private static ControllerFactory factory;
+    private static CommandFactory factory;
 
-    private ControllerFactory(){
+    private CommandFactory(){
 
     }
 
-    public static ControllerFactory getFactory() {
+    public static CommandFactory getFactory() {
         if (factory == null){
-            factory = new ControllerFactory();
+            factory = new CommandFactory();
         }
         return factory;
     }
 
-    public Controller defineCommand(String command) {
+    public Command defineController(String command) {
         if (command != null && !command.isEmpty()) {
             try {
                 return CommandEnum.valueOf(command.toUpperCase()).getCurrentCommand();

@@ -11,6 +11,9 @@ public final class Constants {
 
     public static final Gson GSON = new Gson();
 
+    //entity attributes
+    public static final String ENTITY_ID = "id";
+
     //command names
     public static final String CREATE_ACTION = "create";
     public static final String UPDATE_ACTION = "update";
@@ -25,6 +28,7 @@ public final class Constants {
             "SELECT s FROM Student s ORDER BY s.surname AND s.name AND s.age LIMIT %d OFFSET %d";
     public static final String DELETE_ALL_FROM_TABLE = "DELETE FROM %s";
     public static final String NULL_EXCEPTION_MESSAGE = "Try to use null object. Aborted.";
+    public static final String SELECT_COUNTRY_BY_NAME = "SELECT c FROM Country c where name = :name";
     public static final String STRING_N = "%n";
     public static final Random RANDOM = new Random();
 

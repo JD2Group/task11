@@ -4,6 +4,9 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                  https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
-    <include file="changelog\changelog_version_01\cumulative_01.xml" relativeToChangelogFile="true"/>
-    <include file="changelog\changelog_version_02_23_03_2024\cumulative_02.xml" relativeToChangelogFile="true"/>
+
+    <include file="23_03_24__01_createTableCountries.xml" relativeToChangelogFile="true"/>
+    <include file="23_03_24__01_add_country_id_TableStudents.xml" relativeToChangelogFile="true"/>
+    <include file="23_03_24__01_add_foreign_key_country_id_TableStudents.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

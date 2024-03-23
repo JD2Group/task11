@@ -2,6 +2,7 @@ package it.academy.utils;
 
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.models.Address;
+import it.academy.models.Country;
 import it.academy.models.Student;
 
 public class StudentConverter {
@@ -20,6 +21,9 @@ public class StudentConverter {
                 .surname(studentFrom.getSurname())
                 .mark(studentFrom.getMark())
                 .age(studentFrom.getAge())
+                .country(Country.builder()
+                        .name(studentFrom.getCountry())
+                        .build())
                 .address(Address.builder()
                         .street(studentFrom.getStreet())
                         .city(studentFrom.getCity())
@@ -39,6 +43,7 @@ public class StudentConverter {
                 .surname(studentFrom.getSurname())
                 .mark(studentFrom.getMark())
                 .age(studentFrom.getAge())
+                .country(studentFrom.getCountry().getName())
                 .street(studentFrom.getAddress().getStreet())
                 .city(studentFrom.getAddress().getCity())
                 .building(studentFrom.getAddress().getBuilding())

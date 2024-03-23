@@ -25,6 +25,10 @@
                     <input name="mark" value="" type="number">
                 </div>
                 <div class="student_create_block_body_form_field">
+                    <label>Страна: </label>
+                    <input name="country" value="" type="text">
+                </div>
+                <div class="student_create_block_body_form_field">
                     <label>Город: </label>
                     <input name="city" value="" type="text">
                 </div>

@@ -18,6 +18,9 @@
             <div class="student_info_block_mark">
 
             </div>
+            <div class="student_info_block_country">
+
+            </div>
             <div class="student_info_block_building">
 
             </div>

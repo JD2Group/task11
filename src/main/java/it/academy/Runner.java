@@ -1,5 +1,6 @@
 package it.academy;
 
+
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
@@ -13,15 +14,17 @@ public class Runner {
 
     public static void main(String[] args) {
 
+
         AdminService admin = AdminServiceImpl.getInstance();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 1; i < 100; i++) {
             StudentDTORequest student = StudentDTORequest.builder()
-                    .name("s" + i)
-                    .surname("fe" + i)
+                    .name("ssdfsf" + i)
+                    .surname("fesdfdsf" + i)
                     .age(i)
                     .mark(i)
-                    .city("ugh" + i)
-                    .street("ouihu" + i)
+                    .country("country" + i)
+                    .city("ughgg" + i)
+                    .street("ouihugg" + i)
                     .building(54 + i)
                     .build();
 
