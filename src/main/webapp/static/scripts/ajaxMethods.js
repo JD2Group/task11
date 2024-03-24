@@ -14,16 +14,17 @@ function ajaxPost(url, data, method, contentType) {
     xmlDoc.send(data);
 }
 
-function ajaxGet(url, callback) {
+function ajaxGet(url, method) {
     let xmlDoc = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-
+    let command = url.substring(url.lastIndexOf("/")+1, url.lastIndexOf("?"));
     xmlDoc.open('GET', url, true);
-
+    xmlDoc.setRequestHeader("Command", command)
     xmlDoc.onreadystatechange = function () {
         if (xmlDoc.readyState === 4 && xmlDoc.status === 200) {
-            callback(xmlDoc);
+            let responseData = JSON.parse(xmlDoc.responseText);
+            method(responseData);
         }
     }
-
+    console.log(url);
     xmlDoc.send();
 }

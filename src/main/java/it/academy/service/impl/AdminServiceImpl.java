@@ -6,6 +6,7 @@ import it.academy.dao.impl.CountryDAOImpl;
 import it.academy.dao.impl.StudentDAOImpl;
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.dto.response.StudentDTOResponse;
+import it.academy.dto.response.StudentInfoResponse;
 import it.academy.models.Country;
 import it.academy.models.Student;
 import it.academy.service.AdminService;
@@ -40,13 +41,13 @@ public final class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<StudentDTORequest> getAllStudents() {
+    public List<StudentInfoResponse> getAllStudents() {
         List<Student> studentList = transactionHelper.transaction(studentDAO::readAll);
         return studentList.stream().map(StudentConverter::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<StudentDTORequest> getAllStudents(int page, int count) {
+    public List<StudentInfoResponse> getAllStudents(int page, int count) {
         List<Student> studentList = transactionHelper.transaction(() -> studentDAO.readAll(page, count));
         return studentList.stream().map(StudentConverter::convertToDTO).collect(Collectors.toList());
     }
@@ -112,7 +113,7 @@ public final class AdminServiceImpl implements AdminService {
             transactionHelper.rollback();
             return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }
-        return ResponseHelper.getStudentResponse(OK_STATUS_CODE, SUCCESSFULLY_UPDATED);
+        return ResponseHelper.getStudentResponse(SC_OK, SUCCESSFULLY_UPDATED);
 
     }
 

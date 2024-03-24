@@ -130,3 +130,11 @@ function showResponse(data) {
         "<p>" + msg + "</p>";
     document.getElementById("response").style.display = "flex";
 }
+
+function fetchTable(page, count){
+    ajaxGet("api/students/students_page?page="+ page +"&students_per_page=" + count, afterFetchTable);
+}
+
+function afterFetchTable(data){
+    console.log(data);
+}

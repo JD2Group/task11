@@ -16,7 +16,7 @@
 
 #response_block {
     width: 30vw;
-    height: 13vw;
+    height: 100%;
     margin: auto auto;
     background: rgba(0, 0, 0, 0.9);
     border: 2px solid white;

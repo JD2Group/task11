@@ -7,7 +7,7 @@
     <link href="${pageContext.request.contextPath}/static/styles/main.css" rel="stylesheet">
     <title>TASK11</title>
 </head>
-<body>
+<body onload="fetchTable(1, 10)">
 <%@include file="WEB-INF/jsp/response.jsp" %>
 <%@include file="WEB-INF/jsp/header.jsp" %>
 <div class="main_page">

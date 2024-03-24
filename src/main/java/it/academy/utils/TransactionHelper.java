@@ -173,6 +173,7 @@ public final class TransactionHelper {
     public <T> T persist(T obj) {
         validateObject(obj);
         entityManager.persist(obj);
+        System.out.println(obj);
         return obj;
     }
 

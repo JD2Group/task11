@@ -9,24 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 @WebServlet(urlPatterns = "/api/*", name = "MainServlet")
 public class MainServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        processRequest(req, resp);
+        processRequest(req, resp, "POST");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        processRequest(req, resp);
+        processRequest(req, resp, "GET");
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response, String method) throws IOException {
 
-        String command = request.getHeader(Constants.COMMAND_HEADER);
+        Enumeration<String> test = request.getHeaderNames();
+        while (test.hasMoreElements()){
+            String elem = test.nextElement();
+            System.out.println(elem + " : " + request.getHeader(elem));
 
+        }
+
+        String command = method + "_" + request.getHeader(Constants.COMMAND_HEADER);
+        System.out.println("Cur command: " + command);
         CommandFactory commandFactory = CommandFactory.getFactory();
         Command currentCommand =  commandFactory.defineController(command);
         if (currentCommand == null){

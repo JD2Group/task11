@@ -3,7 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF8" %>
 
-<table class="database_table">
+<table class="database_table" onload="fetchTable(1, 10)">
     <thead id="student_table_head">
     <tr>
         <th></th>

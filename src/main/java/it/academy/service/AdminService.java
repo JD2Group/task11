@@ -2,14 +2,15 @@ package it.academy.service;
 
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.dto.response.StudentDTOResponse;
+import it.academy.dto.response.StudentInfoResponse;
 
 import java.util.List;
 
 public interface AdminService {
 
-    List<StudentDTORequest> getAllStudents();
+    List<StudentInfoResponse> getAllStudents();
 
-    List<StudentDTORequest> getAllStudents(int page, int count);
+    List<StudentInfoResponse> getAllStudents(int page, int count);
 
     StudentDTOResponse createStudent(StudentDTORequest studentDTORequest);
 
