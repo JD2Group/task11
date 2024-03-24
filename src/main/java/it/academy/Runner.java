@@ -21,7 +21,7 @@ public class Runner {
 
     public static void main(String[] args) throws InterruptedException {
 
-        DataGenerator.generateCountries();
+        //DataGenerator.generateCountries();
 
         StudentDAO studentDAO = new StudentDAOImpl();
         TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
