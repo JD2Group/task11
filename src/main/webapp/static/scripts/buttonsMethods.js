@@ -1,3 +1,57 @@
+//CONSTANTS
+const STUDENTS_PER_PAGE = 15;
+const START_PAGE = 1;
+
+//END
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const paginationLinks = document.querySelectorAll(".table_block_pagination a");
+
+    fetchTable(START_PAGE);
+    refreshPaginationNavState(START_PAGE);
+
+    paginationLinks.forEach(link => {
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+            const currentPage = parseInt(document.querySelector(".table_block_pagination a.active").textContent);
+            if (currentPage === parseInt(link.textContent)){
+                return;
+            }
+            const lastPage = parseInt(paginationLinks[paginationLinks.length - 3].textContent);
+            if (link.classList.contains("first-page")) {
+                goToPage(1);
+            } else if (link.classList.contains("last-page")) {
+                goToPage(lastPage);
+            } else if (link.classList.contains("prev-page")) {
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1)
+                }
+            } else if (link.classList.contains("next-page")) {
+                if (currentPage < lastPage){
+                    goToPage(currentPage + 1)
+                }
+            } else {
+                goToPage(parseInt(link.textContent));
+            }
+        });
+    });
+    function goToPage(pageNumber) {
+
+        refreshPaginationNavState(pageNumber);
+        console.log("Navigating to page:", pageNumber);
+        fetchTable(pageNumber);
+        // Update active link
+        paginationLinks.forEach(link => {
+            link.classList.remove("active");
+            if (parseInt(link.textContent) === pageNumber) {
+                link.classList.add("active");
+            }
+        });
+    }
+});
+
+
 function deleteStudent() {
     let id = document.getElementById("student_id").textContent;
     ajaxPost("api/student/delete", "id=" + id, afterDeleteStudent, "application/x-www-form-urlencoded")
@@ -105,10 +159,7 @@ function afterUpdateStudent(data) {
             }
         }
         document.getElementById("student_create_block_body_form").removeEventListener("submit", submitUpdateStudentForm)
-
     }
-
-
 }
 
 function closeCreateForm(elem) {
@@ -131,10 +182,78 @@ function showResponse(data) {
     document.getElementById("response").style.display = "flex";
 }
 
-function fetchTable(page, count){
-    ajaxGet("api/students/students_page?page="+ page +"&students_per_page=" + count, afterFetchTable);
+
+function fetchTable(page){
+    ajaxGet("api/students/students_page?page="+ page +"&students_per_page=" + STUDENTS_PER_PAGE, afterFetchTable);
 }
 
+
 function afterFetchTable(data){
-    console.log(data);
+    let paginationLinks = document.querySelectorAll(".table_block_pagination a");
+    paginationLinks[paginationLinks.length-3].textContent = Math.ceil(data["countOfStudents"]/STUDENTS_PER_PAGE)
+
+    let tableBody = document.getElementById('student_table_body');
+    tableBody.innerHTML = '';
+    let students = data.students;
+    students.forEach(function(student, index) {
+        let row = '<tr key="' + student.id + '" onclick="completeInfo(this)">';
+        row += '<td>' + (index + 1) + '</td>';
+        row += '<td>' + student.name + '</td>';
+        row += '<td>' + student.surname + '</td>';
+        row += '<td>' + student.age + '</td>';
+        row += '<td>' + student.mark + '</td>';
+        row += '<td>' + student.country + '</td>';
+        row += '<td>' + student.city + '</td>';
+        row += '<td>' + student.street + '</td>';
+        row += '<td>' + student.building + '</td>';
+        row += '</tr>';
+        tableBody.innerHTML += row;
+    });
+    let countOfStudent = data.countOfStudents;
+    console.log(countOfStudent);
+}
+
+
+
+
+function refreshPaginationNavState(pageNumber){
+    let a = document.querySelectorAll(".table_block_pagination a");
+    if (pageNumber === 1) {
+        document.getElementsByClassName("first-page")[0].style.visibility = "hidden";
+        document.getElementsByClassName("prev-page")[0].style.visibility = "hidden";
+        let movableNav = document.getElementsByClassName("movable-page-nav");
+        movableNav[2].textContent = pageNumber + 3;
+        movableNav[1].textContent = pageNumber + 2;
+        movableNav[0].textContent = pageNumber + 1;
+    } else {
+        document.getElementsByClassName("first-page")[0].style.visibility = "visible";
+        document.getElementsByClassName("prev-page")[0].style.visibility = "visible";
+    }
+    if (pageNumber === parseInt(a[a.length-3].textContent)) {
+        document.getElementsByClassName("next-page")[0].style.visibility = "hidden";
+        document.getElementsByClassName("last-page")[0].style.visibility = "hidden";
+        let movableNav = document.getElementsByClassName("movable-page-nav");
+        movableNav[2].textContent = pageNumber - 1;
+        movableNav[1].textContent = pageNumber - 2;
+        movableNav[0].textContent = pageNumber - 3;
+    } else {
+        document.getElementsByClassName("next-page")[0].style.visibility = "visible";
+        document.getElementsByClassName("last-page")[0].style.visibility = "visible";
+    }
+    if (pageNumber > 3){
+        document.querySelectorAll(".table_block_pagination p")[0].style.display = "flex";
+    } else {
+        document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
+    }
+    if (pageNumber < parseInt(a[a.length-3].textContent)-2){
+        document.querySelectorAll(".table_block_pagination p")[1].style.display = "flex";
+    } else {
+        document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
+    }
+    if (pageNumber > 2 && pageNumber < parseInt(a[a.length-3].textContent)-1){
+        document.getElementsByClassName("movable-page-nav")[2].textContent = pageNumber+1;
+        document.getElementsByClassName("movable-page-nav")[1].textContent = pageNumber;
+        document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber-1;
+    }
+
 }

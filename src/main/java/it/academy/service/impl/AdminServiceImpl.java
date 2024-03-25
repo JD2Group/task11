@@ -58,9 +58,8 @@ public final class AdminServiceImpl implements AdminService {
         Student forSave = StudentConverter.convertToEntity(studentDTORequest);
         Supplier<Student> save = () -> {
             Country country = checkCountry(forSave.getCountry());
-            forSave.setCountry(null);
-            studentDAO.create(forSave);
             forSave.setCountry(country);
+            studentDAO.create(forSave);
             return studentDAO.update(forSave);
         };
 
