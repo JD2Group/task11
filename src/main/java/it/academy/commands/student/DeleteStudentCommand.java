@@ -15,7 +15,7 @@ public class DeleteStudentCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         AdminService service = AdminServiceImpl.getInstance();
-        if (request.getParameter(ENTITY_ID) == null){
+        if (request.getParameter(ENTITY_ID) == null) {
             return null;
         }
         Long id = Long.valueOf(request.getParameter(ENTITY_ID));

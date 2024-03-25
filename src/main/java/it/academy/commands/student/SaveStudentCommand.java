@@ -5,10 +5,11 @@ import it.academy.dto.request.StudentDTORequest;
 import it.academy.dto.response.StudentDTOResponse;
 import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
-import static it.academy.utils.Constants.*;
+import static it.academy.utils.Constants.GSON;
 
 public class SaveStudentCommand implements Command {
 
@@ -20,7 +21,7 @@ public class SaveStudentCommand implements Command {
             StudentDTORequest studentDTO = GSON.fromJson(req, StudentDTORequest.class);
             StudentDTOResponse out = service.createStudent(studentDTO);
             return GSON.toJson(out);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

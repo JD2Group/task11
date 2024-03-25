@@ -4,7 +4,7 @@ const START_PAGE = 1;
 
 //END
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     const paginationLinks = document.querySelectorAll(".table_block_pagination a");
 
@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
     refreshPaginationNavState(START_PAGE);
 
     paginationLinks.forEach(link => {
-        link.addEventListener("click", function(event) {
+        link.addEventListener("click", function (event) {
             event.preventDefault();
             const currentPage = parseInt(document.querySelector(".table_block_pagination a.active").textContent);
-            if (currentPage === parseInt(link.textContent)){
+            if (currentPage === parseInt(link.textContent)) {
                 return;
             }
             const lastPage = parseInt(paginationLinks[paginationLinks.length - 3].textContent);
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     goToPage(currentPage - 1)
                 }
             } else if (link.classList.contains("next-page")) {
-                if (currentPage < lastPage){
+                if (currentPage < lastPage) {
                     goToPage(currentPage + 1)
                 }
             } else {
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
     function goToPage(pageNumber) {
 
         refreshPaginationNavState(pageNumber);
@@ -183,19 +184,19 @@ function showResponse(data) {
 }
 
 
-function fetchTable(page){
-    ajaxGet("api/students/students_page?page="+ page +"&students_per_page=" + STUDENTS_PER_PAGE, afterFetchTable);
+function fetchTable(page) {
+    ajaxGet("api/students/students_page?page=" + page + "&students_per_page=" + STUDENTS_PER_PAGE, afterFetchTable);
 }
 
 
-function afterFetchTable(data){
+function afterFetchTable(data) {
     let paginationLinks = document.querySelectorAll(".table_block_pagination a");
-    paginationLinks[paginationLinks.length-3].textContent = Math.ceil(data["countOfStudents"]/STUDENTS_PER_PAGE)
+    paginationLinks[paginationLinks.length - 3].textContent = Math.ceil(data["countOfStudents"] / STUDENTS_PER_PAGE)
 
     let tableBody = document.getElementById('student_table_body');
     tableBody.innerHTML = '';
     let students = data.students;
-    students.forEach(function(student, index) {
+    students.forEach(function (student, index) {
         let row = '<tr key="' + student.id + '" onclick="completeInfo(this)">';
         row += '<td>' + (index + 1) + '</td>';
         row += '<td>' + student.name + '</td>';
@@ -214,9 +215,7 @@ function afterFetchTable(data){
 }
 
 
-
-
-function refreshPaginationNavState(pageNumber){
+function refreshPaginationNavState(pageNumber) {
     let a = document.querySelectorAll(".table_block_pagination a");
     if (pageNumber === 1) {
         document.getElementsByClassName("first-page")[0].style.visibility = "hidden";
@@ -229,7 +228,7 @@ function refreshPaginationNavState(pageNumber){
         document.getElementsByClassName("first-page")[0].style.visibility = "visible";
         document.getElementsByClassName("prev-page")[0].style.visibility = "visible";
     }
-    if (pageNumber === parseInt(a[a.length-3].textContent)) {
+    if (pageNumber === parseInt(a[a.length - 3].textContent)) {
         document.getElementsByClassName("next-page")[0].style.visibility = "hidden";
         document.getElementsByClassName("last-page")[0].style.visibility = "hidden";
         let movableNav = document.getElementsByClassName("movable-page-nav");
@@ -240,20 +239,20 @@ function refreshPaginationNavState(pageNumber){
         document.getElementsByClassName("next-page")[0].style.visibility = "visible";
         document.getElementsByClassName("last-page")[0].style.visibility = "visible";
     }
-    if (pageNumber > 3){
+    if (pageNumber > 3) {
         document.querySelectorAll(".table_block_pagination p")[0].style.display = "flex";
     } else {
         document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
     }
-    if (pageNumber < parseInt(a[a.length-3].textContent)-2){
+    if (pageNumber < parseInt(a[a.length - 3].textContent) - 2) {
         document.querySelectorAll(".table_block_pagination p")[1].style.display = "flex";
     } else {
         document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
     }
-    if (pageNumber > 2 && pageNumber < parseInt(a[a.length-3].textContent)-1){
-        document.getElementsByClassName("movable-page-nav")[2].textContent = pageNumber+1;
+    if (pageNumber > 2 && pageNumber < parseInt(a[a.length - 3].textContent) - 1) {
+        document.getElementsByClassName("movable-page-nav")[2].textContent = pageNumber + 1;
         document.getElementsByClassName("movable-page-nav")[1].textContent = pageNumber;
-        document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber-1;
+        document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber - 1;
     }
 
 }

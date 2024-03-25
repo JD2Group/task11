@@ -20,7 +20,7 @@ public class UpdateStudentCommand implements Command {
             StudentDTORequest studentDTO = GSON.fromJson(req, StudentDTORequest.class);
             StudentDTOResponse out = service.updateStudent(studentDTO);
             return GSON.toJson(out);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

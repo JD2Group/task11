@@ -3,18 +3,11 @@ package it.academy;
 
 import it.academy.dao.StudentDAO;
 import it.academy.dao.impl.StudentDAOImpl;
-import it.academy.dto.request.StudentDTORequest;
-import it.academy.dto.response.StudentInfoResponse;
 import it.academy.models.Student;
 import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
 import it.academy.utils.DataGenerator;
-import it.academy.utils.StudentConverter;
 import it.academy.utils.TransactionHelper;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class Runner {
 
@@ -28,7 +21,7 @@ public class Runner {
         AdminService admin = AdminServiceImpl.getInstance();
         for (int i = 1; i < 100; i++) {
             Student student = DataGenerator.generateStudent();
-            transactionHelper.transaction(()-> studentDAO.create(student));
+            transactionHelper.transaction(() -> studentDAO.create(student));
         }
 
         try {

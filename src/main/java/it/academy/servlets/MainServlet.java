@@ -4,6 +4,7 @@ import it.academy.commands.Command;
 import it.academy.commands.factory.CommandFactory;
 import it.academy.utils.Constants;
 import it.academy.utils.ResponseHelper;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class MainServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response, String method) throws IOException {
 
         Enumeration<String> test = request.getHeaderNames();
-        while (test.hasMoreElements()){
+        while (test.hasMoreElements()) {
             String elem = test.nextElement();
             System.out.println(elem + " : " + request.getHeader(elem));
 
@@ -36,8 +37,8 @@ public class MainServlet extends HttpServlet {
         String command = method + "_" + request.getHeader(Constants.COMMAND_HEADER);
         System.out.println("Cur command: " + command);
         CommandFactory commandFactory = CommandFactory.getFactory();
-        Command currentCommand =  commandFactory.defineController(command);
-        if (currentCommand == null){
+        Command currentCommand = commandFactory.defineController(command);
+        if (currentCommand == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Command is undefined.");
             return;
         }

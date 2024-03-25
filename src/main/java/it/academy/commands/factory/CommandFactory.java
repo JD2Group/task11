@@ -7,12 +7,12 @@ public class CommandFactory {
 
     private static CommandFactory factory;
 
-    private CommandFactory(){
+    private CommandFactory() {
 
     }
 
     public static CommandFactory getFactory() {
-        if (factory == null){
+        if (factory == null) {
             factory = new CommandFactory();
         }
         return factory;

@@ -285,7 +285,7 @@
     width: 70%;
 }
 
-.database_table_overflow{
+.database_table_overflow {
     overflow-x: auto;
 }
 
@@ -325,11 +325,13 @@
     overflow: auto;
     white-space: nowrap;
 }
+
 .table_block_pagination {
     display: flex;
     font-size: 1vw;
     justify-content: center;
 }
+
 .table_block_pagination p {
     color: white;
     align-items: center;
@@ -352,6 +354,7 @@
     color: white;
     background-color: rgb(100, 0, 0);
 }
+
 .table_block_pagination a:active:not(.active) {
     color: grey;
     background-color: rgb(70, 0, 0);

@@ -7,9 +7,7 @@ import it.academy.models.Address;
 import it.academy.models.Country;
 import it.academy.models.Student;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 import static it.academy.utils.Constants.RANDOM;
@@ -22,20 +20,20 @@ public class DataGenerator {
             "Brazil", "Nigeria", "Bangladesh", "Russia", "Mexico"
     );
 
-    public static void generateCountries(){
+    public static void generateCountries() {
         CountryDAO countryDAO = new CountryDAOImpl();
         TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
         IntStream.range(0, LIST_OF_COUNTRY_NAMES.size())
-                .forEach(i->{
+                .forEach(i -> {
                     Country country = Country.builder()
                             .name(LIST_OF_COUNTRY_NAMES.get(i))
                             .build();
-                    transactionHelper.transaction(()-> countryDAO.create(country));
+                    transactionHelper.transaction(() -> countryDAO.create(country));
                 });
     }
 
 
-    public static Student generateStudent(){
+    public static Student generateStudent() {
         int gender = RANDOM.nextInt(2);
         CountryDAO countryDAO = new CountryDAOImpl();
         return Student.builder()

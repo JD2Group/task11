@@ -2,6 +2,7 @@ package it.academy.dao.impl;
 
 import it.academy.dao.CountryDAO;
 import it.academy.models.Country;
+
 import javax.persistence.TypedQuery;
 
 import static it.academy.utils.Constants.SELECT_COUNTRY_BY_NAME;

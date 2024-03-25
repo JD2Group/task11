@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static it.academy.utils.Constants.GSON;
-
 public class ResponseHelper {
 
     public static StudentDTOResponse getStudentResponse(int httpStatus, String message) {

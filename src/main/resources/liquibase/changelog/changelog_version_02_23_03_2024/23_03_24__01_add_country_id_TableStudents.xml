@@ -7,7 +7,7 @@
     <changeSet author="Olga_Tysevich" id="addColumn-country_id">
         <addColumn tableName="students">
             <column name="country_id"
-                    type="bigint" />
+                    type="bigint"/>
         </addColumn>
     </changeSet>
 

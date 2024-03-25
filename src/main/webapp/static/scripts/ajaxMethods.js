@@ -1,6 +1,6 @@
 function ajaxPost(url, data, method, contentType) {
     let xmlDoc = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-    let command = url.substring(url.lastIndexOf("/")+1);
+    let command = url.substring(url.lastIndexOf("/") + 1);
     xmlDoc.open('POST', url, true);
     xmlDoc.setRequestHeader("Content-type", contentType);
     xmlDoc.setRequestHeader("Command", command);
@@ -16,7 +16,7 @@ function ajaxPost(url, data, method, contentType) {
 
 function ajaxGet(url, method) {
     let xmlDoc = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-    let command = url.substring(url.lastIndexOf("/")+1, url.lastIndexOf("?"));
+    let command = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("?"));
     xmlDoc.open('GET', url, true);
     xmlDoc.setRequestHeader("Command", command)
     xmlDoc.onreadystatechange = function () {

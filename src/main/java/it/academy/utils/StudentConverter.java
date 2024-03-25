@@ -1,7 +1,6 @@
 package it.academy.utils;
 
 import it.academy.dto.request.StudentDTORequest;
-import it.academy.dto.response.StudentDTOResponse;
 import it.academy.dto.response.StudentInfoResponse;
 import it.academy.models.Address;
 import it.academy.models.Country;
@@ -52,7 +51,7 @@ public class StudentConverter {
                 .build();
     }
 
-    public static StudentDTORequest convertInfoResponseToRequest(StudentInfoResponse studentFrom){
+    public static StudentDTORequest convertInfoResponseToRequest(StudentInfoResponse studentFrom) {
         if (studentFrom == null) {
             return null;
         }
