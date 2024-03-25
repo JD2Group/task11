@@ -12,14 +12,14 @@ import it.academy.utils.TransactionHelper;
 public class Runner {
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         //DataGenerator.generateCountries();
 
         StudentDAO studentDAO = new StudentDAOImpl();
         TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
         AdminService admin = AdminServiceImpl.getInstance();
-        for (int i = 1; i < 100; i++) {
+        for (int i = 0; i < 3; i++) {
             Student student = DataGenerator.generateStudent();
             transactionHelper.transaction(() -> studentDAO.create(student));
         }

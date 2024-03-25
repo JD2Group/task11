@@ -7,7 +7,6 @@ const START_PAGE = 1;
 document.addEventListener("DOMContentLoaded", function () {
 
     const paginationLinks = document.querySelectorAll(".table_block_pagination a");
-
     fetchTable(START_PAGE);
     refreshPaginationNavState(START_PAGE);
 
@@ -159,11 +158,13 @@ function afterUpdateStudent(data) {
                 }
             }
         }
+
+        fetchTable(document.getElementsByClassName("active")[0].textContent);
         document.getElementById("student_create_block_body_form").removeEventListener("submit", submitUpdateStudentForm)
     }
 }
 
-function closeCreateForm(elem) {
+function closeCreateForm() {
     document.getElementById('student_create').style.display = 'none';
     let fields = document.getElementsByClassName("student_create_block_body_form_field")
     for (let i = 0; i < fields.length; i++) {
@@ -216,6 +217,7 @@ function afterFetchTable(data) {
 
 
 function refreshPaginationNavState(pageNumber) {
+    pageNumber = parseInt(pageNumber);
     let a = document.querySelectorAll(".table_block_pagination a");
     if (pageNumber === 1) {
         document.getElementsByClassName("first-page")[0].style.visibility = "hidden";

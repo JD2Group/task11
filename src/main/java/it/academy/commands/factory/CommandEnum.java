@@ -13,7 +13,7 @@ public enum CommandEnum {
     POST_DELETE(new DeleteStudentCommand()),
     GET_STUDENTS_PAGE(new GetStudentsPageCommand());
 
-    private Command command;
+    private final Command command;
 
     CommandEnum(Command command) {
         this.command = command;

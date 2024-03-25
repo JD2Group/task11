@@ -34,7 +34,6 @@ public class DataGenerator {
 
 
     public static Student generateStudent() {
-        int gender = RANDOM.nextInt(2);
         CountryDAO countryDAO = new CountryDAOImpl();
         return Student.builder()
                 .name(faker.name().firstName())

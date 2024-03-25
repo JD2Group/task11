@@ -26,7 +26,7 @@ public class Country implements Serializable {
     @Column
     @NotBlank
     @Size(min = 3, max = 20, message = "Country must be between {min} and {max} characters long.")
-    @Pattern(regexp = "[A-ZА-Я][a-zа-я]{2,19}-?[A-ZА-Я]*[a-zа-я]{2,19}",
+    @Pattern(regexp = "[A-ZА-Я][a-zа-я]{2,19}-? ?[A-ZА-Я]*[a-zа-я]{2,19}",
             message = "Country cannot contain numbers! The first letter must be uppercase, subsequent letters must be lowercase!")
     private String name;
 }

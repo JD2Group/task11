@@ -1,7 +1,4 @@
-<%@ page import="it.academy.service.impl.AdminServiceImpl" %>
-<%@ page import="it.academy.dto.request.StudentDTORequest" %>
-<%@ page import="java.util.List" %>
-<%@ page import="it.academy.dto.response.StudentInfoResponse" %>
+
 <%@ page contentType="text/html; charset=UTF8" %>
 <div class="database_table_overflow">
     <table class="database_table">
