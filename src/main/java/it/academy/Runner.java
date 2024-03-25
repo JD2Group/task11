@@ -19,7 +19,7 @@ public class Runner {
         StudentDAO studentDAO = new StudentDAOImpl();
         TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
         AdminService admin = AdminServiceImpl.getInstance();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 90; i++) {
             Student student = DataGenerator.generateStudent();
             transactionHelper.transaction(() -> studentDAO.create(student));
         }

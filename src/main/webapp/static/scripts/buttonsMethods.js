@@ -4,18 +4,18 @@ const START_PAGE = 1;
 let countOfStudents = 0;
 let lastPageNum = 0;
 const paginationLinks = document.querySelectorAll(".table_block_pagination a");
+let curPage = 1;
 //END
 
 document.addEventListener("DOMContentLoaded", function () {
 
     fetchTable(START_PAGE);
-    refreshPaginationNavState(START_PAGE);
 
     paginationLinks.forEach(link => {
         link.addEventListener("click", function (event) {
             event.preventDefault();
-            const currentPage = parseInt(document.querySelector(".table_block_pagination a.active").textContent);
-            if (currentPage === parseInt(link.textContent)) {
+            const curPage = parseInt(document.querySelector(".table_block_pagination a.active").textContent);
+            if (curPage === parseInt(link.textContent)) {
                 return;
             }
              lastPageNum = parseInt(paginationLinks[paginationLinks.length - 3].textContent);
@@ -24,12 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (link.classList.contains("last-page")) {
                 goToPage(lastPageNum);
             } else if (link.classList.contains("prev-page")) {
-                if (currentPage > 1) {
-                    goToPage(currentPage - 1)
+                if (curPage > 1) {
+                    goToPage(curPage - 1)
                 }
             } else if (link.classList.contains("next-page")) {
-                if (currentPage < lastPageNum) {
-                    goToPage(currentPage + 1)
+                if (curPage < lastPageNum) {
+                    goToPage(curPage + 1)
                 }
             } else {
                 goToPage(parseInt(link.textContent));
@@ -42,15 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function goToPage(pageNumber) {
 
     console.log("Navigating to page:", pageNumber);
+    curPage = pageNumber;
     fetchTable(pageNumber);
-    refreshPaginationNavState(pageNumber);
-    // Update active link
-    paginationLinks.forEach(link => {
-        link.classList.remove("active");
-        if (parseInt(link.textContent) === pageNumber) {
-            link.classList.add("active");
-        }
-    });
 }
 
 function deleteStudent() {
@@ -212,7 +205,9 @@ function fetchTable(page) {
 function afterFetchTable(data) {
     let paginationLinks = document.querySelectorAll(".table_block_pagination a");
     lastPageNum = Math.ceil(data["countOfStudents"] / STUDENTS_PER_PAGE);
-    paginationLinks[paginationLinks.length - 3].textContent = lastPageNum;
+    if (lastPageNum > 5) {
+        paginationLinks[paginationLinks.length - 3].textContent = lastPageNum;
+    }
     countOfStudents = data["countOfStudents"];
     let tableBody = document.getElementById('student_table_body');
     tableBody.innerHTML = '';
@@ -232,48 +227,78 @@ function afterFetchTable(data) {
         tableBody.innerHTML += row;
     });
     console.log(countOfStudents);
+    refreshPaginationNavState(curPage);
 }
 
 
 function refreshPaginationNavState(pageNumber) {
     pageNumber = parseInt(pageNumber);
     let a = document.querySelectorAll(".table_block_pagination a");
-    if (pageNumber === 1) {
-        document.getElementsByClassName("first-page")[0].style.visibility = "hidden";
-        document.getElementsByClassName("prev-page")[0].style.visibility = "hidden";
-        let movableNav = document.getElementsByClassName("movable-page-nav");
-        movableNav[2].textContent = pageNumber + 3;
-        movableNav[1].textContent = pageNumber + 2;
-        movableNav[0].textContent = pageNumber + 1;
-    } else {
-        document.getElementsByClassName("first-page")[0].style.visibility = "visible";
-        document.getElementsByClassName("prev-page")[0].style.visibility = "visible";
+    let countOfPages = Math.ceil(countOfStudents/STUDENTS_PER_PAGE);
+    console.log(STUDENTS_PER_PAGE + " " + countOfStudents);
+    console.log(countOfPages);
+    document.getElementsByClassName("table_block_pagination")[0].style.visibility = "visible";
+    if (countOfPages > 5) {
+        if (pageNumber === 1) {
+            document.getElementsByClassName("first-page")[0].style.visibility = "hidden";
+            document.getElementsByClassName("prev-page")[0].style.visibility = "hidden";
+            let movableNav = document.getElementsByClassName("movable-page-nav");
+            movableNav[2].textContent = pageNumber + 3;
+            movableNav[1].textContent = pageNumber + 2;
+            movableNav[0].textContent = pageNumber + 1;
+        } else {
+            document.getElementsByClassName("first-page")[0].style.visibility = "visible";
+            document.getElementsByClassName("prev-page")[0].style.visibility = "visible";
+        }
+        if (pageNumber === lastPageNum) {
+            document.getElementsByClassName("next-page")[0].style.visibility = "hidden";
+            document.getElementsByClassName("last-page")[0].style.visibility = "hidden";
+            let movableNav = document.getElementsByClassName("movable-page-nav");
+            movableNav[2].textContent = pageNumber - 1;
+            movableNav[1].textContent = pageNumber - 2;
+            movableNav[0].textContent = pageNumber - 3;
+        } else {
+            document.getElementsByClassName("next-page")[0].style.visibility = "visible";
+            document.getElementsByClassName("last-page")[0].style.visibility = "visible";
+        }
+        if (pageNumber > 3) {
+            document.querySelectorAll(".table_block_pagination p")[0].style.display = "flex";
+        } else {
+            document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
+        }
+        if (pageNumber < lastPageNum - 2) {
+            document.querySelectorAll(".table_block_pagination p")[1].style.display = "flex";
+        } else {
+            document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
+        }
+        if (pageNumber > 2 && pageNumber < lastPageNum - 1) {
+            document.getElementsByClassName("movable-page-nav")[2].textContent = pageNumber + 1;
+            document.getElementsByClassName("movable-page-nav")[1].textContent = pageNumber;
+            document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber - 1;
+        }
+    }else {
+        let links = document.querySelectorAll(".table_block_pagination a");
+        if (countOfPages === 0){
+            document.getElementsByClassName("table_block_pagination")[0].style.visibility = "hidden";
+        }else {
+            document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
+            document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
+            links.forEach(link=>{
+               link.style.display = "none";
+            })
+            for (let i = 0; i < countOfPages; i++){
+                links.forEach(link=>{
+                    if (parseInt(link.textContent) === i+1){
+                        link.style.display = "block";
+                    }
+                })
+            }
+        }
     }
-    if (pageNumber === lastPageNum) {
-        document.getElementsByClassName("next-page")[0].style.visibility = "hidden";
-        document.getElementsByClassName("last-page")[0].style.visibility = "hidden";
-        let movableNav = document.getElementsByClassName("movable-page-nav");
-        movableNav[2].textContent = pageNumber - 1;
-        movableNav[1].textContent = pageNumber - 2;
-        movableNav[0].textContent = pageNumber - 3;
-    } else {
-        document.getElementsByClassName("next-page")[0].style.visibility = "visible";
-        document.getElementsByClassName("last-page")[0].style.visibility = "visible";
-    }
-    if (pageNumber > 3) {
-        document.querySelectorAll(".table_block_pagination p")[0].style.display = "flex";
-    } else {
-        document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
-    }
-    if (pageNumber < lastPageNum - 2) {
-        document.querySelectorAll(".table_block_pagination p")[1].style.display = "flex";
-    } else {
-        document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
-    }
-    if (pageNumber > 2 && pageNumber < lastPageNum - 1) {
-        document.getElementsByClassName("movable-page-nav")[2].textContent = pageNumber + 1;
-        document.getElementsByClassName("movable-page-nav")[1].textContent = pageNumber;
-        document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber - 1;
-    }
-
+    paginationLinks.forEach(link => {
+        link.classList.remove("active");
+        if (parseInt(link.textContent) === pageNumber) {
+            link.classList.add("active");
+        }
+    });
 }
