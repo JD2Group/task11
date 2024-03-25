@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (curPage === parseInt(link.textContent)) {
                 return;
             }
-             lastPageNum = parseInt(paginationLinks[paginationLinks.length - 3].textContent);
             if (link.classList.contains("first-page")) {
                 goToPage(1);
             } else if (link.classList.contains("last-page")) {
@@ -71,8 +70,12 @@ function afterDeleteStudent(data) {
         let space = countOfStudents % STUDENTS_PER_PAGE;
         if (space === 1){
             let lastPage = document.querySelectorAll(".table_block_pagination a");
-            lastPageNum -= 1;
-            lastPage[lastPage.length - 3].textContent = lastPageNum;
+            if (lastPageNum > 1) {
+                lastPageNum -= 1;
+            }
+            if (lastPageNum > 4) {
+                lastPage[lastPage.length - 3].textContent = lastPageNum;
+            }
             goToPage(lastPageNum);
         }else {
             goToPage(lastPageNum)
@@ -110,7 +113,9 @@ function afterCreateStudent(data) {
         if (space === 0){
             let lastPage = document.querySelectorAll(".table_block_pagination a");
             lastPageNum += 1;
-            lastPage[lastPage.length - 3].textContent = lastPageNum;
+            if (lastPageNum > 5) {
+                lastPage[lastPage.length - 3].textContent = lastPageNum;
+            }
             goToPage(lastPageNum);
         }else {
             goToPage(lastPageNum)
