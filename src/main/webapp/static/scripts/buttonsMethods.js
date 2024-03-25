@@ -70,13 +70,18 @@ function afterDeleteStudent(data) {
         let space = countOfStudents % STUDENTS_PER_PAGE;
         if (space === 1){
             let lastPage = document.querySelectorAll(".table_block_pagination a");
+
             if (lastPageNum > 1) {
                 lastPageNum -= 1;
             }
             if (lastPageNum > 4) {
                 lastPage[lastPage.length - 3].textContent = lastPageNum;
             }
-            goToPage(lastPageNum);
+            if (curPage === lastPageNum+1){
+                goToPage(lastPageNum);
+            }else{
+                goToPage(curPage);
+            }
         }else {
             goToPage(lastPageNum)
         }
@@ -286,6 +291,9 @@ function refreshPaginationNavState(pageNumber) {
         if (countOfPages === 0){
             document.getElementsByClassName("table_block_pagination")[0].style.visibility = "hidden";
         }else {
+            document.getElementsByClassName("movable-page-nav")[2].textContent = "4";
+            document.getElementsByClassName("movable-page-nav")[1].textContent = "3";
+            document.getElementsByClassName("movable-page-nav")[0].textContent = "2";
             document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
             document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
             links.forEach(link=>{
