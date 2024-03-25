@@ -1,12 +1,13 @@
 //CONSTANTS
 const STUDENTS_PER_PAGE = 15;
 const START_PAGE = 1;
-
+let countOfStudents = 0;
+let lastPageNum = 0;
+const paginationLinks = document.querySelectorAll(".table_block_pagination a");
 //END
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const paginationLinks = document.querySelectorAll(".table_block_pagination a");
     fetchTable(START_PAGE);
     refreshPaginationNavState(START_PAGE);
 
@@ -17,17 +18,17 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentPage === parseInt(link.textContent)) {
                 return;
             }
-            const lastPage = parseInt(paginationLinks[paginationLinks.length - 3].textContent);
+             lastPageNum = parseInt(paginationLinks[paginationLinks.length - 3].textContent);
             if (link.classList.contains("first-page")) {
                 goToPage(1);
             } else if (link.classList.contains("last-page")) {
-                goToPage(lastPage);
+                goToPage(lastPageNum);
             } else if (link.classList.contains("prev-page")) {
                 if (currentPage > 1) {
                     goToPage(currentPage - 1)
                 }
             } else if (link.classList.contains("next-page")) {
-                if (currentPage < lastPage) {
+                if (currentPage < lastPageNum) {
                     goToPage(currentPage + 1)
                 }
             } else {
@@ -36,21 +37,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function goToPage(pageNumber) {
-
-        refreshPaginationNavState(pageNumber);
-        console.log("Navigating to page:", pageNumber);
-        fetchTable(pageNumber);
-        // Update active link
-        paginationLinks.forEach(link => {
-            link.classList.remove("active");
-            if (parseInt(link.textContent) === pageNumber) {
-                link.classList.add("active");
-            }
-        });
-    }
 });
 
+function goToPage(pageNumber) {
+
+    console.log("Navigating to page:", pageNumber);
+    fetchTable(pageNumber);
+    refreshPaginationNavState(pageNumber);
+    // Update active link
+    paginationLinks.forEach(link => {
+        link.classList.remove("active");
+        if (parseInt(link.textContent) === pageNumber) {
+            link.classList.add("active");
+        }
+    });
+}
 
 function deleteStudent() {
     let id = document.getElementById("student_id").textContent;
@@ -73,6 +74,15 @@ function afterDeleteStudent(data) {
                 tableBody.children[i].innerHTML = "";
                 break;
             }
+        }
+        let space = countOfStudents % STUDENTS_PER_PAGE;
+        if (space === 1){
+            let lastPage = document.querySelectorAll(".table_block_pagination a");
+            lastPageNum -= 1;
+            lastPage[lastPage.length - 3].textContent = lastPageNum;
+            goToPage(lastPageNum);
+        }else {
+            goToPage(lastPageNum)
         }
     }
 
@@ -102,6 +112,15 @@ function afterCreateStudent(data) {
         let fields = document.getElementsByClassName("student_create_block_body_form_field")
         for (let i = 0; i < fields.length; i++) {
             fields[i].children[1].value = "";
+        }
+        let space = countOfStudents % STUDENTS_PER_PAGE;
+        if (space === 0){
+            let lastPage = document.querySelectorAll(".table_block_pagination a");
+            lastPageNum += 1;
+            lastPage[lastPage.length - 3].textContent = lastPageNum;
+            goToPage(lastPageNum);
+        }else {
+            goToPage(lastPageNum)
         }
         document.getElementById("student_create_block_body_form").removeEventListener("submit", submitCreateStudentForm)
     }
@@ -192,8 +211,9 @@ function fetchTable(page) {
 
 function afterFetchTable(data) {
     let paginationLinks = document.querySelectorAll(".table_block_pagination a");
-    paginationLinks[paginationLinks.length - 3].textContent = Math.ceil(data["countOfStudents"] / STUDENTS_PER_PAGE)
-
+    lastPageNum = Math.ceil(data["countOfStudents"] / STUDENTS_PER_PAGE);
+    paginationLinks[paginationLinks.length - 3].textContent = lastPageNum;
+    countOfStudents = data["countOfStudents"];
     let tableBody = document.getElementById('student_table_body');
     tableBody.innerHTML = '';
     let students = data.students;
@@ -211,8 +231,7 @@ function afterFetchTable(data) {
         row += '</tr>';
         tableBody.innerHTML += row;
     });
-    let countOfStudent = data.countOfStudents;
-    console.log(countOfStudent);
+    console.log(countOfStudents);
 }
 
 
@@ -230,7 +249,7 @@ function refreshPaginationNavState(pageNumber) {
         document.getElementsByClassName("first-page")[0].style.visibility = "visible";
         document.getElementsByClassName("prev-page")[0].style.visibility = "visible";
     }
-    if (pageNumber === parseInt(a[a.length - 3].textContent)) {
+    if (pageNumber === lastPageNum) {
         document.getElementsByClassName("next-page")[0].style.visibility = "hidden";
         document.getElementsByClassName("last-page")[0].style.visibility = "hidden";
         let movableNav = document.getElementsByClassName("movable-page-nav");
@@ -246,12 +265,12 @@ function refreshPaginationNavState(pageNumber) {
     } else {
         document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
     }
-    if (pageNumber < parseInt(a[a.length - 3].textContent) - 2) {
+    if (pageNumber < lastPageNum - 2) {
         document.querySelectorAll(".table_block_pagination p")[1].style.display = "flex";
     } else {
         document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
     }
-    if (pageNumber > 2 && pageNumber < parseInt(a[a.length - 3].textContent) - 1) {
+    if (pageNumber > 2 && pageNumber < lastPageNum - 1) {
         document.getElementsByClassName("movable-page-nav")[2].textContent = pageNumber + 1;
         document.getElementsByClassName("movable-page-nav")[1].textContent = pageNumber;
         document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber - 1;
