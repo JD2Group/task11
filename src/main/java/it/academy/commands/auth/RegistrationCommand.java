@@ -23,7 +23,11 @@ public class RegistrationCommand implements Command {
         AuthService authService = new AuthServiceImpl();
         try {
             String req = request.getReader().lines().collect(Collectors.joining());
+            System.out.println(req);
+
             RegistrationRequest reg = GSON.fromJson(req, RegistrationRequest.class);
+            System.out.println(reg);
+
             RegistrationResponse out = authService.userRegistration(reg);
             if (out == null){
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

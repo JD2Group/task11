@@ -24,7 +24,7 @@ public class Runner {
         TransactionHelper transactionHelper = TransactionHelper.getTransactionHelper();
         AdminService admin = AdminServiceImpl.getInstance();
         RoleDAO roleDAO = new RoleDAOImpl();
-/*        for (int i = 0; i < 1; i++) {
+         for (int i = 0; i < 100; i++) {
             Student student = DataGenerator.generateStudent();
             transactionHelper.transaction(() -> studentDAO.create(student));
         }
@@ -43,13 +43,12 @@ public class Runner {
         } catch (Exception e) {
             System.out.println("Ups.. Something went wrong: " + e);
             throw new RuntimeException();
-        }*/
-
+        }
         System.out.println("Time to setup role table.");
 
-        transactionHelper.transaction(() -> roleDAO.create(Role.builder()
+        /*transactionHelper.transaction(() -> roleDAO.create(Role.builder()
                 .roleName(RoleEnum.DEFAULT_USER.name())
-                .build()));
+                .build()));*/
 
         System.out.println("\nAll generated successfully!");
 

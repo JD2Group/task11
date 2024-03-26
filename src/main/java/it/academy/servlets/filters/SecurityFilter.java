@@ -84,17 +84,19 @@ public class SecurityFilter extends HttpFilter {
                 .collect(Collectors.toList());
         if (!cookies.isEmpty()) {
             String refresh = cookies.get(0).getValue();
-            if (provider.validateRefreshToken(refresh)) {
-                JwtService jwtService = new JwtServiceImpl();
-                LoginResponse resp = jwtService.updateTokens(refresh);
+            if (!Objects.equals(refresh, "")) {
+                if (provider.validateRefreshToken(refresh)) {
+                    JwtService jwtService = new JwtServiceImpl();
+                    LoginResponse resp = jwtService.updateTokens(refresh);
 
-                System.out.println(resp);
+                    System.out.println(resp);
 
-                log.info(Constants.AUTHENTICATION_SUCCESSFUL);
-                response.setHeader(Constants.UPDATED_HEADER, resp.getAccessToken());
-                request.getSession().setAttribute(Constants.REFRESH_TOKEN_KEY, resp.getRefreshToken());
-                request.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.TRUE);
-                return true;
+                    log.info(Constants.AUTHENTICATION_SUCCESSFUL);
+                    response.setHeader(Constants.UPDATED_HEADER, resp.getAccessToken());
+                    request.getSession().setAttribute(Constants.REFRESH_TOKEN_KEY, resp.getRefreshToken());
+                    request.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.TRUE);
+                    return true;
+                }
             }
         }
         log.error(Constants.COOKIES_ERROR);

@@ -6,6 +6,9 @@
                 <p>JD2 Group Task</p>
             </div>
             <div class="header_case">
+                <c:if test="${sessionScope.get('isAuthenticated') == 'true'}">
+                    <button onclick="logoutBTN()">Logout</button>
+                </c:if>
                 <c:if test="${sessionScope.get('isAuthenticated') == 'true'
                 && sessionScope.get('roles').contains('DEFAULT_USER')}">
                     <button onclick="createNewStudent()">Добавить студента</button>

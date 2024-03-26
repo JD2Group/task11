@@ -205,6 +205,11 @@ function showResponse(data) {
         "<p>" + msg + "</p>";
     document.getElementById("response").style.display = "flex";
 }
+function logoutBTN(){
+    localStorage.removeItem("access_token");
+    document.cookie = "refresh_token" + "=;"
+    window.location.reload();
+}
 
 
 function fetchTable(page) {

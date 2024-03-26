@@ -3,6 +3,7 @@ function ajaxPost(url, data, method, contentType) {
     let command = url.substring(url.lastIndexOf("/") + 1);
     xmlDoc.open('POST', url, true);
     extractTokenIfPresent(xmlDoc);
+    console.log(url)
     xmlDoc.setRequestHeader("Content-type", contentType);
     xmlDoc.setRequestHeader("Command", command);
     xmlDoc.onreadystatechange = function () {

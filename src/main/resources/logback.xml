@@ -2,7 +2,7 @@
 <configuration>
     <appender name="LOG" class="ch.qos.logback.core.FileAppender">
         <!--        <File>..\logs\log_file.log</File>-->
-        <File>C:\Users\User\IdeaProjects\commonTasks\task11\src\main\resources\log\log_file.log</File>
+        <File>/home/chelovek/JavaLessons/jd2Lessons/t11/task11/src/main/resources/log/log_file.log</File>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
