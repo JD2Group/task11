@@ -9,6 +9,7 @@ import lombok.NonNull;
 
 public interface AuthService {
     LoginResponse userLogin(@NonNull LoginRequest request) throws UserNotFoundException, WrongPasswordException;
+
     RegistrationResponse userRegistration(@NonNull RegistrationRequest request) throws
             UserAlreadyExistsException,
             PasswordMatchException,

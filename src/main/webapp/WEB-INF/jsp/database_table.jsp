@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF8" %>
 <div class="database_table_overflow">
     <table class="database_table">

@@ -36,6 +36,7 @@ public class JwtProvider {
         this.jwtAccessExpiration = Date.from(accessExpirationInstant);
         this.jwtRefreshExpiration = Date.from(refreshExpirationInstant);
     }
+
     public String generateAccessToken(@NonNull User user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
@@ -82,7 +83,7 @@ public class JwtProvider {
         return false;
     }
 
-    public boolean validateAccessToken(@NonNull String token/*, @NonNull String email*/) /*throws AuthenticationException */{
+    public boolean validateAccessToken(@NonNull String token/*, @NonNull String email*/) /*throws AuthenticationException */ {
         /*if (!email.equals(getAccessClaims(token).getSubject())) {
             throw new AuthenticationException("Wrong email");
         }*/

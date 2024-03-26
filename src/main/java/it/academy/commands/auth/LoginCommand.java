@@ -3,10 +3,9 @@ package it.academy.commands.auth;
 import com.google.gson.JsonSyntaxException;
 import it.academy.commands.Command;
 import it.academy.dto.request.LoginRequest;
-import it.academy.dto.request.RegistrationRequest;
 import it.academy.dto.response.LoginResponse;
-import it.academy.dto.response.RegistrationResponse;
-import it.academy.exceptions.*;
+import it.academy.exceptions.UserNotFoundException;
+import it.academy.exceptions.WrongPasswordException;
 import it.academy.service.AuthService;
 import it.academy.service.impl.AuthServiceImpl;
 
@@ -25,12 +24,12 @@ public class LoginCommand implements Command {
             String req = request.getReader().lines().collect(Collectors.joining());
             LoginRequest reg = GSON.fromJson(req, LoginRequest.class);
             LoginResponse out = authService.userLogin(reg);
-            if (out == null){
+            if (out == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return null;
             }
             return GSON.toJson(out);
-        } catch (UserNotFoundException | WrongPasswordException | JsonSyntaxException e){
+        } catch (UserNotFoundException | WrongPasswordException | JsonSyntaxException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return null;
         }

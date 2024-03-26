@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF8" %>
 <header class="header">
     <div class="container">

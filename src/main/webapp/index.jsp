@@ -15,7 +15,7 @@
 <div class="main_page">
     <c:choose>
         <c:when test="${sessionScope.get('isAuthenticated') == 'false'}">
-            <%@include file="WEB-INF/jsp/login.jsp"%>
+            <%@include file="WEB-INF/jsp/login.jsp" %>
         </c:when>
         <c:otherwise>
             <div class="container">
@@ -49,6 +49,6 @@
     <script src="${pageContext.request.contextPath}/static/scripts/ajaxMethods.js"></script>
     <script src="${pageContext.request.contextPath}/static/scripts/buttonsMethods.js"></script>
 
-    </div>
-    </body>
-    </html>
+</div>
+</body>
+</html>

@@ -7,7 +7,9 @@ import lombok.NonNull;
 public interface JwtService {
 
     boolean validateToken(@NonNull String email, @NonNull String refreshToken);
+
     LoginResponse getNewPairOfTokens(@NonNull User user);
+
     LoginResponse updateTokens(String refreshToken);
 
 }

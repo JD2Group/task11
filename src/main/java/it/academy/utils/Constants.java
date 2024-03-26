@@ -2,7 +2,6 @@ package it.academy.utils;
 
 import com.google.gson.Gson;
 
-import javax.crypto.SecretKey;
 import java.util.Random;
 
 public final class Constants {

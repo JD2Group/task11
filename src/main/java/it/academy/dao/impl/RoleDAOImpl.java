@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RoleDAOImpl extends DAOImpl<Role, Long> implements RoleDAO {
 
-    public RoleDAOImpl(){
+    public RoleDAOImpl() {
         super(Role.class);
     }
 
@@ -17,7 +17,7 @@ public class RoleDAOImpl extends DAOImpl<Role, Long> implements RoleDAO {
         try {
             return transactionHelper.entityManager()
                     .createQuery(String.format(Constants.SELECT_ALL_FROM_ROLE_BY_NAME, name), Role.class).getSingleResult();
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return null;
         }

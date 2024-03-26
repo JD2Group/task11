@@ -21,7 +21,7 @@ public class UpdateStudentCommand implements Command {
             String req = request.getReader().lines().collect(Collectors.joining());
             StudentDTORequest studentDTO = GSON.fromJson(req, StudentDTORequest.class);
             StudentDTOResponse out = service.updateStudent(studentDTO);
-            if (out == null){
+            if (out == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return null;
             }

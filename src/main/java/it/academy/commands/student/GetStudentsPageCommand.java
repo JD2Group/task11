@@ -1,6 +1,5 @@
 package it.academy.commands.student;
 
-import com.google.gson.JsonSyntaxException;
 import it.academy.commands.Command;
 import it.academy.dto.response.StudentInfoResponse;
 import it.academy.service.AdminService;
@@ -30,7 +29,7 @@ public class GetStudentsPageCommand implements Command {
             Long count = adminService.getCountOfAllStudents();
             responseMap.put("countOfStudents", count);
             return Constants.GSON.toJson(responseMap);
-        } catch (Exception e){
+        } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return null;
         }

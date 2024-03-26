@@ -68,7 +68,7 @@ function afterDeleteStudent(data) {
             }
         }
         let space = countOfStudents % STUDENTS_PER_PAGE;
-        if (space === 1){
+        if (space === 1) {
             let lastPage = document.querySelectorAll(".table_block_pagination a");
 
             if (lastPageNum > 1) {
@@ -77,12 +77,12 @@ function afterDeleteStudent(data) {
             if (lastPageNum > 4) {
                 lastPage[lastPage.length - 3].textContent = lastPageNum;
             }
-            if (curPage === lastPageNum+1){
+            if (curPage === lastPageNum + 1) {
                 goToPage(lastPageNum);
-            }else{
+            } else {
                 goToPage(curPage);
             }
-        }else {
+        } else {
             goToPage(curPage)
         }
     }
@@ -115,14 +115,14 @@ function afterCreateStudent(data) {
             fields[i].children[1].value = "";
         }
         let space = countOfStudents % STUDENTS_PER_PAGE;
-        if (space === 0){
+        if (space === 0) {
             let lastPage = document.querySelectorAll(".table_block_pagination a");
             lastPageNum += 1;
             if (lastPageNum > 5) {
                 lastPage[lastPage.length - 3].textContent = lastPageNum;
             }
             goToPage(lastPageNum);
-        }else {
+        } else {
             goToPage(lastPageNum)
         }
         document.getElementById("student_create_block_body_form").removeEventListener("submit", submitCreateStudentForm)
@@ -205,7 +205,8 @@ function showResponse(data) {
         "<p>" + msg + "</p>";
     document.getElementById("response").style.display = "flex";
 }
-function logoutBTN(){
+
+function logoutBTN() {
     localStorage.removeItem("access_token");
     document.cookie = "refresh_token" + "=;"
     window.location.reload();
@@ -249,7 +250,7 @@ function afterFetchTable(data) {
 function refreshPaginationNavState(pageNumber) {
     pageNumber = parseInt(pageNumber);
     let a = document.querySelectorAll(".table_block_pagination a");
-    let countOfPages = Math.ceil(countOfStudents/STUDENTS_PER_PAGE);
+    let countOfPages = Math.ceil(countOfStudents / STUDENTS_PER_PAGE);
     console.log(STUDENTS_PER_PAGE + " " + countOfStudents);
     console.log(countOfPages);
     document.getElementsByClassName("table_block_pagination")[0].style.visibility = "visible";
@@ -291,22 +292,22 @@ function refreshPaginationNavState(pageNumber) {
             document.getElementsByClassName("movable-page-nav")[1].textContent = pageNumber;
             document.getElementsByClassName("movable-page-nav")[0].textContent = pageNumber - 1;
         }
-    }else {
+    } else {
         let links = document.querySelectorAll(".table_block_pagination a");
-        if (countOfPages === 0){
+        if (countOfPages === 0) {
             document.getElementsByClassName("table_block_pagination")[0].style.visibility = "hidden";
-        }else {
+        } else {
             document.getElementsByClassName("movable-page-nav")[2].textContent = "4";
             document.getElementsByClassName("movable-page-nav")[1].textContent = "3";
             document.getElementsByClassName("movable-page-nav")[0].textContent = "2";
             document.querySelectorAll(".table_block_pagination p")[0].style.display = "none";
             document.querySelectorAll(".table_block_pagination p")[1].style.display = "none";
-            links.forEach(link=>{
-               link.style.display = "none";
+            links.forEach(link => {
+                link.style.display = "none";
             })
-            for (let i = 0; i < countOfPages; i++){
-                links.forEach(link=>{
-                    if (parseInt(link.textContent) === i+1){
+            for (let i = 0; i < countOfPages; i++) {
+                links.forEach(link => {
+                    if (parseInt(link.textContent) === i + 1) {
                         link.style.display = "block";
                     }
                 })

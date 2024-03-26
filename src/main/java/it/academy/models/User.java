@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,8 +15,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table (name = "users",
-    uniqueConstraints =
+@Table(name = "users",
+        uniqueConstraints =
         @UniqueConstraint(columnNames = "email")
 )
 public class User implements Serializable {

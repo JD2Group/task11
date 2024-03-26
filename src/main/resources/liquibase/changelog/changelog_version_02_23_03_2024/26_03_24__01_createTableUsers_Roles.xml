@@ -6,7 +6,7 @@
 
     <changeSet author="Olga_Tysevich" id="create_table_users_roles">
         <createTable tableName="users_roles">
-            <column name="user_id" type="bigint" >
+            <column name="user_id" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="role_id" type="bigint">

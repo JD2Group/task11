@@ -2,9 +2,9 @@ package it.academy.exceptions;
 
 import it.academy.utils.Constants;
 
-public class UserAlreadyExistsException extends Exception{
+public class UserAlreadyExistsException extends Exception {
 
-    public UserAlreadyExistsException(){
+    public UserAlreadyExistsException() {
         super(Constants.USER_ALREADY_EXISTS);
     }
 

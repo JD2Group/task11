@@ -15,6 +15,7 @@ public class ResponseHelper {
                 .message(message)
                 .build();
     }
+
     public static RegistrationResponse getRegistrationResponse(String email, String message) {
         return RegistrationResponse.builder()
                 .email(email)

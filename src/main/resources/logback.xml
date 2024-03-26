@@ -14,9 +14,9 @@
         </encoder>
     </appender>
 
-<!--    <logger name="it.academy" level="warn" additivity="false">-->
-<!--        <appender-ref ref="STDOUT" />-->
-<!--    </logger>-->
+    <!--    <logger name="it.academy" level="warn" additivity="false">-->
+    <!--        <appender-ref ref="STDOUT" />-->
+    <!--    </logger>-->
 
     <root level="INFO">
         <appender-ref ref="LOG"/>

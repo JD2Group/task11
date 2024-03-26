@@ -1,6 +1,7 @@
 package it.academy.servlets.filters;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import it.academy.components.JwtProvider;
 import it.academy.dto.response.LoginResponse;
 import it.academy.service.JwtService;
@@ -18,7 +19,9 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j

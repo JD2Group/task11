@@ -5,8 +5,6 @@ import it.academy.models.User;
 import it.academy.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.management.Query;
-
 @Slf4j
 public class UserDAOImpl extends DAOImpl<User, Long> implements UserDAO {
 
@@ -19,7 +17,7 @@ public class UserDAOImpl extends DAOImpl<User, Long> implements UserDAO {
         try {
             return transactionHelper.entityManager()
                     .createQuery(String.format(Constants.SELECT_ALL_FROM_USER_BY_EMAIL, email), User.class).getSingleResult();
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return null;
         }

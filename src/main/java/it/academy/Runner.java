@@ -7,10 +7,8 @@ import it.academy.dao.impl.RoleDAOImpl;
 import it.academy.dao.impl.StudentDAOImpl;
 import it.academy.enums.RoleEnum;
 import it.academy.models.Role;
-import it.academy.models.Student;
 import it.academy.service.AdminService;
 import it.academy.service.impl.AdminServiceImpl;
-import it.academy.utils.DataGenerator;
 import it.academy.utils.TransactionHelper;
 
 public class Runner {

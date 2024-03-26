@@ -34,17 +34,17 @@ function ajaxGet(url, method) {
     xmlDoc.send();
 }
 
-function extractTokenIfPresent(xmlDoc){
+function extractTokenIfPresent(xmlDoc) {
     let token = localStorage.getItem("access_token")
-    if (token == null){
+    if (token == null) {
         return
     }
     xmlDoc.setRequestHeader('Authorization', 'Bearer ' + token);
 }
 
-function updateAccessTokenIfPresent(xmlDoc){
+function updateAccessTokenIfPresent(xmlDoc) {
     let access = xmlDoc.getResponseHeader("updated-access");
-    if (access == null){
+    if (access == null) {
         return
     }
     localStorage.setItem("access_token", access);

@@ -3,7 +3,10 @@ package it.academy.dto.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import it.academy.models.Role;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Set;

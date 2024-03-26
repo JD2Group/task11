@@ -14,8 +14,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table (name = "roles",
-    uniqueConstraints =
+@Table(name = "roles",
+        uniqueConstraints =
         @UniqueConstraint(columnNames = "role_name")
 )
 public class Role implements Serializable {

@@ -29,12 +29,12 @@ public class RegistrationCommand implements Command {
             System.out.println(reg);
 
             RegistrationResponse out = authService.userRegistration(reg);
-            if (out == null){
+            if (out == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return null;
             }
             return GSON.toJson(out);
-        } catch (UserAlreadyExistsException | PasswordMatchException | EmailNullException | JsonSyntaxException e){
+        } catch (UserAlreadyExistsException | PasswordMatchException | EmailNullException | JsonSyntaxException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
             return null;
         }

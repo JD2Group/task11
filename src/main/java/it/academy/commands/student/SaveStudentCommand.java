@@ -1,6 +1,5 @@
 package it.academy.commands.student;
 
-import com.google.gson.JsonSyntaxException;
 import it.academy.commands.Command;
 import it.academy.dto.request.StudentDTORequest;
 import it.academy.dto.response.StudentDTOResponse;
@@ -23,7 +22,7 @@ public class SaveStudentCommand implements Command {
             String req = request.getReader().lines().collect(Collectors.joining());
             StudentDTORequest studentDTO = GSON.fromJson(req, StudentDTORequest.class);
             StudentDTOResponse out = service.createStudent(studentDTO);
-            if (out == null){
+            if (out == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return null;
             }

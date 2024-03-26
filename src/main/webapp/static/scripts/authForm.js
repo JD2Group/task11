@@ -1,5 +1,6 @@
 document.getElementById("auth_form_block_body_form").addEventListener("submit", submitLoginMethod);
-function submitLoginMethod(event){
+
+function submitLoginMethod(event) {
     event.preventDefault();
     let formData = new FormData(event.target)
     let obj = {};
@@ -9,14 +10,14 @@ function submitLoginMethod(event){
 
 }
 
-function afterLoginMethod(data){
+function afterLoginMethod(data) {
     setCookie("refresh_token", data["refresh_token"])
     localStorage.setItem('access_token', data["access_token"]);
     setTimeout(this, 1000)
     window.location.reload();
 }
 
-function submitRegMethod(event){
+function submitRegMethod(event) {
     event.preventDefault();
     let formData = new FormData(event.target)
     let obj = {};
@@ -24,7 +25,8 @@ function submitRegMethod(event){
     console.log(obj);
     ajaxPost("api/registration", JSON.stringify(obj), afterRegMethod, "application/json")
 }
-function afterRegMethod(data){
+
+function afterRegMethod(data) {
     setTimeout(this, 1000)
     window.location.reload();
     showRegInfo(data)
@@ -39,7 +41,7 @@ function showRegInfo(data) {
     document.getElementById("response").style.display = "flex";
 }
 
-function logoutBTN(){
+function logoutBTN() {
     localStorage.removeItem("access_token");
     document.cookie = "refresh_token" + "=; path=/"
     window.location.reload();
@@ -61,9 +63,9 @@ authBTN[0].addEventListener("click", printLoginForm);
 authBTN[1].addEventListener("click", printRegForm)
 
 
-function printLoginForm(elem){
+function printLoginForm(elem) {
 
-    authBTN.forEach(e=>e.classList.remove("active_auth_type"))
+    authBTN.forEach(e => e.classList.remove("active_auth_type"))
     elem.target.classList.add("active_auth_type")
 
     let formBlock = document.querySelector(".auth_form_block_body");
@@ -113,9 +115,10 @@ function printLoginForm(elem){
     document.getElementById("auth_form_block_body_form").addEventListener("submit", submitLoginMethod);
 
 }
-function printRegForm(elem){
 
-    authBTN.forEach(e=>e.classList.remove("active_auth_type"));
+function printRegForm(elem) {
+
+    authBTN.forEach(e => e.classList.remove("active_auth_type"));
     console.log(elem.target);
     elem.target.classList.add("active_auth_type");
 
