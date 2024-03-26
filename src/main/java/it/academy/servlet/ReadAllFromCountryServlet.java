@@ -18,8 +18,8 @@ import java.util.List;
 
 import static it.academy.util.Constants.*;
 
-@WebServlet(name = "ReadAllServlet", urlPatterns = {"/readAll"})
-public class ReadAllServlet extends HttpServlet {
+@WebServlet(name = "ReadAllFromCountryServlet", urlPatterns = {"/getStud"})
+public class ReadAllFromCountryServlet extends HttpServlet {
 
     private final AdminServise service = new AdminServiceImpl();
 
@@ -30,14 +30,16 @@ public class ReadAllServlet extends HttpServlet {
 
         int countOnPage = 0;
         int currentPage = 0;
+        long countryId = 0;
+        long totalCount;
         boolean isCountChanged = false;
 
         Object countOnPageFromSession;
         Object currentPageFromSession;
+        Object countryIdFromSession;
 
         try {
             String countOnPageFromRequest = req.getParameter("countOnPage");
-
             if (countOnPageFromRequest == null || countOnPageFromRequest.trim().isEmpty()) {
                 countOnPageFromSession = session.getAttribute("countOnPage");
                 countOnPage = countOnPageFromSession == null ?
@@ -46,6 +48,14 @@ public class ReadAllServlet extends HttpServlet {
             } else {
                 countOnPage = Integer.parseInt(countOnPageFromRequest);
                 isCountChanged = true;
+            }
+
+            String countryIdFromRequest = req.getParameter("countryId");
+            if (countryIdFromRequest == null || countryIdFromRequest.trim().isEmpty()) {
+                countryIdFromSession = session.getAttribute("countryId");
+                countryId = (Long) countryIdFromSession;
+            } else {
+                countryId = Long.parseLong(countryIdFromRequest);
             }
 
             if (!isCountChanged) {
@@ -68,19 +78,24 @@ public class ReadAllServlet extends HttpServlet {
         }
 
         List<StudentDTO> dtoList = new ArrayList<>();
-        long totalCount;
         try {
-            totalCount = service.getCountOfAllStudents();
-            int maxPageNumber = ((int) totalCount % countOnPage) == 0 ?
+            totalCount = service.getCountOfAllStudentsFromCountry(countryId);
+            int maxPageNumber;
+            if (totalCount != 0) {
+                maxPageNumber = ((int) totalCount % countOnPage) == 0 ?
                                     (int) (totalCount / countOnPage) :
                                     (int) (totalCount / countOnPage) + 1;
+            } else {
+                maxPageNumber = DEFAULT_FIRST_PAGE_NUMBER;
+            }
 
             if (currentPage > maxPageNumber || currentPage == DEFAULT_LAST_PAGE_NUMBER) {
                 currentPage = maxPageNumber;
             } else if (currentPage == DEFAULT_ZERO_PAGE_NUMBER) {
                 currentPage = DEFAULT_FIRST_PAGE_NUMBER;
             }
-            dtoList = service.getListOfStudents(currentPage, countOnPage);
+
+            dtoList = service.getListOfStudentsFromCountry(currentPage, countOnPage, countryId);
         } catch (Exception e) {
             req.setAttribute("exception", e);
             resp.sendRedirect("/pages/exception.jsp");
@@ -88,10 +103,11 @@ public class ReadAllServlet extends HttpServlet {
 
         session.setAttribute("countOnPage", countOnPage);
         session.setAttribute("currentPage", currentPage);
+        session.setAttribute("countryId", countryId);
         req.setAttribute("listDto", dtoList);
 
         ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/allList.jsp");
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/ListStudentsFromCountry.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

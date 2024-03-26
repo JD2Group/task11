@@ -18,7 +18,6 @@
 
 <div class="container text-center">
     <form action="create" method="post">
-
         Input surname: <label>
         <input name="surname" type="text">
     </label><br/>
@@ -51,6 +50,11 @@
 
         Input mark: <label>
         <input name="mark" type="text">
+    </label><br/>
+        <br>
+
+        Input countryName: <label>
+        <input name="countryName" type="text">
     </label><br/>
         <br>
         <br>

@@ -1,3 +1,4 @@
+/*
 package it.academy;
 
 import it.academy.dto.StudentDTO;
@@ -42,7 +43,8 @@ public class Runner {
         }
 
 
-        try {
+       */
+/* try {
             System.out.println(admin.getAllStudents().size());
         } catch (Exception e) {
             System.out.println("Ups.. You havea problem: " + e);
@@ -83,14 +85,25 @@ public class Runner {
         } catch (Exception e) {
             System.out.println(studentDTO + "has not delete");
             System.out.println("Ups.. You havea problem: " + e);
-        }
+        }*//*
+
+
+
+
+
+
+
+
 
 
         //DELET ALL
-       /* try {
+       */
+/* try {
             admin.clearBase();
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }*//*
+
     }
 }
+*/

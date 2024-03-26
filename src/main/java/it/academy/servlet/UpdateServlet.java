@@ -16,7 +16,6 @@ import java.io.IOException;
 public class UpdateServlet extends HttpServlet {
     private final AdminServise service = new AdminServiceImpl();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -29,11 +28,12 @@ public class UpdateServlet extends HttpServlet {
             req.setAttribute("studentDTO", studentDTO);
 
             ServletContext servletContext = getServletContext();
-            RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/updateForm.jsp");
+            RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/updateForm.jsp");
             requestDispatcher.forward(req, resp);
 
         } catch (Exception e) {
-            resp.sendRedirect("exception.jsp");
+            req.setAttribute("exception", e);
+            resp.sendRedirect("/pages/exception.jsp");
         }
     }
 
@@ -50,10 +50,12 @@ public class UpdateServlet extends HttpServlet {
                                       .street(req.getParameter("street").trim())
                                       .building(Integer.parseInt(req.getParameter("building").trim()))
                                       .mark(Integer.parseInt(req.getParameter("mark").trim()))
+                                      .countryName(req.getParameter("countryName").trim())
                                       .build());
             resp.sendRedirect("readAll");
         } catch (Exception e) {
-            resp.sendRedirect("exception.jsp");
+            req.setAttribute("exception", e);
+            resp.sendRedirect("/pages/exception.jsp");
         }
     }
 }

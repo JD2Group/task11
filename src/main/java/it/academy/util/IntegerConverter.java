@@ -12,6 +12,5 @@ public class IntegerConverter {
         } catch (NumberFormatException e) {
             return 0;
         }
-
     }
 }

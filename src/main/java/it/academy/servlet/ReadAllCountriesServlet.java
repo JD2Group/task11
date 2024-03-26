@@ -1,6 +1,6 @@
 package it.academy.servlet;
 
-import it.academy.dto.StudentDTO;
+import it.academy.dto.CountryDTO;
 import it.academy.service.AdminServise;
 import it.academy.service.impl.AdminServiceImpl;
 
@@ -18,8 +18,8 @@ import java.util.List;
 
 import static it.academy.util.Constants.*;
 
-@WebServlet(name = "ReadAllServlet", urlPatterns = {"/readAll"})
-public class ReadAllServlet extends HttpServlet {
+@WebServlet(name = "ReadAllCountriesServlet", urlPatterns = "/getAllCountries")
+public class ReadAllCountriesServlet extends HttpServlet {
 
     private final AdminServise service = new AdminServiceImpl();
 
@@ -67,10 +67,10 @@ public class ReadAllServlet extends HttpServlet {
             resp.sendRedirect("/pages/exception.jsp");
         }
 
-        List<StudentDTO> dtoList = new ArrayList<>();
+        List<CountryDTO> dtoList = new ArrayList<>();
         long totalCount;
         try {
-            totalCount = service.getCountOfAllStudents();
+            totalCount = service.getCountOfAllCountries();
             int maxPageNumber = ((int) totalCount % countOnPage) == 0 ?
                                     (int) (totalCount / countOnPage) :
                                     (int) (totalCount / countOnPage) + 1;
@@ -80,7 +80,7 @@ public class ReadAllServlet extends HttpServlet {
             } else if (currentPage == DEFAULT_ZERO_PAGE_NUMBER) {
                 currentPage = DEFAULT_FIRST_PAGE_NUMBER;
             }
-            dtoList = service.getListOfStudents(currentPage, countOnPage);
+            dtoList = service.getAllCountries(currentPage, countOnPage);
         } catch (Exception e) {
             req.setAttribute("exception", e);
             resp.sendRedirect("/pages/exception.jsp");
@@ -88,10 +88,10 @@ public class ReadAllServlet extends HttpServlet {
 
         session.setAttribute("countOnPage", countOnPage);
         session.setAttribute("currentPage", currentPage);
-        req.setAttribute("listDto", dtoList);
+        req.setAttribute("listCountryDto", dtoList);
 
         ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/allList.jsp");
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/countryList.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

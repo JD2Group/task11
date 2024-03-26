@@ -57,6 +57,11 @@
         <input type="text" value="<%=studentDTO.getMark()%>" name="mark">
     </label><br/>
         <br>
+
+        Input country:<label>
+        <input type="text" value="<%=studentDTO.getCountryName()%>" name="countryName">
+    </label><br/>
+        <br>
         <br>
 
         <button class="btn btn-primary" type="submit">Update Mr. <%=studentDTO.getSurname()%>

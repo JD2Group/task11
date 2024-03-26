@@ -8,6 +8,8 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>it.academy.pojo.Student</class>
+        <class>it.academy.pojo.Country</class>
+        <class>it.academy.pojo.Address</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

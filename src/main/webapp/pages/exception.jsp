@@ -16,7 +16,10 @@
 </head>
 <body>
 <div class="container text-center">
-    <p>Ups... It is problem</p>
+    <p>Ups... It is problem:</p>
+    <%Exception e = (Exception) request.getAttribute("exception");%>
+    <p><%=e.getMessage()%>
+    </p>
     <form action="readAll" method="get">
         <button class="btn btn-primary" type="submit">Return to list with all students</button>
     </form>

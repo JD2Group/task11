@@ -22,7 +22,6 @@ public class Student implements Serializable {
     @Column
     private String name;
 
-
     @Column
     private String surname;
 
@@ -34,4 +33,17 @@ public class Student implements Serializable {
 
     @Column
     private int mark;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+
+    public void setCountry(Country country) {
+
+        if (country != null) {
+            country.getStudents().add(this);
+        }
+        this.country = country;
+    }
 }

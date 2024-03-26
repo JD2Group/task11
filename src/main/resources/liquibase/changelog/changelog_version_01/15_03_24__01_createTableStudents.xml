@@ -16,8 +16,28 @@
             <column name="building" type="int"/>
             <column name="city" type="varchar(255)"/>
             <column name="street" type="varchar(255)"/>
+            <column name="country_id" type="bigint"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
+
+
+<!--
+
+        create table task11.students
+        (
+        id         bigint auto_increment
+        primary key,
+        building   int          not null,
+        city       varchar(255) null,
+        street     varchar(255) null,
+        age        int          null,
+        mark       int          null,
+        name       varchar(255) null,
+        surname    varchar(255) null,
+        country_id bigint       null,
+        );
+
+-->
 
 

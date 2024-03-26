@@ -21,7 +21,5 @@ public interface Dao<T, R> {
 
     long countOfEntitiesInBase();
 
-    void clearTable();
-
     void executeInOneTransaction(TransactionBody body) throws Exception;
 }

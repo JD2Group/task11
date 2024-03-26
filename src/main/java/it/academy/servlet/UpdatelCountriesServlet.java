@@ -1,6 +1,6 @@
 package it.academy.servlet;
 
-import it.academy.dto.StudentDTO;
+import it.academy.dto.CountryDTO;
 import it.academy.service.AdminServise;
 import it.academy.service.impl.AdminServiceImpl;
 
@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DeleteServlet", urlPatterns = {"/delete"})
-public class DeleteServlet extends HttpServlet {
+@WebServlet(name = "UpdatelCountriesServlet", urlPatterns = "/updCountry")
+public class UpdatelCountriesServlet extends HttpServlet {
 
-    private final AdminServise service = new AdminServiceImpl();
+    AdminServise service = new AdminServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -24,8 +24,14 @@ public class DeleteServlet extends HttpServlet {
             String string = req.getParameter("id");
             Long longId = Long.parseLong(string);
 
-            service.deleteStudent(longId);
-            resp.sendRedirect("readAll");
+            CountryDTO countryDTO = service.getCountryBYId(longId);
+
+            req.setAttribute("countryDTO", countryDTO);
+
+            ServletContext servletContext = getServletContext();
+            RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/updateCountryForm.jsp");
+            requestDispatcher.forward(req, resp);
+
         } catch (Exception e) {
             req.setAttribute("exception", e);
             resp.sendRedirect("/pages/exception.jsp");
@@ -36,18 +42,14 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         try {
-            String string = req.getParameter("id");
-            Long longId = Long.parseLong(string);
-
-            StudentDTO studentDTO = service.getById(longId);
-            req.setAttribute("studentDTO", studentDTO);
-
-            ServletContext servletContext = getServletContext();
-            RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/deleteWindow.jsp");
-            requestDispatcher.forward(req, resp);
+            service.updateCountry(CountryDTO.builder()
+                                      .id(Long.parseLong(req.getParameter("id").trim()))
+                                      .countryName(req.getParameter("countryName").trim())
+                                      .build());
+            resp.sendRedirect("getAllCountries");
         } catch (Exception e) {
             req.setAttribute("exception", e);
-            resp.sendRedirect("pages/exception.jsp");
+            resp.sendRedirect("/pages/exception.jsp");
         }
     }
 }

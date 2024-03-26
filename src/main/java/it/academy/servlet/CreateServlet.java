@@ -23,7 +23,7 @@ public class CreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         ServletContext servletContext = getServletContext();
-        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/createForm.jsp");
+        RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/pages/createForm.jsp");
         requestDispatcher.forward(req, resp);
     }
 
@@ -39,10 +39,12 @@ public class CreateServlet extends HttpServlet {
                                       .street(req.getParameter("street").trim())
                                       .building(IntegerConverter.convertToInt(req.getParameter("building").trim()))
                                       .mark(IntegerConverter.convertToInt(req.getParameter("mark").trim()))
+                                      .countryName(req.getParameter("countryName").trim())
                                       .build());
             resp.sendRedirect("readAll");
         } catch (Exception e) {
-            resp.sendRedirect("exception.jsp");
+            req.setAttribute("exception", e);
+            resp.sendRedirect("pages/exception.jsp");
         }
     }
 }

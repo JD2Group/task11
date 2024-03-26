@@ -11,7 +11,10 @@
 <div class="container text-center">
     <h2>Welcome to database with students!</h2>
     <form action="readAll" method="get">
-        <button class="btn btn-success" type="submit">Connect to database</button>
+        <button class="btn btn-success" type="submit">Show all students</button>
+    </form>
+    <form action="getAllCountries" method="get">
+        <button class="btn btn-success" type="submit">Show all countries</button>
     </form>
 </div>
 </body>

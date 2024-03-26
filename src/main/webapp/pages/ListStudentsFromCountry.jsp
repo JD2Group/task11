@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static it.academy.util.Constants.*" %>
+<%@ page import="java.util.Optional" %>
 <%--
   Created by IntelliJ IDEA.
   User: Timon
@@ -12,7 +13,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>List of all students</title>
+    <title>List of all students from country</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
@@ -20,9 +21,10 @@
 </head>
 
 <body>
-
 <%
-    Object atribute = request.getAttribute("listDto");
+    String action = "getStud";
+    Object listDtoFromRequest = request.getAttribute("listDto");
+    Long countryId = (Long) session.getAttribute("countryId");
     Object countAtr = session.getAttribute("countOnPage");
     Object pageAtr = session.getAttribute("currentPage");
 
@@ -33,38 +35,19 @@
 
     List<StudentDTO> listDto = new ArrayList<>();
     try {
-        listDto = ((List<StudentDTO>) atribute);
-    } catch (Exception ignored) {
+        listDto = ((List<StudentDTO>) listDtoFromRequest);
+    } catch (Exception e) {
+        request.setAttribute("exception", e);
+        response.sendRedirect("/pages/exception.jsp");
     }
-
 %>
 <div class="container text-center">
-    <table>
-        <tr>
-            <td>current count of rows on page:<%=countOnPage%>
-            </td>
-            <td></td>
-            <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="3" name="countOnPage">
-                    <button class="btn btn-light" type="submit"> show 3</button>
-                </form>
-            </td>
-            <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="5" name="countOnPage">
-                    <button class="btn btn-light" type="submit"> show 5</button>
-                </form>
-            </td>
-            <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="10" name="countOnPage">
-                    <button class="btn btn-light" type="submit">show 10</button>
-                </form>
-            </td>
-        </tr>
-    </table>
-    <br>
+    <%@include file="/start_end/showOnPage.jsp" %>
+</div>
+<br>
+<br>
+
+<div class="container text-center">
     <table>
         <tr>
             <th>No</th>
@@ -75,6 +58,7 @@
             <th>Street</th>
             <th>Building</th>
             <th>Mark</th>
+            <th>Country</th>
             <th></th>
             <th></th>
             <th></th>
@@ -82,6 +66,8 @@
 
         <%for (int i = 0; i < listDto.size(); i++) {%>
         <%StudentDTO studentDTO = listDto.get(i);%>
+        <%String s = String.valueOf(studentDTO.getId());%>
+
         <tr>
             <td><%=(i + 1)%>
             </td>
@@ -99,7 +85,9 @@
             </td>
             <td><%=studentDTO.getMark()%>
             </td>
-            <%String s = String.valueOf(studentDTO.getId());%>
+            <td><%=Optional.ofNullable(studentDTO.getCountryName()).orElse("Not set")%>
+            </td>
+
             <td>
                 <form action="update" method="get">
                     <input type="hidden" value="<%=s%>" name="id">
@@ -115,45 +103,22 @@
         </tr>
         <% } %>
     </table>
+</div>
+<br>
+<br>
 
-    <br>
+<div class="container text-center">
+    <%@ include file="../start_end/pagination.jsp" %>
+</div>
 
-    <form action="create" method="get">
-        <button class="btn btn-success" type="submit">Add new person</button>
-    </form>
-
-    <br>
-    <br>
-
+<div class="container text-center">
     <table>
         <tr>
             <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="<%=DEFAULT_FIRST_PAGE_NUMBER%>" name="currentPage">
-                    <button class="btn btn-light" type="submit">First</button>
-                </form>
+                <%@ include file="../start_end/countries.jsp" %>
             </td>
             <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="<%=currentPage-1%>" name="currentPage">
-                    <button class="btn btn-outline-secondary" type="submit">Previous</button>
-                </form>
-            </td>
-            <td>
-                <p><%=currentPage%>
-                </p>
-            </td>
-            <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="<%=currentPage+1%>" name="currentPage">
-                    <button class="btn btn-outline-primary" type="submit">Next</button>
-                </form>
-            </td>
-            <td>
-                <form action="readAll" method="get">
-                    <input type="hidden" value="<%=DEFAULT_LAST_PAGE_NUMBER%>" name="currentPage">
-                    <button class="btn btn-light" type="submit">Last</button>
-                </form>
+                <%@ include file="../start_end/exit.jsp" %>
             </td>
         </tr>
     </table>

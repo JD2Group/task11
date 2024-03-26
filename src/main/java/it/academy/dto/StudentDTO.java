@@ -28,4 +28,6 @@ public class StudentDTO implements Serializable {
     private String street;
 
     private int building;
+
+    private String countryName;
 }

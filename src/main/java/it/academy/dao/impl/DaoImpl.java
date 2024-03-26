@@ -10,9 +10,7 @@ import java.util.List;
 
 import static it.academy.util.Constants.*;
 
-
 public class DaoImpl<T, R> implements Dao<T, R> {
-
 
     private final Class<T> clazz;
     private EntityManager em;
@@ -38,7 +36,6 @@ public class DaoImpl<T, R> implements Dao<T, R> {
     public void update(T object) {
 
         getEm().merge(object);
-
     }
 
     @Override
@@ -68,13 +65,6 @@ public class DaoImpl<T, R> implements Dao<T, R> {
 
         String countQuery = String.format(SELECT_COUNT_FROM_TABLE, clazz.getSimpleName());
         return getEm().createQuery(countQuery, Long.class).getSingleResult();
-    }
-
-    @Override
-    public void clearTable() {
-
-        String deleteQuery = String.format(DELETE_ALL_FROM_TABLE, clazz.getSimpleName());
-        getEm().createQuery(deleteQuery).executeUpdate();
     }
 
     @Override
