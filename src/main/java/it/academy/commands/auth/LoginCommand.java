@@ -7,7 +7,9 @@ import it.academy.dto.response.LoginResponse;
 import it.academy.exceptions.UserNotFoundException;
 import it.academy.exceptions.WrongPasswordException;
 import it.academy.service.AuthService;
+import it.academy.service.JwtService;
 import it.academy.service.impl.AuthServiceImpl;
+import it.academy.service.impl.JwtServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,7 @@ public class LoginCommand implements Command {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 return null;
             }
+            request.getSession().setAttribute("isAuthenticated", "true");
             return GSON.toJson(out);
         } catch (UserNotFoundException | WrongPasswordException | JsonSyntaxException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
