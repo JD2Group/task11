@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF8" %>
 <div class="student_info">
     <div class="student_info_top_side_block">
@@ -33,7 +34,9 @@
         </div>
     </div>
     <div class="student_info_down_side_block">
-        <button class="student_info_buttons" onclick="updateStudent()">Обновить</button>
-        <button class="student_info_buttons" onclick="deleteStudent()">Удалить</button>
+        <c:if test="${sessionScope.get('roles').contains('ADMIN')}">
+            <button class="student_info_buttons" onclick="updateStudent()">Обновить</button>
+            <button class="student_info_buttons" onclick="deleteStudent()">Удалить</button>
+        </c:if>
     </div>
 </div>

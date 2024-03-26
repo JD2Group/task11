@@ -12,7 +12,7 @@ function submitLoginMethod(event){
 function afterLoginMethod(data){
     setCookie("refresh_token", data["refresh_token"])
     localStorage.setItem('access_token', data["access_token"]);
-    setTimeout(this, 200)
+    setTimeout(this, 1000)
     window.location.reload();
 }
 
@@ -25,7 +25,7 @@ function submitRegMethod(event){
     ajaxPost("api/registration", JSON.stringify(obj), afterRegMethod, "application/json")
 }
 function afterRegMethod(data){
-    setTimeout(this, 200)
+    setTimeout(this, 1000)
     window.location.reload();
     showRegInfo(data)
 }
@@ -41,7 +41,7 @@ function showRegInfo(data) {
 
 function logoutBTN(){
     localStorage.removeItem("access_token");
-    document.cookie = "refresh_token" + "=;"
+    document.cookie = "refresh_token" + "=; path=/"
     window.location.reload();
 }
 

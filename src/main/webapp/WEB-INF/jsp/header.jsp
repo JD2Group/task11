@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; charset=UTF8" %>
 <header class="header">
     <div class="container">
@@ -10,7 +11,7 @@
                     <button onclick="logoutBTN()">Logout</button>
                 </c:if>
                 <c:if test="${sessionScope.get('isAuthenticated') == 'true'
-                && sessionScope.get('roles').contains('DEFAULT_USER')}">
+                && sessionScope.get('roles').contains('ADMIN')}">
                     <button onclick="createNewStudent()">Добавить студента</button>
                 </c:if>
             </div>
