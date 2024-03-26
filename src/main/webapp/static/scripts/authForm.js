@@ -23,7 +23,9 @@ function submitRegMethod(event) {
     let obj = {};
     formData.forEach((value, key) => obj[key] = value);
     console.log(obj);
-    ajaxPost("api/registration", JSON.stringify(obj), afterRegMethod, "application/json")
+    if (obj["confirm_password"] === obj["password"]) {
+        ajaxPost("api/registration", JSON.stringify(obj), afterRegMethod, "application/json")
+    }
 }
 
 function afterRegMethod(data) {
