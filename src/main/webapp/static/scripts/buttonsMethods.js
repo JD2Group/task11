@@ -83,7 +83,7 @@ function afterDeleteStudent(data) {
                 goToPage(curPage);
             }
         }else {
-            goToPage(lastPageNum)
+            goToPage(curPage)
         }
     }
 

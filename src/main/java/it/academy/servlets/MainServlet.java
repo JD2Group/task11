@@ -26,15 +26,24 @@ public class MainServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response, String method) throws IOException {
-
+        System.out.println("\n///");
         Enumeration<String> test = request.getHeaderNames();
         while (test.hasMoreElements()) {
             String elem = test.nextElement();
             System.out.println(elem + " : " + request.getHeader(elem));
 
         }
-
+        System.out.println("///\n");
+        String reqURI = request.getRequestURI();
+        if (reqURI.contains("?")){
+            reqURI = reqURI.replace(reqURI.substring(reqURI.lastIndexOf("?")), "");
+        }
+        String commandValid = method + "_" + reqURI.substring(reqURI.lastIndexOf("/")+1);
         String command = method + "_" + request.getHeader(Constants.COMMAND_HEADER);
+        if (!command.equals(commandValid)){
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Command invalid.");
+            return;
+        }
         System.out.println("Cur command: " + command);
         CommandFactory commandFactory = CommandFactory.getFactory();
         Command currentCommand = commandFactory.defineController(command);
@@ -44,9 +53,8 @@ public class MainServlet extends HttpServlet {
         }
         System.out.println("Controller has been identified.");
 
-        String resp = currentCommand.execute(request);
+        String resp = currentCommand.execute(request, response);
         if (resp == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         System.out.println("Response not null: " + resp);

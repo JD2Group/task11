@@ -15,8 +15,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@Entity
-//@Table (name = "user")
+@Entity
+@Table (name = "user",
+    uniqueConstraints =
+        @UniqueConstraint(columnNames = "email")
+)
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +28,6 @@ public class User implements Serializable {
     private String email;
     @Column
     private String password;
-    @Transient
-    private String confirmPassword;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "role_id")},

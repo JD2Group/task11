@@ -1,5 +1,6 @@
 package it.academy.utils;
 
+import it.academy.dto.response.RegistrationResponse;
 import it.academy.dto.response.StudentDTOResponse;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,12 @@ public class ResponseHelper {
     public static StudentDTOResponse getStudentResponse(int httpStatus, String message) {
         return StudentDTOResponse.builder()
                 .httpStatus(httpStatus)
+                .message(message)
+                .build();
+    }
+    public static RegistrationResponse getRegistrationResponse(String email, String message) {
+        return RegistrationResponse.builder()
+                .email(email)
                 .message(message)
                 .build();
     }

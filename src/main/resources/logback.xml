@@ -1,0 +1,30 @@
+<configuration>
+
+    <!-- Define appenders -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/logs/logfile.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define loggers -->
+    <logger name="it.academy" level="warn" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="it.academy" level="error" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Root logger -->
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

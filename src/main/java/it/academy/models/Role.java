@@ -13,8 +13,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@Entity
-//@Table (name = "role")
+@Entity
+@Table (name = "role",
+    uniqueConstraints =
+        @UniqueConstraint(columnNames = "role_name")
+)
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
