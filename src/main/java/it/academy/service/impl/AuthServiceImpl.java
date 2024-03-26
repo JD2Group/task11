@@ -1,6 +1,5 @@
 package it.academy.service.impl;
 
-import it.academy.components.JwtProvider;
 import it.academy.dao.RoleDAO;
 import it.academy.dao.UserDAO;
 import it.academy.dao.impl.RoleDAOImpl;
@@ -22,8 +21,11 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.persistence.NoResultException;
 import java.util.Objects;
 import java.util.Set;
+
+import static it.academy.utils.Constants.EMAIL_ALREADY_EXIST_ERROR;
 
 @Slf4j
 public class AuthServiceImpl implements AuthService {
@@ -40,18 +42,18 @@ public class AuthServiceImpl implements AuthService {
             throw new PasswordMatchException();
         }
         if (request.getEmail() == null) {
-            log.warn("Email is null.");
+            log.warn(Constants.EMAIL_NULL_ERROR);
             throw new EmailNullException();
         }
         if (userDAO.getUserByEmail(request.getEmail()) != null) {
-            log.warn("User with {} already exist.", request.getEmail());
+            log.warn(EMAIL_ALREADY_EXIST_ERROR, request.getEmail());
             throw new UserAlreadyExistsException();
         }
         try {
             transactionHelper.begin();
-            Role default_user_role = roleDAO.getRoleByName(RoleEnum.DEFAULT_USER.name());
+            Role default_user_role = checkRole();
             if (default_user_role == null) {
-                log.warn("Default role ({}) isn't recognize. Please check role table.", RoleEnum.DEFAULT_USER.name());
+                log.warn(Constants.ROLE_ERROR, RoleEnum.DEFAULT_USER.name());
                 return null;
             }
             User user = User.builder()
@@ -59,19 +61,20 @@ public class AuthServiceImpl implements AuthService {
                     .password(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()))
                     .roles(Set.of(default_user_role))
                     .build();
-            log.info("User {} prepared to save.", request.getEmail());
+            log.info(Constants.USER_CREATED_MESSAGE, request.getEmail());
             userDAO.create(user);
         /*if ( userDAO.create(user) == null) {
             log.warn("During the save, something went wrong. Please check the error message.");
             return null;
         }*/
             transactionHelper.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
+            log.error(Constants.SAVE_ERROR, request.getEmail());
             e.printStackTrace();
             transactionHelper.rollback();
             return null;
         }
-        log.info("User {} successfully saved.", request.getEmail());
+        log.info(Constants.USER_SAVED_MESSAGE, request.getEmail());
         return ResponseHelper.getRegistrationResponse(request.getEmail(), Constants.USER_CREATED);
 
     }
@@ -79,15 +82,24 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponse userLogin(@NonNull LoginRequest request) throws UserNotFoundException, WrongPasswordException {
         User user = userDAO.getUserByEmail(request.getEmail());
         if (user == null) {
-            log.warn("User with email {} not found.", request.getEmail());
+            log.warn(Constants.USER_NOT_FOUND_ERROR, request.getEmail());
             throw new UserNotFoundException();
         }
-        if (!BCrypt.checkpw(request.getPassword(), user.getPassword())){
-            log.warn("Wrong password. Current: {}; Except: {}", request.getPassword(), user.getPassword());
+        if (!BCrypt.checkpw(request.getPassword(), user.getPassword())) {
+            log.warn(Constants.WRONG_PASSWORD_ERROR, request.getPassword(), user.getPassword());
             throw new WrongPasswordException();
         }
         return jwtService.getNewPairOfTokens(user);
     }
 
+    private Role checkRole() {
+        try {
+            return roleDAO.getRoleByName(RoleEnum.DEFAULT_USER.name());
+        } catch (NoResultException e) {
+            Role forCreate = new Role();
+            forCreate.setRoleName(RoleEnum.DEFAULT_USER.name());
+            return roleDAO.create(forCreate);
+        }
+    }
 
 }

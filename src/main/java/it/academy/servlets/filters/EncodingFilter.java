@@ -1,5 +1,7 @@
 package it.academy.servlets.filters;
 
+import it.academy.utils.Constants;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
@@ -14,8 +16,8 @@ public class EncodingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF8");
-        response.setCharacterEncoding("UTF8");
+        request.setCharacterEncoding(Constants.ENCODING);
+        response.setCharacterEncoding(Constants.ENCODING);
         chain.doFilter(request, response);
     }
 

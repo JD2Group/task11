@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table (name = "user",
+@Table (name = "users",
     uniqueConstraints =
         @UniqueConstraint(columnNames = "email")
 )
@@ -29,9 +29,9 @@ public class User implements Serializable {
     @Column
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     @Column
     @Builder.Default

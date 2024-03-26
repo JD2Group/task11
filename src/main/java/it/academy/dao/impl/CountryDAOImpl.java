@@ -5,6 +5,7 @@ import it.academy.models.Country;
 
 import javax.persistence.TypedQuery;
 
+import static it.academy.utils.Constants.ENTITY_NAME;
 import static it.academy.utils.Constants.SELECT_COUNTRY_BY_NAME;
 
 public class CountryDAOImpl extends DAOImpl<Country, Long> implements CountryDAO {
@@ -17,7 +18,7 @@ public class CountryDAOImpl extends DAOImpl<Country, Long> implements CountryDAO
     @Override
     public Country readByName(String name) {
         TypedQuery<Country> find = transactionHelper.entityManager().createQuery(SELECT_COUNTRY_BY_NAME, Country.class);
-        find.setParameter("name", name);
+        find.setParameter(ENTITY_NAME, name);
         return find.getSingleResult();
     }
 }

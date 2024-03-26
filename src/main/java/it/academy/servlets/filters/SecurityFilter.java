@@ -3,12 +3,10 @@ package it.academy.servlets.filters;
 import io.jsonwebtoken.*;
 import it.academy.components.JwtProvider;
 import it.academy.dto.response.LoginResponse;
-import it.academy.models.Role;
-import it.academy.service.AuthService;
 import it.academy.service.JwtService;
-import it.academy.service.impl.AuthServiceImpl;
 import it.academy.service.impl.JwtServiceImpl;
 import it.academy.utils.Constants;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,6 +21,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @WebFilter("/api/students/*")
 public class SecurityFilter extends HttpFilter {
 
@@ -31,18 +30,19 @@ public class SecurityFilter extends HttpFilter {
         JwtProvider provider = new JwtProvider();
         HttpServletRequest httpRequest = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        String token = httpRequest.getHeader("Authorization");
-        if (token != null && token.startsWith("Bearer ")) {
+        String token = httpRequest.getHeader(Constants.AUTHORIZATION_HEADER);
+        if (token != null && token.startsWith(Constants.TOKEN_PATTERN)) {
             try {
                 String jwtToken = token.substring(7);
                 // Verify and decode JWT token
-                if(!provider.validateAccessToken(jwtToken)){
-                    if(extractRefreshToken(httpRequest, response, provider)){
+                if (!provider.validateAccessToken(jwtToken)) {
+                    if (extractRefreshToken(httpRequest, response, provider)) {
                         chain.doFilter(req, res);
                         return;
                     }
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token Expired!");
-                    httpRequest.getSession().setAttribute("isAuthenticated", "false");
+                    log.error(Constants.TOKEN_ERROR);
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, Constants.TOKEN_ERROR);
+                    httpRequest.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.FALSE);
                     return;
                 }
                 Claims claims = provider.getAccessClaims(jwtToken);
@@ -50,12 +50,13 @@ public class SecurityFilter extends HttpFilter {
                 String email = claims.getSubject();
                 System.out.println(email + " <--- HERE");
 
-                String roles = claims.get("roles").toString();
-                httpRequest.getSession().setAttribute("roles", roles);
+                String roles = claims.get(Constants.ROLES_KEY).toString();
+                httpRequest.getSession().setAttribute(Constants.ROLES_KEY, roles);
+
                 System.out.println(roles + " " + roles.contains("DEFAULT_USER"));
 
-                httpRequest.getSession().setAttribute("isAuthenticated", "true");
-
+                httpRequest.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.TRUE);
+                log.info(Constants.AUTHENTICATION_SUCCESSFUL);
                 // If authorized, proceed with resource access
             } catch (JwtException e) {
                 // Token verification failed
@@ -64,34 +65,39 @@ public class SecurityFilter extends HttpFilter {
             }
         } else {
             // Token missing or invalid
-            if(extractRefreshToken(httpRequest, response, provider)){
+            if (extractRefreshToken(httpRequest, response, provider)) {
                 chain.doFilter(req, res);
                 return;
             }
             System.out.println("Token missing");
-            httpRequest.getSession().setAttribute("isAuthenticated", "false");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token missing.");
+            log.error(Constants.TOKEN_ERROR);
+            httpRequest.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.FALSE);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, Constants.TOKEN_MISSING_ERROR);
             return;
         }
         chain.doFilter(req, res);
     }
 
-    private boolean extractRefreshToken(HttpServletRequest request, HttpServletResponse response, JwtProvider provider){
+    private boolean extractRefreshToken(HttpServletRequest request, HttpServletResponse response, JwtProvider provider) {
         List<Cookie> cookies = Arrays.stream(request.getCookies())
-                .filter(c-> Objects.equals(c.getName(), "refresh_token"))
+                .filter(c -> Objects.equals(c.getName(), Constants.REFRESH_TOKEN_KEY))
                 .collect(Collectors.toList());
-        if (!cookies.isEmpty()){
+        if (!cookies.isEmpty()) {
             String refresh = cookies.get(0).getValue();
             if (provider.validateRefreshToken(refresh)) {
                 JwtService jwtService = new JwtServiceImpl();
                 LoginResponse resp = jwtService.updateTokens(refresh);
+
                 System.out.println(resp);
-                response.setHeader("updated-access", resp.getAccessToken());
-                request.getSession().setAttribute("refresh_token", resp.getRefreshToken());
-                request.getSession().setAttribute("isAuthenticated", "true");
+
+                log.info(Constants.AUTHENTICATION_SUCCESSFUL);
+                response.setHeader(Constants.UPDATED_HEADER, resp.getAccessToken());
+                request.getSession().setAttribute(Constants.REFRESH_TOKEN_KEY, resp.getRefreshToken());
+                request.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.TRUE);
                 return true;
             }
         }
+        log.error(Constants.COOKIES_ERROR);
         return false;
     }
 }

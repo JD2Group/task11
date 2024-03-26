@@ -6,4 +6,5 @@
                  https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
     <include file="changelog\changelog_version_01\cumulative_01.xml" relativeToChangelogFile="true"/>
     <include file="changelog\changelog_version_02_23_03_2024\cumulative_02.xml" relativeToChangelogFile="true"/>
+    <include file="changelog\changelog_version_03_26_03_2024\cumulative_03.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

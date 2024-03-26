@@ -7,11 +7,8 @@ import io.jsonwebtoken.security.SignatureException;
 import it.academy.models.User;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.crypto.SecretKey;
-import javax.naming.AuthenticationException;
 import java.io.InvalidClassException;
 import java.security.Key;
 import java.time.Instant;
@@ -44,7 +41,7 @@ public class JwtProvider {
                 .setSubject(user.getEmail())
                 .setExpiration(jwtAccessExpiration)
                 .signWith(jwtAccessKey)
-                .claim("roles", user.getRoles())
+                .claim(ROLES_KEY, user.getRoles())
                 .compact();
     }
 
@@ -68,19 +65,19 @@ public class JwtProvider {
                         .setSigningKey(secret)
                         .build();
             } else {
-                throw new InvalidClassException("Wrong secret key");
+                throw new InvalidClassException(WRONG_SECRET_KEY);
             }
             return true;
         } catch (ExpiredJwtException expEx) {
-            log.error("Token expired: ", expEx);
+            log.error(TOKEN_ERROR, expEx);
         } catch (UnsupportedJwtException unsEx) {
-            log.error("Unsupported jwt: ", unsEx);
+            log.error(UNSUPPORTED_JWT_ERROR, unsEx);
         } catch (MalformedJwtException mjEx) {
-            log.error("Malformed jwt: ", mjEx);
+            log.error(MALFORMED_JWT_ERROR, mjEx);
         } catch (SignatureException sEx) {
-            log.error("Invalid signature: ", sEx);
+            log.error(SIGNATURE_ERROR, sEx);
         } catch (Exception e) {
-            log.error("invalid token: ", e);
+            log.error(INVALID_TOKEN_ERROR, e);
         }
         return false;
     }

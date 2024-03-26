@@ -10,9 +10,11 @@ import it.academy.dto.response.StudentInfoResponse;
 import it.academy.models.Country;
 import it.academy.models.Student;
 import it.academy.service.AdminService;
+import it.academy.utils.Constants;
 import it.academy.utils.ResponseHelper;
 import it.academy.utils.StudentConverter;
 import it.academy.utils.TransactionHelper;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -23,6 +25,7 @@ import static it.academy.utils.Constants.*;
 import static it.academy.utils.EntityValidator.validateEntity;
 import static javax.servlet.http.HttpServletResponse.*;
 
+@Slf4j
 public final class AdminServiceImpl implements AdminService {
     private static AdminServiceImpl adminService;
     private final StudentDAO studentDAO = new StudentDAOImpl();
@@ -65,13 +68,16 @@ public final class AdminServiceImpl implements AdminService {
 
         String validationResult = validateEntity(forSave, forSave.getCountry());
         if (!validationResult.isEmpty()) {
+            log.warn(Constants.VALIDATION_ERROR, validationResult);
             return ResponseHelper.getStudentResponse(SC_BAD_REQUEST, validationResult);
         }
 
         Student student = transactionHelper.transaction(save);
         if (student != null) {
+            log.info(Constants.STUDENT_SAVED_MESSAGE, student);
             return ResponseHelper.getStudentResponse(SC_CREATED, SUCCESSFULLY_CREATED);
         } else {
+            log.error(Constants.SAVE_ERROR, forSave);
             return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }
     }
@@ -83,8 +89,10 @@ public final class AdminServiceImpl implements AdminService {
         }
         boolean state = transactionHelper.transaction(() -> studentDAO.delete(id));
         if (state) {
+            log.info(Constants.STUDENT_DELETED_MESSAGE, id);
             return ResponseHelper.getStudentResponse(SC_OK, SUCCESSFULLY_DELETED);
         } else {
+            log.error(DELETE_ERROR, id);
             return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }
     }
@@ -97,10 +105,12 @@ public final class AdminServiceImpl implements AdminService {
 
             String validationResult = validateEntity(forUpdate, forUpdate.getCountry());
             if (!validationResult.isEmpty()) {
+                log.warn(Constants.VALIDATION_ERROR, validationResult);
                 return ResponseHelper.getStudentResponse(SC_BAD_REQUEST, validationResult);
             }
 
             if (studentDAO.read(forUpdate.getId()) == null) {
+                log.warn(STUDENT_NOT_FOUND);
                 return ResponseHelper.getStudentResponse(SC_NOT_FOUND, STUDENT_NOT_FOUND);
             }
 
@@ -108,7 +118,9 @@ public final class AdminServiceImpl implements AdminService {
             forUpdate.setCountry(country);
             studentDAO.update(forUpdate);
             transactionHelper.commit();
+            log.info(USER_UPDATED_MESSAGE, forUpdate);
         } catch (Exception e) {
+            log.error(UPDATE_ERROR, StudentConverter.convertToEntity(studentDTORequest));
             transactionHelper.rollback();
             return ResponseHelper.getStudentResponse(SC_INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MESSAGE);
         }

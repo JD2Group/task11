@@ -10,6 +10,8 @@ public class Listener implements HttpSessionAttributeListener {
 
     public static final String PASSWORD = "password";
 
+    //Что это? =)))
+
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
         String attrName = event.getName();

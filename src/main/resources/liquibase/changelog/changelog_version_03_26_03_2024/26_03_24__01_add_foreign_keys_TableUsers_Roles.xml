@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet author="Olga_Tysevich" id="add_foreign_key_country_id">
+        <addForeignKeyConstraint
+                baseTableName="users_roles"
+                baseColumnNames="user_id"
+                constraintName="FKr16q8s6m6kr7xupi4fw8iqpgl"
+                referencedTableName="users"
+                referencedColumnNames="id"/>
+        <addForeignKeyConstraint
+                baseTableName="users_roles"
+                baseColumnNames="role_id"
+                constraintName="FKr17q9s4m5kr3xupi5fw8iqpgl"
+                referencedTableName="roles"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
+
+
