@@ -10,7 +10,7 @@ public final class Constants {
     public static final Gson GSON = new Gson();
     public static final String JWT_ACCESS_SECRET = "gpgdKY9zR4hebFb2wT67AlgsKmbTOmKoyqmGym1dKmM=";
     public static final String JWT_REFRESH_SECRET = "7+bbUaAIaRFDce4rxQLu5QFPqooqHLgfN5mnDB7PNT4=";
-    public static final Integer JWT_ACCESS_EXPIRATION = 5;
+    public static final Integer JWT_ACCESS_EXPIRATION = 1;
     public static final Integer JWT_REFRESH_EXPIRATION = 60;
 
 

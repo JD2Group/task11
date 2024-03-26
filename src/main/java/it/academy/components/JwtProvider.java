@@ -85,10 +85,10 @@ public class JwtProvider {
         return false;
     }
 
-    public boolean validateAccessToken(@NonNull String token, @NonNull String email) throws AuthenticationException {
-        if (!email.equals(getAccessClaims(token).getSubject())) {
+    public boolean validateAccessToken(@NonNull String token/*, @NonNull String email*/) /*throws AuthenticationException */{
+        /*if (!email.equals(getAccessClaims(token).getSubject())) {
             throw new AuthenticationException("Wrong email");
-        }
+        }*/
         return validateToken(token, jwtAccessKey);
     }
 

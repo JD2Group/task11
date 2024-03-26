@@ -2,9 +2,11 @@ package it.academy.dto.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import it.academy.models.Role;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +22,7 @@ public class LoginResponse implements Serializable {
     @SerializedName("refresh_token")
     @Expose
     private String refreshToken;
+    @SerializedName("roles")
+    @Expose
+    private Set<Role> roles;
 }

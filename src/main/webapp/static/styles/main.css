@@ -95,10 +95,11 @@
 
 /* HEADER */
 .header {
-    position: absolute;
+    position: fixed;
     height: 70px;
     width: 100%;
     background-color: black;
+    z-index: 10;
     color: white;
 }
 
