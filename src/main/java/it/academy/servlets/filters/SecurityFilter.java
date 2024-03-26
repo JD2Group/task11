@@ -48,16 +48,17 @@ public class SecurityFilter extends HttpFilter {
                     httpRequest.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.FALSE);
                     return;
                 }
-                Claims claims = provider.getAccessClaims(jwtToken);
-                // Extract user details from token
-                String email = claims.getSubject();
-                System.out.println(email + " <--- HERE");
+                if (httpRequest.getSession().getAttribute("roles") == null) {
+                    Claims claims = provider.getAccessClaims(jwtToken);
+                    // Extract user details from token
+                    String email = claims.getSubject();
+                    System.out.println(email + " <--- HERE");
 
-                String roles = claims.get(Constants.ROLES_KEY).toString();
-                httpRequest.getSession().setAttribute(Constants.ROLES_KEY, roles);
+                    String roles = claims.get(Constants.ROLES_KEY).toString();
+                    httpRequest.getSession().setAttribute(Constants.ROLES_KEY, roles);
 
-                System.out.println(roles + " " + roles.contains("DEFAULT_USER"));
-
+                    System.out.println(roles + " " + roles.contains("DEFAULT_USER"));
+                }
                 httpRequest.getSession().setAttribute(Constants.AUTHENTICATION_KEY, Constants.TRUE);
                 log.info(Constants.AUTHENTICATION_SUCCESSFUL);
                 // If authorized, proceed with resource access

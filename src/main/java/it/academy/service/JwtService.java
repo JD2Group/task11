@@ -12,4 +12,5 @@ public interface JwtService {
 
     LoginResponse updateTokens(String refreshToken);
 
+    String extractRolesFromToken(String token);
 }

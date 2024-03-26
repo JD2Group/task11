@@ -1,5 +1,6 @@
 package it.academy.service.impl;
 
+import io.jsonwebtoken.Claims;
 import it.academy.components.JwtProvider;
 import it.academy.dao.UserDAO;
 import it.academy.dao.impl.UserDAOImpl;
@@ -69,4 +70,8 @@ public class JwtServiceImpl implements JwtService {
                 .build();
     }
 
+    public String extractRolesFromToken(String token){
+        Claims claims = jwtProvider.getAccessClaims(token);
+        return claims.get(Constants.ROLES_KEY).toString();
+    }
 }
